@@ -6,13 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/bt_thread"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="线程测试"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
+
+    <Button
+        android:id="@+id/bt_ABActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QsABActivity测试"
+        app:layout_constraintTop_toBottomOf="@+id/bt_thread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <Button
+        android:id="@+id/bt_ViewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QsViewPagerActivity测试"
+        app:layout_constraintTop_toBottomOf="@+id/bt_ABActivity"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <Button
+        android:id="@+id/bt_ViewPagerA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QsViewPagerABActivity测试"
+        app:layout_constraintTop_toBottomOf="@+id/bt_ViewPager"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+
 
 </android.support.constraint.ConstraintLayout>
