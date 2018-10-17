@@ -1,11 +1,33 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!-- 系统主题样式 -->
+    <style name="ST_Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--actionbar底色-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@color/color_bg</item>
+        <!--不使用系统的toolbar-->
+        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="actionBarSize">50dp</item>
+        <item name="android:windowAnimationStyle">@style/GC_Animation_Activity_Intent</item>
     </style>
+
+
+    <!--activity 切换动画-->
+    <style name="GC_Animation_Activity_Intent" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_open_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_open_out</item>
+
+        <item name="android:activityCloseEnterAnimation">@anim/activity_close_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_close_out</item>
+    </style>
+
+
+
+
 
 </resources>

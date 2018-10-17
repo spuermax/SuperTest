@@ -1,6 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+
+    <!--common color-->
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colormediaController_bg">#787878</color>
+    <color name="colormediaController_">#7878</color>
+    <color name="color_Primary_grey">#FFA1A4AB</color>
+    <color name="color_half_transparent">#88000000</color>
+
+
     <color name="colorAccent">#FF4081</color>
+    <color name="color_bg">#F0F2F5</color>
+    <color name="color_toolbar_bg">#FFFFFF</color>
+    <color name="color_white">#FFFFFF</color>
+
+
+    <!--gray color-->
+    <color name="color_dark_grey">#34455C</color>
+    <color name="color_dark_grey_two">#FF454547</color>
+    <color name="color_dark_grey_three">#333333</color>
+    <color name="color_slate_grey">#616B7A</color>
+    <color name="color_cool_grey">#8E98A4</color>
+    <color name="color_cool_grey_three">#dedede</color>
+    <color name="color_cool_grey_two">#f8f8f8</color>
+    <color name="color_silver">#C4C7CC</color>
+    <color name="color_silver_two">#DCDEE0</color>
+    <color name="color_pale_grey">#F0F2F5</color>
+    <color name="color_pale_lilac">#E8E5FF</color>
+
+    <!--accent color-->
+    <color name="colorAccentPress">#FF5843bf</color>
+    <color name="colorAccent_two">#7562D9</color>
+    <color name="colorAccentLight">#FF9381eb</color>
+    <color name="colorAccentDisable">#FFb7adf8</color>
+    <color name="colorAccentWhite">#e9e5ff</color>
+
+
+    <color name="color_rose_red">#E8415D</color>
+    <color name="color_accent_red">#BD10E0</color>
+    <color name="color_lightGold">#FFD750</color>
+    <color name="color_squash">#F5A623</color>
+    <color name="color_dodgerBlue">#539EFF</color>
+    <color name="color_bright_blue">#0076ff</color>
+    <color name="color_green">#48E066</color>
+
+    <color name="color_perrywinkleTwo">#7FADE2</color>
+
+    <color name="color_darkPeach">#D87272</color>
+    <color name="color_darkGreen">#93CB87</color>
+    <color name="color_orchid">#B186D7</color>
+    <color name="color_fadedOrange">#ED974D</color>
+
+    <color name="color_darkOrsay">#E0C072</color>
+    <color name="color_darkIndependent">#FFF3E5</color>
+    <color name="color_greyishBrown">#444444</color>
+    <color name="color_sandyBrown">#C29D64</color>
+    <color name="color_cardIndependent">#048364</color>
+    <color name="color_cardOrsay">#2A549E</color>
+    <color name="color_cardGaokao">#B0842B</color>
+
+    <color name="color_view_grey">#E0E0E0</color>
+    <color name="color_time_grey">#CACACA</color>
+
+
+
+    <color name="tab_default">#999090</color>
+    <color name="tab_selector">#f73657</color>
+    <color name="deep_main_color">#f73657</color>
+    <color name="text_radiobutton_color">#e60012</color>
+    <color name="text_main_color">#4d4d4d</color>
+
+
 </resources>

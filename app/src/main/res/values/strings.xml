@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SuperTest</string>
+
+    <string name="http_error_msg">请求服务器异常</string>
+    <string name="network_error_msg">当前网络不可用，请检查你的网络设置</string>
+
 </resources>
