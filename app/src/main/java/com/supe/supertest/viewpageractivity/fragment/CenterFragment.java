@@ -2,6 +2,7 @@ package com.supe.supertest.viewpageractivity.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.supe.supertest.R;
 import com.supe.supertest.viewpageractivity.adapter.CenterAdapter;
@@ -33,19 +34,41 @@ public class CenterFragment extends QsListFragment <CenterPresenter, Item>{
       showContentView();
       }
 
-//    @OnClick({R.id.bt_center})
-//    public void onViewClick(View view) {
-//        switch (view.getId()) {
-//            case R.id.bt_center:
-//                QsToast.show("中间");
-//                break;
-//        }
-//    }
+    @OnClick({R.id.tv_header_view, R.id.tv_footer_view})
+    public void onViewClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_header_view:
+                QsToast.show("点击headerView");
+                break;
+            case R.id.tv_footer_view:
+                QsToast.show("点击footerView");
+                break;
+        }
+    }
 
     @Override
     public QsListAdapterItem getListAdapterItem(int i) {
         return new CenterAdapter();
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        QsToast.show(position + "");
+        super.onItemClick(parent, view, position, id);
+    }
 
+
+    /**
+     * headerVIew 会作为ListView的一个Item，在 {@link QsListFragment#onItemClick(AdapterView, View, int, long) position 的值需要加一}
+     * @return
+     */
+    @Override
+    public int getHeaderLayout() {
+       return R.layout.view_header_layout;
+    }
+
+    @Override
+    public int getFooterLayout() {
+        return R.layout.view_footer_layout;
+    }
 }

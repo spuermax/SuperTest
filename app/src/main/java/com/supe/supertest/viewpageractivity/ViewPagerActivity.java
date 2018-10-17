@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.supe.supertest.viewpageractivity.fragment.CenterFragment;
-import com.supe.supertest.viewpageractivity.fragment.MainFragment;
+import com.supe.supertest.viewpageractivity.fragment.HomeFragment;
 import com.supe.supertest.viewpageractivity.fragment.UserFragment;
 import com.supermax.base.mvp.QsViewPagerActivity;
 import com.supermax.base.mvp.model.QsModelPager;
@@ -20,7 +20,7 @@ public class ViewPagerActivity extends QsViewPagerActivity{
     @Override
     public QsModelPager[] getModelPagers() {
         QsModelPager modelPager1 = new QsModelPager();
-        modelPager1.fragment = new MainFragment();
+        modelPager1.fragment = new HomeFragment();
         modelPager1.title = "首页";
         modelPager1.position = 0;
 
