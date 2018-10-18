@@ -6,6 +6,7 @@ import com.supermax.base.common.aspect.ThreadPoint;
 import com.supermax.base.common.aspect.ThreadType;
 import com.supermax.base.common.exception.QsException;
 import com.supermax.base.common.log.L;
+import com.supermax.base.common.model.QsModel;
 import com.supermax.base.common.widget.listview.LoadingFooter;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.QsIView;
@@ -60,4 +61,8 @@ public class SuperPresenter<V extends QsIView> extends QsPresenter<V>{
         }
     }
 
+    @Override
+    public void paging(QsModel model) {
+        super.paging(model);
+    }
 }
