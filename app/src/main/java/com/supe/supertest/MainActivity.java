@@ -1,21 +1,38 @@
 package com.supe.supertest;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.supe.supertest.abactivity.ActionBarActivity;
+import com.supe.supertest.common.utils.PermissionUtils;
+import com.supe.supertest.common.utils.SettingUtil;
 import com.supe.supertest.viewpageractivity.ViewPagerActivity;
 import com.supermax.base.common.aspect.ThreadAspect;
 import com.supermax.base.common.aspect.ThreadPoint;
 import com.supermax.base.common.aspect.ThreadType;
 import com.supermax.base.common.log.L;
+import com.supermax.base.common.permission.annotation.Permission;
+import com.supermax.base.common.permission.annotation.PermissionCanceled;
+import com.supermax.base.common.permission.annotation.PermissionDenied;
+import com.supermax.base.common.permission.model.CancelModel;
+import com.supermax.base.common.permission.model.DenyModel;
+import com.supermax.base.common.utils.QsHelper;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.QsActivity;
 
+import java.util.List;
+
 public class MainActivity extends QsActivity {
 
+    @Permission(value = {Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.ACCESS_COARSE_LOCATION,//
+            Manifest.permission.ACCESS_FINE_LOCATION},
+    requestCode = 1)
     @Override
     public void initData(Bundle bundle) {
         init1();
@@ -92,4 +109,49 @@ public class MainActivity extends QsActivity {
     public boolean isTransparentNavigationBar() {
         return true;
     }
+
+
+
+    @PermissionDenied
+    public void denyPermission(DenyModel model){
+        if(model.getRequestCode() == 1){
+            List<String> denyList = model.getDenyList();
+            if (denyList != null && denyList.size() > 0) {
+                String message = PermissionUtils.getPermissionDialogMessage(denyList);
+                new AlertDialog.Builder(this)
+                        .setTitle("提示")
+                        .setMessage(message)
+                        .setPositiveButton("去设置", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                SettingUtil.go2Setting(QsHelper.getInstance().getApplication());
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                dialog.dismiss();
+                            }
+                        })
+                        .create().show();
+            }
+        }
+    }
+
+
+    @PermissionCanceled
+    public void cancelPermission(CancelModel model){
+        if (model == null) return;
+        switch (model.getRequestCode()) {
+            case 1:
+                List<String> denyList = model.getDenyList();
+                if (denyList != null && denyList.size() > 0) {
+                    QsToast.show(PermissionUtils.getPermissionDialogMessage(denyList));
+                }
+                break;
+        }
+    }
+
 }

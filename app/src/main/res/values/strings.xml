@@ -3,5 +3,13 @@
 
     <string name="http_error_msg">请求服务器异常</string>
     <string name="network_error_msg">当前网络不可用，请检查你的网络设置</string>
-
+    <string name="request_camera_permission">拍照</string>
+    <string name="request_constants_permission">通讯录</string>
+    <string name="request_location_permission">定位</string>
+    <string name="request_permission_end">权限被禁止了，需开启才能执行后续操作!</string>
+    <string name="request_read_external_storage_permission">读取外部存储</string>
+    <string name="request_read_phone_state_permission">读取手机状态</string>
+    <string name="request_record_audio_permission">录音</string>
+    <string name="request_write_external_storage_permission">写入外部存储</string>
+    <string name="request_call_permission">电话</string>
 </resources>

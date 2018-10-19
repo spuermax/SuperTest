@@ -12,5 +12,10 @@ import com.supe.supertest.common.model.BaseModel;
 public class Item extends BaseModel{
     public String name;
     public int age;
+    public boolean isLast;
 
+    @Override
+    public boolean isLastPage() {
+        return isLast;
+    }
 }

@@ -30,6 +30,7 @@ public class YaDianNaPresenter extends SuperPresenter<YaDianNaFragment> {
             for (int i = 0; i < 10; i++) {
                 Item item = new Item();
                 item.name = "拿铁的男人";
+                if(page >5) item.isLast = true;
                 item.age = i;
                 item.isLastPage();
                 list.add(item);
