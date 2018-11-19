@@ -1,12 +1,15 @@
 package com.supe.supertest.home;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.supe.supertest.R;
 import com.supe.supertest.home.adapter.YDNAdapter;
 import com.supe.supertest.home.presenter.YaDianNaPresenter;
 import com.supe.supertest.viewpageractivity.model.Item;
+import com.supermax.base.common.model.QsModel;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.adapter.QsListAdapterItem;
@@ -41,5 +44,12 @@ public class YaDianNaFragment extends QsPullListFragment<YaDianNaPresenter, Item
         QsToast.show("加载更多");
         getPresenter().requestData(true);
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        QsToast.show(position + "");
+        getPresenter().requestAuthCode();
     }
 }

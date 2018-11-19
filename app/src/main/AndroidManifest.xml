@@ -7,9 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".SuperApplication"
@@ -28,16 +28,20 @@
         </activity>
 
 
-        <activity android:name=".abactivity.ActionBarActivity"
-            android:theme="@style/ST_Theme"/>
+        <activity
+            android:name=".abactivity.ActionBarActivity"
+            android:theme="@style/ST_Theme" />
 
-        <activity android:name=".viewpageractivity.ViewPagerActivity"
+        <activity
+            android:name=".viewpageractivity.ViewPagerActivity"
+            android:theme="@style/ST_Theme" />
+
+        <activity
+            android:name=".indicator.MagicIndicatorActivity"
             android:theme="@style/ST_Theme" />
 
 
     </application>
-
-
 
 
 </manifest>

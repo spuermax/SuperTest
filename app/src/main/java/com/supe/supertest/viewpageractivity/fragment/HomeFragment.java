@@ -65,4 +65,10 @@ public class HomeFragment extends QsViewPagerFragment {
 
         return new QsModelPager[]{modelPager1, modelPager2, modelPager3, modelPager4};
     }
+
+
+    @Override
+    public void onViewClick(View view) {
+        super.onViewClick(view);
+    }
 }
