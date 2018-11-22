@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.supe.supertest.R;
+import com.supe.supertest.viewpageractivity.ViewPagerActivity;
 import com.supe.supertest.viewpageractivity.adapter.CenterAdapter;
 import com.supe.supertest.viewpageractivity.model.Item;
 import com.supe.supertest.viewpageractivity.persenter.CenterPresenter;
@@ -32,6 +33,7 @@ public class CenterFragment extends QsListFragment <CenterPresenter, Item>{
     public void initData(Bundle bundle) {
       getPresenter().requestData();
       showContentView();
+
       }
 
     @OnClick({R.id.tv_header_view, R.id.tv_footer_view})

@@ -8,6 +8,7 @@ import com.supe.supertest.home.AKeFragment;
 import com.supe.supertest.home.ShouYueFragment;
 import com.supe.supertest.home.YaDianNaFragment;
 import com.supe.supertest.home.ZhuGeFragment;
+import com.supe.supertest.viewpageractivity.ViewPagerActivity;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.fragment.QsFragment;

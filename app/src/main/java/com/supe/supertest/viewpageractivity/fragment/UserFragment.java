@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.supe.supertest.R;
+import com.supe.supertest.viewpageractivity.ViewPagerActivity;
 import com.supe.supertest.viewpageractivity.adapter.UserAdapter;
 import com.supe.supertest.viewpageractivity.model.Item;
 import com.supe.supertest.viewpageractivity.persenter.UserPresenter;
+import com.supermax.base.common.log.L;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.adapter.QsRecycleAdapterItem;
@@ -31,6 +33,7 @@ import com.supermax.base.mvp.fragment.QsRecyclerFragment;
     @Override
     public void initData(Bundle bundle) {
         getPresenter().requestData();
+
     }
 
     @OnClick({R.id.tv_header_view, R.id.tv_footer_view})
@@ -44,6 +47,8 @@ import com.supermax.base.mvp.fragment.QsRecyclerFragment;
                 break;
         }
     }
+
+
 
     @Override
     public QsRecycleAdapterItem<Item> getRecycleAdapterItem(LayoutInflater layoutInflater, ViewGroup viewGroup, int i) {

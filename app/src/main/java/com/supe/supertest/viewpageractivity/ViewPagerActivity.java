@@ -2,19 +2,28 @@ package com.supe.supertest.viewpageractivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.supe.supertest.R;
+import com.supe.supertest.common.button.FloatLogoMenu;
+import com.supe.supertest.common.wdiget.SonnyJackDragView;
 import com.supe.supertest.viewpageractivity.fragment.CenterFragment;
 import com.supe.supertest.viewpageractivity.fragment.HomeFragment;
 import com.supe.supertest.viewpageractivity.fragment.UserFragment;
+import com.supermax.base.common.log.L;
 import com.supermax.base.mvp.QsViewPagerActivity;
 import com.supermax.base.mvp.model.QsModelPager;
 
-/*
+/**
  * @Author yinzh
  * @Date   2018/10/17 14:09
  * @Description
  */
 public class ViewPagerActivity extends QsViewPagerActivity{
+
+
 
 
     @Override
@@ -33,7 +42,6 @@ public class ViewPagerActivity extends QsViewPagerActivity{
         modelPager3.fragment = new UserFragment();
         modelPager3.title = "用户";
         modelPager3.position = 2;
-
 
         return new QsModelPager[]{modelPager1, modelPager2, modelPager3};
     }
@@ -56,4 +64,9 @@ public class ViewPagerActivity extends QsViewPagerActivity{
     public void initData(Bundle bundle) {
 
     }
+
+
+
+
+
 }

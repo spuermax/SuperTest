@@ -9,7 +9,7 @@ import com.supe.supertest.viewpageractivity.model.Item;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.mvp.adapter.QsRecycleAdapterItem;
 
-/*
+/**
  * @Author yinzh
  * @Date   2018/10/17 19:55
  * @Description
@@ -31,8 +31,8 @@ import com.supermax.base.mvp.adapter.QsRecycleAdapterItem;
 
     @Override
     protected void onBindItemData(Item item, int i, int i1) {
-        tv_name.setText(item.name);
-        tv_age.setText(String.valueOf(item.age));
+//        tv_name.setText(item.name);
+//        tv_age.setText(String.valueOf(item.age));
     }
 
 }

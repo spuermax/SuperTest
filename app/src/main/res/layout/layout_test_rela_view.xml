@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="70dp"
+    android:layout_height="70dp"
+    android:focusableInTouchMode="true">
+
+
+
+    <TextView
+        android:text="取件"
+        android:focusableInTouchMode="true"
+        android:layout_centerInParent="true"
+        android:background="@color/color_rose_red"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+</RelativeLayout>

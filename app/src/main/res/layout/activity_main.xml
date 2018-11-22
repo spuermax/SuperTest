@@ -62,7 +62,4 @@
         android:text="MagicIndicator"
 
         />
-
-
-
 </android.support.constraint.ConstraintLayout>
