@@ -459,7 +459,7 @@ public abstract class PageLoader {
                 .findBookRecordById(mCollBook.get_id());
         if (mBookRecord == null) {
             mBookRecord = new BookRecordBean();
-            mBookRecord.setChapter(1);//
+//            mBookRecord.setChapter(1);//
         }
 
         mCurChapterPos = mBookRecord.getChapter();
@@ -814,7 +814,7 @@ public abstract class PageLoader {
             paintbg.setAntiAlias(true);
             paintbg.setDither(true);
             paintbg.setTextSize(40);
-            paintbg.setColor(ContextCompat.getColor(QsHelper.getInstance().getApplication(), R.color.colorPrimaryDark));
+            paintbg.setColor(ContextCompat.getColor(QsHelper.getInstance().getApplication(), R.color.colorAccentLight));
 //            BitmapDrawable drawable = (BitmapDrawable) MyApplication.getAppContext().getResources().getDrawable(R.drawable.zhushi);
 
 

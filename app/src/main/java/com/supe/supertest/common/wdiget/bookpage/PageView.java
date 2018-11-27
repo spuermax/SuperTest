@@ -18,6 +18,7 @@ import com.supe.supertest.common.wdiget.bookpage.animation.PageAnimation;
 import com.supe.supertest.common.wdiget.bookpage.animation.ScrollPageAnim;
 import com.supe.supertest.common.wdiget.bookpage.animation.SimulationPageAnim;
 import com.supe.supertest.common.wdiget.bookpage.animation.SlidePageAnim;
+import com.supermax.base.common.widget.toast.QsToast;
 
 
 /**
@@ -72,7 +73,7 @@ public class PageView extends View {
         }
 
         @Override
-        public void pageCancel(){
+        public void pageCancel() {
             mTouchListener.cancel();
             mPageLoader.pageCancel();
         }
@@ -84,11 +85,11 @@ public class PageView extends View {
     private PageLoader mPageLoader;
 
     public PageView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public PageView(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public PageView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -99,14 +100,14 @@ public class PageView extends View {
     /**
      * 注册长按事件
      */
-    private void  init(){
+    private void init() {
         setOnLongClickListener(longClickListener);
     }
 
     private OnLongClickListener longClickListener = new OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
-            Log.i("FBReader","我是长按事件");
+            QsToast.show("我是长按事件");
 //            isLongClick = true;
             return false;
         }
@@ -121,53 +122,53 @@ public class PageView extends View {
         //所以最终还是创建Bitmap的方式。这种方式比较消耗性能，暂时没有找到更好的方法。
         setPageMode(mPageMode);
         //重置页面加载器的页面
-        mPageLoader.setDisplaySize(w,h);
+        mPageLoader.setDisplaySize(w, h);
         //初始化完成
         isPrepare = true;
     }
 
     //设置翻页的模式
-    public void setPageMode(int pageMode){
+    public void setPageMode(int pageMode) {
         mPageMode = pageMode;
         //视图未初始化的时候，禁止调用
         if (mViewWidth == 0 || mViewHeight == 0) return;
 
-        switch (pageMode){
+        switch (pageMode) {
             case PAGE_MODE_SIMULATION:
-                mPageAnim = new SimulationPageAnim(mViewWidth, mViewHeight,this,mPageAnimListener);
+                mPageAnim = new SimulationPageAnim(mViewWidth, mViewHeight, this, mPageAnimListener);
                 break;
             case PAGE_MODE_COVER:
-                mPageAnim = new CoverPageAnim(mViewWidth, mViewHeight,this,mPageAnimListener);
+                mPageAnim = new CoverPageAnim(mViewWidth, mViewHeight, this, mPageAnimListener);
                 break;
             case PAGE_MODE_SLIDE:
-                mPageAnim = new SlidePageAnim(mViewWidth, mViewHeight,this,mPageAnimListener);
+                mPageAnim = new SlidePageAnim(mViewWidth, mViewHeight, this, mPageAnimListener);
                 break;
             case PAGE_MODE_NONE:
-                mPageAnim = new NonePageAnim(mViewWidth, mViewHeight,this,mPageAnimListener);
+                mPageAnim = new NonePageAnim(mViewWidth, mViewHeight, this, mPageAnimListener);
                 break;
             case PAGE_MODE_SCROLL:
                 mPageAnim = new ScrollPageAnim(mViewWidth, mViewHeight, 0,
-                        ScreenUtils.dpToPx(PageLoader.DEFAULT_MARGIN_HEIGHT),this,mPageAnimListener);
+                        ScreenUtils.dpToPx(PageLoader.DEFAULT_MARGIN_HEIGHT), this, mPageAnimListener);
                 break;
             default:
-                mPageAnim = new SimulationPageAnim(mViewWidth, mViewHeight,this,mPageAnimListener);
+                mPageAnim = new SimulationPageAnim(mViewWidth, mViewHeight, this, mPageAnimListener);
         }
     }
 
-    public Bitmap getNextPage(){
+    public Bitmap getNextPage() {
         if (mPageAnim == null) return null;
         return mPageAnim.getNextBitmap();
     }
 
-    public Bitmap getBgBitmap(){
+    public Bitmap getBgBitmap() {
         if (mPageAnim == null) return null;
         return mPageAnim.getBgBitmap();
     }
 
 
-    public boolean autoPrevPage(){
+    public boolean autoPrevPage() {
         //滚动暂时不支持自动翻页
-        if (mPageAnim instanceof ScrollPageAnim){
+        if (mPageAnim instanceof ScrollPageAnim) {
             return false;
         } else {
             startPageAnim(PageAnimation.Direction.PRE);
@@ -175,8 +176,8 @@ public class PageView extends View {
         }
     }
 
-    public boolean autoNextPage(){
-        if (mPageAnim instanceof ScrollPageAnim){
+    public boolean autoNextPage() {
+        if (mPageAnim instanceof ScrollPageAnim) {
             return false;
         } else {
             startPageAnim(PageAnimation.Direction.NEXT);
@@ -184,17 +185,17 @@ public class PageView extends View {
         }
     }
 
-    private void startPageAnim(PageAnimation.Direction direction){
+    private void startPageAnim(PageAnimation.Direction direction) {
         if (mTouchListener == null) return;
         //是否正在执行动画
         abortAnimation();
-        if (direction == PageAnimation.Direction.NEXT){
+        if (direction == PageAnimation.Direction.NEXT) {
             int x = mViewWidth;
             int y = mViewHeight;
             //设置点击点
-            mPageAnim.setTouchPoint(x,y);
+            mPageAnim.setTouchPoint(x, y);
             //初始化动画
-            mPageAnim.setStartPoint(x,y);
+            mPageAnim.setStartPoint(x, y);
             //设置方向
             Boolean hasNext = hasNext();
 
@@ -202,14 +203,13 @@ public class PageView extends View {
             if (!hasNext) {
                 return;
             }
-        }
-        else{
+        } else {
             int x = 0;
             int y = mViewHeight;
             //初始化动画
-            mPageAnim.setStartPoint(x,y);
+            mPageAnim.setStartPoint(x, y);
             //设置点击点
-            mPageAnim.setTouchPoint(x,y);
+            mPageAnim.setTouchPoint(x, y);
             mPageAnim.setDirection(direction);
             //设置方向方向
             Boolean hashPrev = hasPrev();
@@ -221,11 +221,11 @@ public class PageView extends View {
         this.postInvalidate();
     }
 
-    public void setBgColor(int color){
+    public void setBgColor(int color) {
         mBgColor = color;
     }
 
-    public void canTouchable(boolean touchable){
+    public void canTouchable(boolean touchable) {
         canTouch = touchable;
     }
 
@@ -247,53 +247,58 @@ public class PageView extends View {
 
         int x = (int) event.getX();
         int y = (int) event.getY();
-        switch (event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mStartX = x;
                 mStartY = y;
                 isMove = false;
                 canTouch = mTouchListener.onTouch();
+                isLongPressed(x,y,x,y,event.getDownTime(),event.getEventTime(),500);
+//                if(!isLongClick){// 长按事件阻止 时间的传递
                 mPageAnim.onTouchEvent(event);
+//                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 //判断是否大于最小滑动值。
                 int slop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-                if (!isMove){
+                if (!isMove) {
                     isMove = Math.abs(mStartX - event.getX()) > slop || Math.abs(mStartY - event.getY()) > slop;
                 }
 
                 //如果滑动了，则进行翻页。
-                if(isMove){
+                if (isMove) {
                     mPageAnim.onTouchEvent(event);
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (!isMove){
+                if (!isMove) {
                     //设置中间区域范围
-                    if (mCenterRect == null){
-                        mCenterRect = new RectF(mViewWidth/5,mViewHeight/3,
-                                mViewWidth*4/5,mViewHeight*2/3);
+                    if (mCenterRect == null) {
+                        mCenterRect = new RectF(mViewWidth / 5, mViewHeight / 3,
+                                mViewWidth * 4 / 5, mViewHeight * 2 / 3);
                     }
 
                     //是否点击了中间
-                    if (mCenterRect.contains(x,y)) {
+                    if (mCenterRect.contains(x, y)) {
                         if (mTouchListener != null && !isLongClick) {
                             mTouchListener.center();
+                            isLongClick = false;
                         }
                         return true;
                     }
 
                     //设置标注区域范围  ----818458----986----332-----
-                    if(mViewF == null){
-                        mViewF = new RectF(818,332,986,458);
-                    }
-
-                    Log.i("FBReader","x===" + x + "yyy" + y);
-
-                    if(mViewF.contains(x,y) && !isLongClick){
-                        mTouchListener.center();
-                        return true;
-                    }
+//                    if(mViewF == null){
+//                        mViewF = new RectF(818,332,986,458);
+//                    }
+//
+//                    Log.i("FBReader","x===" + x + "yyy" + y);
+//
+//                    if(mViewF.contains(x,y) && !isLongClick){
+//                        mTouchListener.center();
+//                        isLongClick = false;
+//                        return true;
+//                    }
                     isLongClick = false;
                 }
                 mPageAnim.onTouchEvent(event);
@@ -302,13 +307,25 @@ public class PageView extends View {
         return true;
     }
 
+    private boolean isLongPressed(float lastX, float lastY, float thisX,
+                                  float thisY, long lastDownTime, long thisEventTime,
+                                  long longPressTime) {
+        float offsetX = Math.abs(thisX - lastX);
+        float offsetY = Math.abs(thisY - lastY);
+        long intervalTime = thisEventTime - lastDownTime;
+        if (offsetX <= 10 && offsetY <= 10 && intervalTime >= longPressTime) {
+            return true;
+        }
+        return false;
+    }
+
     //判断是否下一页存在
-    private boolean hasNext(){
+    private boolean hasNext() {
         Boolean hasNext = false;
-        if (mTouchListener != null){
+        if (mTouchListener != null) {
             hasNext = mTouchListener.nextPage();
             //加载下一页
-            if (hasNext){
+            if (hasNext) {
                 hasNext = mPageLoader.next();
             }
         }
@@ -316,12 +333,12 @@ public class PageView extends View {
     }
 
     //判断是否存在上一页
-    private boolean hasPrev(){
+    private boolean hasPrev() {
         Boolean hasPrev = false;
-        if (mTouchListener != null){
+        if (mTouchListener != null) {
             hasPrev = mTouchListener.prePage();
             //加载下一页
-            if (hasPrev){
+            if (hasPrev) {
                 hasPrev = mPageLoader.prev();
             }
         }
@@ -340,20 +357,20 @@ public class PageView extends View {
         mPageAnim.abortAnim();
     }
 
-    public boolean isPrepare(){
+    public boolean isPrepare() {
         return isPrepare;
     }
 
-    public boolean isRunning(){
+    public boolean isRunning() {
         return mPageAnim.isRunning();
     }
 
-    public void setTouchListener(TouchListener mTouchListener){
+    public void setTouchListener(TouchListener mTouchListener) {
         this.mTouchListener = mTouchListener;
     }
 
-    public void drawNextPage(){
-        if (mPageAnim instanceof HorizonPageAnim){
+    public void drawNextPage() {
+        if (mPageAnim instanceof HorizonPageAnim) {
             ((HorizonPageAnim) mPageAnim).changePage();
         }
         mPageLoader.onDraw(getNextPage(), false);
@@ -361,42 +378,46 @@ public class PageView extends View {
 
     /**
      * 刷新当前页(主要是为了ScrollAnimation)
-     *
      */
-    public void refreshPage(){
-        if (mPageAnim instanceof ScrollPageAnim){
+    public void refreshPage() {
+        if (mPageAnim instanceof ScrollPageAnim) {
             ((ScrollPageAnim) mPageAnim).refreshBitmap();
         }
         drawCurPage(false);
     }
 
     //refreshPage和drawCurPage容易造成歧义,后面需要修改
+
     /**
      * 绘制当前页。
+     *
      * @param isUpdate
      */
-    public void drawCurPage(boolean isUpdate){
+    public void drawCurPage(boolean isUpdate) {
         mPageLoader.onDraw(getNextPage(), isUpdate);
     }
 
     //获取PageLoader
-    public PageLoader getPageLoader(boolean isLocal){
-        if (mPageLoader == null){
-            if (isLocal){
+    public PageLoader getPageLoader(boolean isLocal) {
+        if (mPageLoader == null) {
+            if (isLocal) {
                 mPageLoader = new LocalPageLoader(this);
-            }
-            else {
+            } else {
                 mPageLoader = new NetPageLoader(this);
             }
         }
         return mPageLoader;
     }
 
-    public interface TouchListener{
+    public interface TouchListener {
         void center();
+
         boolean onTouch();
+
         boolean prePage();
+
         boolean nextPage();
+
         void cancel();
     }
 }
