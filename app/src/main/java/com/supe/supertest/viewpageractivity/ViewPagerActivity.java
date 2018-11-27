@@ -63,8 +63,7 @@ public class ViewPagerActivity extends QsViewPagerActivity{
 
     @Override
     public void initData(Bundle bundle) {
-        ListView listView = new ListView(this);
-        listView.setAdapter();
+
 
     }
 

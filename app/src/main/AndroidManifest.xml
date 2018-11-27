@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.supe.supertest">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -41,6 +43,9 @@
 
         <activity
             android:name=".indicator.MagicIndicatorActivity"
+            android:theme="@style/ST_Theme" />
+
+        <activity android:name=".book.ReadBookActivity"
             android:theme="@style/ST_Theme" />
 
 

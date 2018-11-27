@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.supe.supertest.abactivity.ActionBarActivity;
+import com.supe.supertest.book.ReadBookActivity;
 import com.supe.supertest.common.button.BaseFloatDailog;
 import com.supe.supertest.common.button.FloatItem;
 import com.supe.supertest.common.button.FloatLogoMenu;
@@ -68,8 +69,8 @@ public class MainActivity extends QsActivity {
 
 
     @Permission(value = {Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.ACCESS_COARSE_LOCATION,//
-            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,//
+            Manifest.permission.READ_EXTERNAL_STORAGE
     },
             requestCode = 1)
     @Override
@@ -162,7 +163,7 @@ public class MainActivity extends QsActivity {
     }
 
 
-    @OnClick({R.id.bt_thread, R.id.bt_ABActivity, R.id.bt_ViewPager, R.id.bt_ViewPagerA, R.id.bt_magic_indicator})
+    @OnClick({R.id.bt_thread, R.id.bt_ABActivity, R.id.bt_ViewPager, R.id.bt_ViewPagerA, R.id.bt_magic_indicator, R.id.bt_bookPage})
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.bt_thread:
@@ -185,6 +186,9 @@ public class MainActivity extends QsActivity {
                 break;
             case R.id.bt_magic_indicator:
                 intent2Activity(MagicIndicatorActivity.class);
+                break;
+            case R.id.bt_bookPage:
+                intent2Activity(ReadBookActivity.class);
                 break;
         }
     }

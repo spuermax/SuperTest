@@ -60,6 +60,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:text="MagicIndicator"
+        />
 
+    <Button
+        android:id="@+id/bt_bookPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/bt_magic_indicator"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="电子书"
         />
 </android.support.constraint.ConstraintLayout>
