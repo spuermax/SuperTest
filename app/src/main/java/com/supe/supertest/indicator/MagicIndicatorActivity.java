@@ -3,10 +3,13 @@ package com.supe.supertest.indicator;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.supe.supertest.R;
+import com.supe.supertest.home.YaDianNaFragment;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.widget.indicator.MagicIndicator;
 import com.supermax.base.common.widget.indicator.ViewPagerIndicatorHelper;
@@ -17,8 +20,10 @@ import com.supermax.base.common.widget.indicator.navigator.adapter.CommonNavigat
 import com.supermax.base.common.widget.indicator.navigator.impl.IPagerTitleView;
 import com.supermax.base.common.widget.indicator.navigator.view.SimplePagerTitleView;
 import com.supermax.base.common.widget.toast.QsToast;
-import com.supermax.base.common.widget.viewpager.ViewPagerHelper;
 import com.supermax.base.mvp.QsActivity;
+
+import java.util.ArrayList;
+
 /**
  * @Author yinzh
  * @Date 2018/11/15 10:23
@@ -32,7 +37,10 @@ public class MagicIndicatorActivity extends QsActivity {
     ViewPager pager;
 
     private String[] arrStr = new String[]{"Super", "Max", "Man", "SuperMax", "SuperText"};
-    private ViewPagerAdaper adaper = new ViewPagerAdaper(arrStr);
+    private ViewPagerAdapter adaper = new ViewPagerAdapter(arrStr);
+    private ArrayList<Fragment> list = new ArrayList<>();
+
+
     @Override
     public int layoutId() {
         return R.layout.activity_magic_indicator;
@@ -41,7 +49,23 @@ public class MagicIndicatorActivity extends QsActivity {
     @Override
     public void initData(Bundle bundle) {
 
-        pager.setAdapter(adaper);
+        list.add(new YaDianNaFragment());
+        list.add(new YaDianNaFragment());
+        list.add(new YaDianNaFragment());
+        list.add(new YaDianNaFragment());
+        list.add(new YaDianNaFragment());
+
+        pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return list.get(i);
+            }
+
+            @Override
+            public int getCount() {
+                return list.size();
+            }
+        });
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setScrollPivotX(0.25f);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -78,4 +102,6 @@ public class MagicIndicatorActivity extends QsActivity {
         magic_indicator.setNavigator(commonNavigator);
         ViewPagerIndicatorHelper.bind(magic_indicator, pager);
     }
+
+
 }

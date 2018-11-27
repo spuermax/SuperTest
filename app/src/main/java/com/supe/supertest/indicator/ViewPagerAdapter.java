@@ -13,10 +13,10 @@ import android.widget.TextView;
  * @Date 2018/11/15 10:43
  * @Description
  */
-public class ViewPagerAdaper extends PagerAdapter{
+public class ViewPagerAdapter extends PagerAdapter{
     private String[] arrStr;
 
-    public ViewPagerAdaper(String [] arrStr) {
+    public ViewPagerAdapter(String [] arrStr) {
         super();
         this.arrStr = arrStr;
     }

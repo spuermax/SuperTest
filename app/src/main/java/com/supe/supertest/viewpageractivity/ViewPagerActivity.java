@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.supe.supertest.R;
@@ -62,6 +63,8 @@ public class ViewPagerActivity extends QsViewPagerActivity{
 
     @Override
     public void initData(Bundle bundle) {
+        ListView listView = new ListView(this);
+        listView.setAdapter();
 
     }
 

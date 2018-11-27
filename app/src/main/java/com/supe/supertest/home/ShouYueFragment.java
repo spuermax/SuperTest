@@ -14,7 +14,7 @@ import com.supermax.base.mvp.fragment.QsPullFragment;
  * @Author yinzh
  * @Date   2018/10/17 20:30
  * @Description
- */public class ShouYueFragment extends QsPullFragment {
+ */public class  ShouYueFragment extends QsPullFragment {
 
 //    @Bind(R.id.iv_image)
 //    ImageView iv_image;
@@ -31,7 +31,7 @@ import com.supermax.base.mvp.fragment.QsPullFragment;
 
     @Override
     public int viewLayoutId() {
-        return R.layout.center_fragment;
+        return R.layout.shouye_fragment;
     }
 
     @Override
