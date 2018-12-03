@@ -94,6 +94,8 @@ public abstract class PageLoader {
     private Paint mTitlePaint;
     //绘制背景颜色的画笔(用来擦除需要重绘的部分)
     private Paint mBgPaint;
+    //绘制选中背景颜色的画笔
+    private Paint mSelectBgPaint;
     //绘制小说内容的画笔
     private TextPaint mTextPaint;
     //阅读器的配置选项
@@ -147,7 +149,7 @@ public abstract class PageLoader {
     private boolean isNightMode;
 
     /*****************************ShowChar**********************************/
-    private ShowLine showLine = new ShowLine();
+    private List<ShowLine> showLines = new ArrayList<>();
 
     /*****************************init params*******************************/
     public PageLoader(PageView pageView) {
@@ -210,6 +212,10 @@ public abstract class PageLoader {
         //绘制背景的画笔
         mBgPaint = new Paint();
         mBgPaint.setColor(mPageBg);
+
+        //绘制选中背景的画笔
+        mSelectBgPaint = new Paint();
+        mSelectBgPaint.setColor(QsHelper.getInstance().getColor(R.color.color_77fadb08));
 
         // 绘制电池的画笔
         mBatteryPaint = new Paint();
@@ -684,6 +690,7 @@ public abstract class PageLoader {
             //擦除区域
             mBgPaint.setColor(mPageBg);
             canvas.drawRect(mDisplayWidth / 2, mDisplayHeight - mMarginHeight + ScreenUtils.dpToPx(2), mDisplayWidth, mDisplayHeight, mBgPaint);
+            Log.i("BookLineChar ", "mDisplayWidth / 2= " + mDisplayWidth / 2+ "mDisplayHeight - mMarginHeight + ScreenUtils.dpToPx(2) = " + (mDisplayHeight - mMarginHeight + ScreenUtils.dpToPx(2)) + "mDisplayWidth = " +mDisplayWidth + "mDisplayHeight = " +mDisplayHeight);
         }
         /******绘制电池********/
 
@@ -734,7 +741,7 @@ public abstract class PageLoader {
     }
 
     void drawContent(Bitmap bitmap) {
-        L.i("BookLineChar","111111111111111111111111111");
+        L.i("BookLineChar", "111111111111111111111111111");
         Canvas canvas = new Canvas(bitmap);
 
         if (mPageMode == PageView.PAGE_MODE_SCROLL) {
@@ -785,6 +792,11 @@ public abstract class PageLoader {
             int titlePara = mTitlePara + (int) mTextPaint.getTextSize();
             String str = null;
 
+            //--------------------------------------------------------------
+            if (showLines != null) {
+                showLines.clear();// 清除上一页的所有数据，只对当前页做数据的保存。
+            }
+
             //对标题进行绘制
             for (int i = 0; i < mCurPage.titleLines; ++i) {
 
@@ -827,21 +839,51 @@ public abstract class PageLoader {
 
             //对内容进行绘制
             for (int i = mCurPage.titleLines; i < mCurPage.lines.size(); ++i) {
-                L.i("BookLineChar", mCurPage.lines.get(i));
+//                L.i("BookLineChar", mCurPage.lines.get(i));
                 str = mCurPage.lines.get(i);
 
-                // 对内容进行记录。-------
+                // 对内容进行记录。--------------------------------------------------
+                ShowLine showLine = new ShowLine();
                 List<ShowChar> showCharList = new ArrayList<>();
-                for (int m = 0; m < str.length(); m ++){
-                    ShowChar showChar = new ShowChar();
-                    showChar.charData = str.charAt(m);
-                    showCharList.add(showChar);
-                }
-                showLine.CharsData = showCharList;
+//                for (int m = 0; m < str.length(); m++) {
+//                    ShowChar showChar = new ShowChar();
+//                    showChar.charData = str.charAt(m);
+//                    showChar.id = i;
+//                    showCharList.add(showChar);
+//                }
+//
+//                showLine.CharsData = showCharList;
+//                showLines.add(showLine);
+//                mCurPage.showLines = showLines;
 
+
+                Log.i("BookLineChar", mCurPage.titleLines + "---------" + "mCurPage.position ==" +mCurPage.position );
+                Log.i("BookLineChar", str);
 
                 canvas.drawText(str, mMarginWidth, top, mTextPaint);
-                Log.i("FBReader", "mMarginWidth = " + mMarginWidth + "=====top = " + top + "=======measureText = " + mTextPaint.measureText(str));
+                if(i == 3){
+                    canvas.drawRect(mMarginWidth + 10,top-70,mMarginWidth + mTextPaint.measureText(str) - 10,top + 10,mSelectBgPaint );//--------------画选中的背景
+                }
+
+                float w = mMarginWidth;
+                // 保存内个字符的位置。
+                for (int n = 0; n < str.length(); n++){
+                    ShowChar showChar = new ShowChar();
+                    showChar.charData = str.charAt(n);
+                    showChar.id = i;
+                    showChar.x = w;
+                    showChar.y = top + 10;
+                    showCharList.add(showChar);
+                    w  = w + mTextPaint.measureText(str)/12;
+                }
+
+                showLine.CharsData = showCharList;
+                showLine.lintHeight = top;
+                showLines.add(showLine);
+                mCurPage.showLines = showLines;
+
+
+                Log.i("BookLineChar", "mMarginWidth = " + mMarginWidth + "=====top = " + top + "=======measureText = " + mTextPaint.measureText(str));//measureText 得到字符串的宽度。
                 if (str.endsWith("\n")) {
                     canvas.drawCircle(mTextPaint.measureText(str) + mMarginWidth + 5, top + 5, 30, paintbg);
                     canvas.drawText("注", mTextPaint.measureText(str) + mMarginWidth - 10, top + 12, paintPostill);// 画每个段后的批注标识
@@ -851,7 +893,7 @@ public abstract class PageLoader {
                     int rightX = (int) (leftX + mTextPaint.measureText("标注"));
                     int rightY = (int) (top + 10 - interval);
 
-                    Log.i("FBReader", "----" + leftX + leftY + "----" + rightX + "----" + rightY + "-----");
+                    Log.i("BookLineChar", "----" + leftX + leftY + "----" + rightX + "----" + rightY + "-----");
 
                     top += para;
                 } else {

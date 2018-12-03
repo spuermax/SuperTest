@@ -18,8 +18,11 @@ import com.supe.supertest.common.wdiget.bookpage.animation.PageAnimation;
 import com.supe.supertest.common.wdiget.bookpage.animation.ScrollPageAnim;
 import com.supe.supertest.common.wdiget.bookpage.animation.SimulationPageAnim;
 import com.supe.supertest.common.wdiget.bookpage.animation.SlidePageAnim;
+import com.supe.supertest.common.wdiget.bookpage.show.ShowChar;
+import com.supe.supertest.common.wdiget.bookpage.show.ShowLine;
 import com.supermax.base.common.widget.toast.QsToast;
 
+import java.util.List;
 import java.util.Timer;
 
 
@@ -267,10 +270,28 @@ public class PageView extends View {
                 Down_Y = y;
                 isMove = false;
 //                if(!isLongClick){
-                    canTouch = mTouchListener.onTouch();//  onTouch 事件。
+                canTouch = mTouchListener.onTouch();//  onTouch 事件。
 //                    isLongClick = false;
 //                }
                 mPageAnim.onTouchEvent(event);
+
+                TxtPage curPage = mPageLoader.getCurPage(mPageLoader.getPagePos());
+                List<ShowLine> showLines = curPage.showLines;
+                for (int m = 0; m < showLines.size(); m++) {
+                    if(y < showLines.get(m).lintHeight){// 确定行
+                        if(m == 0){
+                         char firstChar = showLines.get(m).CharsData.get(0).charData;
+                         char lastChar = showLines.get(m).CharsData.get(showLines.get(m).CharsData.size() -1 ).charData;
+                        } else {
+                            if(y > showLines.get(m -1).lintHeight && y < showLines.get(m).lintHeight){
+                               Log.i("PageView Log", showLines.get(m).getLineData());
+                            }
+
+                        }
+
+                    }
+
+                }
 
                 break;
             case MotionEvent.ACTION_MOVE:

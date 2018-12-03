@@ -1,5 +1,7 @@
 package com.supe.supertest.common.wdiget.bookpage;
 
+import com.supe.supertest.common.wdiget.bookpage.show.ShowLine;
+
 import java.util.List;
 
 /**
@@ -12,4 +14,8 @@ public class TxtPage {
     String title;
     int titleLines; //当前 lines 中为 title 的行数。
     List<String> lines;
+
+    public List<ShowLine> showLines;// 当前页的行数
+
+
 }

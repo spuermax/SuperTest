@@ -27,5 +27,6 @@ public class ShowLine {
         return linedata;
     }
 
+    public float lintHeight;
 
 }

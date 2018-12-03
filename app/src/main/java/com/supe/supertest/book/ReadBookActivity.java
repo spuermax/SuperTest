@@ -83,7 +83,6 @@ public class ReadBookActivity extends QsActivity {
             @Override
             public void onCategoryFinish(List<TxtChapter> chapters) {
 
-
                 mTxtChapters.clear();
                 mTxtChapters.addAll(chapters);
 

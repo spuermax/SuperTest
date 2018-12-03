@@ -10,9 +10,9 @@ import android.graphics.Point;
 public class ShowChar {
     public char charData;
     public boolean isSelected;
-    public int x;
-    public int y;
-    public int id;
+    public float x;
+    public float y;
+    public int id;//  句ID。
 
     @Override
     public String toString() {
