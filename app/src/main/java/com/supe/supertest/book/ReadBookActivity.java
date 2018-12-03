@@ -61,6 +61,7 @@ public class ReadBookActivity extends QsActivity {
 
 
         //获取页面加载器
+        //用IsLocal字段判断是不是本地
         mPageLoader = pageView.getPageLoader(mCollBook.getIsLocal());//=====update为数据库方法
 
 

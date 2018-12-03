@@ -21,6 +21,9 @@ import com.supe.supertest.common.wdiget.bookpage.bean.BookRecordBean;
 import com.supe.supertest.common.wdiget.bookpage.bean.CollBookBean;
 import com.supe.supertest.common.wdiget.bookpage.helper.BookRecordHelper;
 import com.supe.supertest.common.wdiget.bookpage.manager.ReadSettingManager;
+import com.supe.supertest.common.wdiget.bookpage.show.ShowChar;
+import com.supe.supertest.common.wdiget.bookpage.show.ShowLine;
+import com.supermax.base.common.log.L;
 import com.supermax.base.common.utils.QsHelper;
 import com.supermax.base.common.utils.StreamCloseUtils;
 import com.supermax.base.common.widget.toast.QsToast;
@@ -142,6 +145,9 @@ public abstract class PageLoader {
     private int mPageBg;
     //当前是否是夜间模式
     private boolean isNightMode;
+
+    /*****************************ShowChar**********************************/
+    private ShowLine showLine = new ShowLine();
 
     /*****************************init params*******************************/
     public PageLoader(PageView pageView) {
@@ -722,12 +728,13 @@ public abstract class PageLoader {
         /******绘制当前时间********/
         //底部的字显示的位置Y
         float y = mDisplayHeight - mTipPaint.getFontMetrics().bottom - tipMarginHeight;
-        String time = StringUtils.dateConvert(System.currentTimeMillis(),  "HH:mm");
+        String time = StringUtils.dateConvert(System.currentTimeMillis(), "HH:mm");
         float x = outFrameLeft - mTipPaint.measureText(time) - ScreenUtils.dpToPx(4);
         canvas.drawText(time, x, y, mTipPaint);
     }
 
     void drawContent(Bitmap bitmap) {
+        L.i("BookLineChar","111111111111111111111111111");
         Canvas canvas = new Canvas(bitmap);
 
         if (mPageMode == PageView.PAGE_MODE_SCROLL) {
@@ -780,6 +787,7 @@ public abstract class PageLoader {
 
             //对标题进行绘制
             for (int i = 0; i < mCurPage.titleLines; ++i) {
+
                 str = mCurPage.lines.get(i);
 
                 //设置顶部间距
@@ -817,25 +825,33 @@ public abstract class PageLoader {
             paintbg.setColor(ContextCompat.getColor(QsHelper.getInstance().getApplication(), R.color.colorAccentLight));
 //            BitmapDrawable drawable = (BitmapDrawable) MyApplication.getAppContext().getResources().getDrawable(R.drawable.zhushi);
 
-
             //对内容进行绘制
             for (int i = mCurPage.titleLines; i < mCurPage.lines.size(); ++i) {
+                L.i("BookLineChar", mCurPage.lines.get(i));
                 str = mCurPage.lines.get(i);
 
+                // 对内容进行记录。-------
+                List<ShowChar> showCharList = new ArrayList<>();
+                for (int m = 0; m < str.length(); m ++){
+                    ShowChar showChar = new ShowChar();
+                    showChar.charData = str.charAt(m);
+                    showCharList.add(showChar);
+                }
+                showLine.CharsData = showCharList;
+
+
                 canvas.drawText(str, mMarginWidth, top, mTextPaint);
-                Log.i("FBReader","mMarginWidth = " + mMarginWidth + "=====top = " + top + "=======measureText = "  + mTextPaint.measureText(str));
+                Log.i("FBReader", "mMarginWidth = " + mMarginWidth + "=====top = " + top + "=======measureText = " + mTextPaint.measureText(str));
                 if (str.endsWith("\n")) {
-//                    canvas.drawBitmap(drawable.getBitmap(), mTextPaint.measureText(str) + mMarginWidth + 5, top +5, paintPostill);
-                    canvas.drawCircle(mTextPaint.measureText(str) + mMarginWidth + 5,top+5, 30, paintbg);
-                    canvas.drawText("注", mTextPaint.measureText(str) + mMarginWidth -10,top +12, paintPostill);// 画每个段后的批注标识
-
+                    canvas.drawCircle(mTextPaint.measureText(str) + mMarginWidth + 5, top + 5, 30, paintbg);
+                    canvas.drawText("注", mTextPaint.measureText(str) + mMarginWidth - 10, top + 12, paintPostill);// 画每个段后的批注标识
                     // 标注的区域
-                    int  leftX = (int) (mTextPaint.measureText(str) + mMarginWidth);
-                    int  leftY = (int) (top + 10);
-                    int  rightX = (int) (leftX + mTextPaint.measureText("标注"));
-                    int  rightY = (int) (top + 10 -interval);
+                    int leftX = (int) (mTextPaint.measureText(str) + mMarginWidth);
+                    int leftY = (int) (top + 10);
+                    int rightX = (int) (leftX + mTextPaint.measureText("标注"));
+                    int rightY = (int) (top + 10 - interval);
 
-                    Log.i("FBReader","----"+leftX + leftY+"----"+ rightX +"----"+ rightY+"-----");
+                    Log.i("FBReader", "----" + leftX + leftY + "----" + rightX + "----" + rightY + "-----");
 
                     top += para;
                 } else {

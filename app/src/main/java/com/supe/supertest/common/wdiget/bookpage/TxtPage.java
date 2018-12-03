@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @Author yinzh
  * @Date 2018/11/26 16:15
- * @Description 当前也的详细数据
+ * @Description 当前页的详细数据
  */
 public class TxtPage {
     int position;

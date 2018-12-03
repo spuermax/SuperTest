@@ -20,6 +20,8 @@ import com.supe.supertest.common.wdiget.bookpage.animation.SimulationPageAnim;
 import com.supe.supertest.common.wdiget.bookpage.animation.SlidePageAnim;
 import com.supermax.base.common.widget.toast.QsToast;
 
+import java.util.Timer;
+
 
 /**
  * @Author yinzh
@@ -104,14 +106,6 @@ public class PageView extends View {
         setOnLongClickListener(longClickListener);
     }
 
-    private OnLongClickListener longClickListener = new OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            QsToast.show("我是长按事件");
-//            isLongClick = true;
-            return false;
-        }
-    };
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -239,6 +233,23 @@ public class PageView extends View {
         mPageAnim.draw(canvas);
     }
 
+    private Timer timer = null;
+
+    private float Down_X = -1, Down_Y = -1;
+
+    private OnLongClickListener longClickListener = new OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            QsToast.show("我是长按事件");
+            if (Down_X > 0 && Down_Y > 0) {// 说明还没释放，是长按事件
+//                isLongClick = true;
+//                postInvalidate();
+            }
+            return false;
+        }
+    };
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
@@ -251,12 +262,16 @@ public class PageView extends View {
             case MotionEvent.ACTION_DOWN:
                 mStartX = x;
                 mStartY = y;
+
+                Down_X = x;
+                Down_Y = y;
                 isMove = false;
-                canTouch = mTouchListener.onTouch();
-                isLongPressed(x,y,x,y,event.getDownTime(),event.getEventTime(),500);
-//                if(!isLongClick){// 长按事件阻止 时间的传递
-                mPageAnim.onTouchEvent(event);
+//                if(!isLongClick){
+                    canTouch = mTouchListener.onTouch();//  onTouch 事件。
+//                    isLongClick = false;
 //                }
+                mPageAnim.onTouchEvent(event);
+
                 break;
             case MotionEvent.ACTION_MOVE:
                 //判断是否大于最小滑动值。
@@ -271,6 +286,7 @@ public class PageView extends View {
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                Release();
                 if (!isMove) {
                     //设置中间区域范围
                     if (mCenterRect == null) {
@@ -307,16 +323,9 @@ public class PageView extends View {
         return true;
     }
 
-    private boolean isLongPressed(float lastX, float lastY, float thisX,
-                                  float thisY, long lastDownTime, long thisEventTime,
-                                  long longPressTime) {
-        float offsetX = Math.abs(thisX - lastX);
-        float offsetY = Math.abs(thisY - lastY);
-        long intervalTime = thisEventTime - lastDownTime;
-        if (offsetX <= 10 && offsetY <= 10 && intervalTime >= longPressTime) {
-            return true;
-        }
-        return false;
+    private void Release() {
+        Down_X = -1;// 释放
+        Down_Y = -1;
     }
 
     //判断是否下一页存在
