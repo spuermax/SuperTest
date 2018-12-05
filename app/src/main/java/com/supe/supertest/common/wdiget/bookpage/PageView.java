@@ -1,11 +1,16 @@
 package com.supe.supertest.common.wdiget.bookpage;
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -20,10 +25,14 @@ import com.supe.supertest.common.wdiget.bookpage.animation.SimulationPageAnim;
 import com.supe.supertest.common.wdiget.bookpage.animation.SlidePageAnim;
 import com.supe.supertest.common.wdiget.bookpage.show.ShowChar;
 import com.supe.supertest.common.wdiget.bookpage.show.ShowLine;
+import com.supermax.base.common.log.L;
 import com.supermax.base.common.widget.toast.QsToast;
 
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 
 /**
@@ -31,7 +40,7 @@ import java.util.Timer;
  * @Date 2018/11/26 15:47
  * @Description
  */
-public class PageView extends View {
+public class PageView extends View implements GestureDetector.OnGestureListener{
 
     //滚动效果
     public final static int PAGE_MODE_SIMULATION = 0;
@@ -39,6 +48,9 @@ public class PageView extends View {
     public final static int PAGE_MODE_SLIDE = 2;
     public final static int PAGE_MODE_NONE = 3;
     public final static int PAGE_MODE_SCROLL = 4;
+
+    //长按事件 时间
+    protected final static int LONG_CLICK_DURATION = 500;
 
     private final static String TAG = "BookPageWidget";
 
@@ -63,6 +75,7 @@ public class PageView extends View {
 
     private RectF mViewF = null;
 
+    private Timer timer;
     //动画类
     private PageAnimation mPageAnim;
     //动画监听类
@@ -236,14 +249,12 @@ public class PageView extends View {
         mPageAnim.draw(canvas);
     }
 
-    private Timer timer = null;
-
     private float Down_X = -1, Down_Y = -1;
 
     private OnLongClickListener longClickListener = new OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
-            QsToast.show("我是长按事件");
+//            QsToast.show("我是长按事件");
             if (Down_X > 0 && Down_Y > 0) {// 说明还没释放，是长按事件
 //                isLongClick = true;
 //                postInvalidate();
@@ -252,6 +263,7 @@ public class PageView extends View {
         }
     };
 
+    private boolean isLableClick;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -269,22 +281,59 @@ public class PageView extends View {
                 Down_X = x;
                 Down_Y = y;
                 isMove = false;
-//                if(!isLongClick){
+                isLableClick = false;
+
+                //--------------------------------做每个标注的
+                List<Rect> listRect = mPageLoader.getListRect();
+                for (int i = 0; i < listRect.size(); i ++){
+                    if(listRect.get(i).contains(x, y)){
+                        isLableClick = true;
+                    }
+                }
+
+                cancelLongClickListen();
                 canTouch = mTouchListener.onTouch();//  onTouch 事件。
-//                    isLongClick = false;
-//                }
                 mPageAnim.onTouchEvent(event);
 
+
+                // 长按事件  ---------------------
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        ((Activity) getContext()).runOnUiThread(() ->
+                                isLongClick = true
+                        );
+                    }
+                }, LONG_CLICK_DURATION);
+
+                //定位----行-------字----------------------------------------------------
                 TxtPage curPage = mPageLoader.getCurPage(mPageLoader.getPagePos());
                 List<ShowLine> showLines = curPage.showLines;
                 for (int m = 0; m < showLines.size(); m++) {
-                    if(y < showLines.get(m).lintHeight){// 确定行
-                        if(m == 0){
-                         char firstChar = showLines.get(m).CharsData.get(0).charData;
-                         char lastChar = showLines.get(m).CharsData.get(showLines.get(m).CharsData.size() -1 ).charData;
+                    if (y < showLines.get(m).lintHeight) {// 确定行
+                        if (m == 0) {
+                            char firstChar = showLines.get(m).CharsData.get(0).charData;
+                            char lastChar = showLines.get(m).CharsData.get(showLines.get(m).CharsData.size() - 1).charData;
                         } else {
-                            if(y > showLines.get(m -1).lintHeight && y < showLines.get(m).lintHeight){
-                               Log.i("PageView Log", showLines.get(m).getLineData());
+                            if (y > showLines.get(m - 1).lintHeight && y < showLines.get(m).lintHeight) {
+
+                                //------------------遍历循环每个字的位置，得到具体位置的某个字
+                                List<ShowChar> charList = showLines.get(m).CharsData;
+
+                                for (int n = 0; n < charList.size(); n++) {
+
+                                    if (n == charList.size() - 1) {
+                                        Log.i("PageView Log", "踏破铁鞋无觅处  是你-  是你--  就是你---" + charList.get(n).charData);
+                                        break;
+                                    }
+                                    if (x >= charList.get(n).x && x <= charList.get(n + 1).x) {
+                                        Log.i("PageView Log", "踏破铁鞋无觅处  是你-  是你--  就是你---" + charList.get(n).charData);
+                                        break;
+                                    }
+                                }
+                                Log.i("PageView Log", showLines.get(m).getLineData());
+                                //  复制到粘贴板。
                             }
 
                         }
@@ -292,7 +341,6 @@ public class PageView extends View {
                     }
 
                 }
-
                 break;
             case MotionEvent.ACTION_MOVE:
                 //判断是否大于最小滑动值。
@@ -303,45 +351,64 @@ public class PageView extends View {
 
                 //如果滑动了，则进行翻页。
                 if (isMove) {
+                    cancelLongClickListen();
+                    isLableClick = false;
                     mPageAnim.onTouchEvent(event);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 Release();
-                if (!isMove) {
+                if (!isMove && !isLongClick && !isLableClick) {// 事件优先级最低 的中间区域事件
+                    cancelLongClickListen();
                     //设置中间区域范围
                     if (mCenterRect == null) {
                         mCenterRect = new RectF(mViewWidth / 5, mViewHeight / 3,
                                 mViewWidth * 4 / 5, mViewHeight * 2 / 3);
                     }
 
-                    //是否点击了中间
+                    //是否点击了中间  return true 会消费此事件  先注释，验证isLongClick。
                     if (mCenterRect.contains(x, y)) {
-                        if (mTouchListener != null && !isLongClick) {
+                        if (mTouchListener != null) {
                             mTouchListener.center();
-                            isLongClick = false;
                         }
                         return true;
                     }
 
-                    //设置标注区域范围  ----818458----986----332-----
-//                    if(mViewF == null){
-//                        mViewF = new RectF(818,332,986,458);
-//                    }
-//
-//                    Log.i("FBReader","x===" + x + "yyy" + y);
-//
-//                    if(mViewF.contains(x,y) && !isLongClick){
-//                        mTouchListener.center();
-//                        isLongClick = false;
-//                        return true;
-//                    }
-                    isLongClick = false;
+                } else {
+
+                    if(isLableClick){//-------如果点击是标注，需要进行查找。 定位
+                        L.i("PageView Rect","我点击的是标注。。");
+                        mTouchListener.onLabel(1);
+                        isLableClick = false;
+                        return true;
+
+                    }
+
+                    if(isLongClick){
+                        cancelLongClickListen();
+                        Log.i("PageView  Log","我是长按事件   isLongClick");
+                        isLongClick = false;
+                        return true;
+                    }
+
+                    cancelLongClickListen();
+
                 }
+
+
                 mPageAnim.onTouchEvent(event);
                 break;
         }
         return true;
+    }
+
+    private void cancelLongClickListen() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+
+        isLongClick  =false;
     }
 
     private void Release() {
@@ -439,6 +506,84 @@ public class PageView extends View {
         return mPageLoader;
     }
 
+
+
+
+
+
+    /*******************************手势的监听************************************/
+
+    /**
+     * 用户按下屏幕的时候的回调
+     * 在此时是做 点击区域的判断
+     */
+    @Override
+    public boolean onDown(MotionEvent e) {
+
+        return false;
+    }
+
+    /**
+     * 用户按下按键后100ms（根据Android7.0源码）还没有松开或者移动就会回调
+     * @param e
+     */
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+
+    /**
+     * 用户手指松开（UP事件）的时候如果没有执行onScroll()和onLongPress()这两个回调的话，就会回调这个，
+     * @param e
+     * @return
+     */
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    /**
+     * 手指滑动的时候执行的回调（接收到MOVE事件，且位移大于一定距离）
+     * e1,e2分别是之前DOWN事件和当前的MOVE事件
+     * distanceX和distanceY就是当前MOVE事件和上一个MOVE事件的位移量。
+     * @param e1
+     * @param e2
+     * @param distanceX
+     * @param distanceY
+     * @return
+     */
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    /**
+     * 用户长按后（好像不同手机的时间不同，源码里默认是100ms+500ms）触发，触发之后不会触发其他回调，直至松开（UP事件）。
+     * @param e
+     */
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    /**
+     * 用户执行抛操作之后的回调，MOVE事件之后手松开（UP事件）那一瞬间的x或者y方向速度，如果达到一定数值（源码默认是每秒50px）
+     * @param e1
+     * @param e2
+     * @param velocityX
+     * @param velocityY
+     * @return
+     */
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        return false;
+    }
+
+
+
+    // ----------------------------------------------------------------------------------------
+
     public interface TouchListener {
         void center();
 
@@ -449,5 +594,14 @@ public class PageView extends View {
         boolean nextPage();
 
         void cancel();
+
+        void onLabel(int id);
+
+        boolean onLongClickDown(int x, int y);
+
+        void onLongClickMove(int x, int y);
+
+        void onLongClickUp(int x, int y);
+
     }
 }

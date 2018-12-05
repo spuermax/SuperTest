@@ -1,6 +1,7 @@
 package com.supe.supertest.common.wdiget.bookpage;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -690,7 +691,7 @@ public abstract class PageLoader {
             //擦除区域
             mBgPaint.setColor(mPageBg);
             canvas.drawRect(mDisplayWidth / 2, mDisplayHeight - mMarginHeight + ScreenUtils.dpToPx(2), mDisplayWidth, mDisplayHeight, mBgPaint);
-            Log.i("BookLineChar ", "mDisplayWidth / 2= " + mDisplayWidth / 2+ "mDisplayHeight - mMarginHeight + ScreenUtils.dpToPx(2) = " + (mDisplayHeight - mMarginHeight + ScreenUtils.dpToPx(2)) + "mDisplayWidth = " +mDisplayWidth + "mDisplayHeight = " +mDisplayHeight);
+            Log.i("BookLineChar ", "mDisplayWidth / 2= " + mDisplayWidth / 2 + "mDisplayHeight - mMarginHeight + ScreenUtils.dpToPx(2) = " + (mDisplayHeight - mMarginHeight + ScreenUtils.dpToPx(2)) + "mDisplayWidth = " + mDisplayWidth + "mDisplayHeight = " + mDisplayHeight);
         }
         /******绘制电池********/
 
@@ -740,9 +741,17 @@ public abstract class PageLoader {
         canvas.drawText(time, x, y, mTipPaint);
     }
 
+    private Canvas canvas;
+    private List<Rect> listRect = new ArrayList<>();
+
+    public List<Rect> getListRect(){
+        return listRect;
+    }
+
     void drawContent(Bitmap bitmap) {
         L.i("BookLineChar", "111111111111111111111111111");
-        Canvas canvas = new Canvas(bitmap);
+        canvas = new Canvas(bitmap);
+        listRect.clear();
 
         if (mPageMode == PageView.PAGE_MODE_SCROLL) {
             canvas.drawColor(mPageBg);
@@ -834,7 +843,12 @@ public abstract class PageLoader {
             paintbg.setAntiAlias(true);
             paintbg.setDither(true);
             paintbg.setTextSize(40);
-            paintbg.setColor(ContextCompat.getColor(QsHelper.getInstance().getApplication(), R.color.colorAccentLight));
+            paintbg.setColor(ContextCompat.getColor(QsHelper.getInstance().getApplication(), R.color.colorAccen));
+
+            Paint paintIcon = new Paint();
+            paintbg.setAntiAlias(true);
+            paintbg.setDither(true);
+
 //            BitmapDrawable drawable = (BitmapDrawable) MyApplication.getAppContext().getResources().getDrawable(R.drawable.zhushi);
 
             //对内容进行绘制
@@ -842,39 +856,38 @@ public abstract class PageLoader {
 //                L.i("BookLineChar", mCurPage.lines.get(i));
                 str = mCurPage.lines.get(i);
 
+                if (i == 3) {
+                    canvas.drawRect(mMarginWidth + 10, top - 70, mMarginWidth + mTextPaint.measureText(str) - 10, top + 10, mSelectBgPaint);//--------------画选中的背景
+                    // 绘制选中的边界icon
+                    Bitmap bitmapIconLeft = BitmapFactory.decodeResource(QsHelper.getInstance().getApplication().getResources(), R.mipmap.iv_book_left_icon);
+                    Bitmap bitmapIconRight = BitmapFactory.decodeResource(QsHelper.getInstance().getApplication().getResources(), R.mipmap.iv_book_right_icon);
+                    canvas.drawBitmap(bitmapIconRight, mMarginWidth + mTextPaint.measureText(str) - 10, top, paintIcon);
+                    canvas.drawBitmap(bitmapIconLeft, mMarginWidth - 21, top, paintIcon);
+                }
+
+
+
+
                 // 对内容进行记录。--------------------------------------------------
                 ShowLine showLine = new ShowLine();
                 List<ShowChar> showCharList = new ArrayList<>();
-//                for (int m = 0; m < str.length(); m++) {
-//                    ShowChar showChar = new ShowChar();
-//                    showChar.charData = str.charAt(m);
-//                    showChar.id = i;
-//                    showCharList.add(showChar);
-//                }
-//
-//                showLine.CharsData = showCharList;
-//                showLines.add(showLine);
-//                mCurPage.showLines = showLines;
 
 
-                Log.i("BookLineChar", mCurPage.titleLines + "---------" + "mCurPage.position ==" +mCurPage.position );
+                Log.i("BookLineChar", mCurPage.titleLines + "---------" + "mCurPage.position ==" + mCurPage.position);
                 Log.i("BookLineChar", str);
 
                 canvas.drawText(str, mMarginWidth, top, mTextPaint);
-                if(i == 3){
-                    canvas.drawRect(mMarginWidth + 10,top-70,mMarginWidth + mTextPaint.measureText(str) - 10,top + 10,mSelectBgPaint );//--------------画选中的背景
-                }
 
                 float w = mMarginWidth;
-                // 保存内个字符的位置。
-                for (int n = 0; n < str.length(); n++){
+                // 保存每个字符的位置。
+                for (int n = 0; n < str.length(); n++) {
                     ShowChar showChar = new ShowChar();
                     showChar.charData = str.charAt(n);
                     showChar.id = i;
                     showChar.x = w;
                     showChar.y = top + 10;
                     showCharList.add(showChar);
-                    w  = w + mTextPaint.measureText(str)/12;
+                    w = w + mTextPaint.measureText(str) / 12;
                 }
 
                 showLine.CharsData = showCharList;
@@ -889,11 +902,15 @@ public abstract class PageLoader {
                     canvas.drawText("注", mTextPaint.measureText(str) + mMarginWidth - 10, top + 12, paintPostill);// 画每个段后的批注标识
                     // 标注的区域
                     int leftX = (int) (mTextPaint.measureText(str) + mMarginWidth);
-                    int leftY = (int) (top + 10);
-                    int rightX = (int) (leftX + mTextPaint.measureText("标注"));
-                    int rightY = (int) (top + 10 - interval);
+                    int leftY = (int) (top );
+                    int rightX = (int) (leftX + mTextPaint.measureText("标注") + 10);
+                    int rightY = (int) (top + 10 + interval);
 
-                    Log.i("BookLineChar", "----" + leftX + leftY + "----" + rightX + "----" + rightY + "-----");
+                    //------------------------------------进行区域的选中。
+                    Rect rect = new Rect(leftX, leftY, rightX, rightY);
+                    listRect.add(rect);
+
+                    Log.i("PageView Rect ", "----leftX" + leftX + "----leftY"+  leftY + "----rightX" + rightX + "----rightY" + rightY + "-----");
 
                     top += para;
                 } else {
@@ -902,6 +919,15 @@ public abstract class PageLoader {
             }
         }
     }
+
+
+    /**
+     * 绘制选中的字体背景和icon
+     */
+    public void drawSeelctedIcon(float leftX, float leftY, float rightX, float rightY, int type) {
+
+    }
+
 
     void setDisplaySize(int w, int h) {
         //获取PageView的宽高

@@ -143,6 +143,26 @@ public class ReadBookActivity extends QsActivity {
             @Override
             public void cancel() {
             }
+
+            @Override
+            public void onLabel(int id) {
+                QsToast.show("你已经点击了  标注");
+            }
+
+            @Override
+            public boolean onLongClickDown(int x, int y) {
+                return true;
+            }
+
+            @Override
+            public void onLongClickMove(int x, int y) {
+
+            }
+
+            @Override
+            public void onLongClickUp(int x, int y) {
+
+            }
         });
 
     }

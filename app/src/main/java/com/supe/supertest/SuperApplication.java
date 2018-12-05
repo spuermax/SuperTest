@@ -4,7 +4,7 @@ import com.supe.supertest.common.utils.UrlUtils;
 import com.supermax.base.QsApplication;
 import com.supermax.base.common.http.HttpBuilder;
 
-/*
+/**
  * @Author yinzh
  * @Date   2018/10/17 10:43
  * @Description
