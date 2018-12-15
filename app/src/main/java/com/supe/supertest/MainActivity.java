@@ -54,9 +54,6 @@ public class MainActivity extends QsActivity {
     @Bind(R.id.iv_image)
     ImageView iv_image;
 
-
-    private FloatLogoMenu mFloatMenu;
-
     String HOME = "首页";
     String FEEDBACK = "客服";
     String MESSAGE = "消息";
@@ -266,44 +263,6 @@ public class MainActivity extends QsActivity {
     protected void onResume() {
         super.onResume();
 
-
-
-
-
-
-        if(mFloatMenu == null){
-            mFloatMenu = new FloatLogoMenu.Builder()
-                    .withActivity(this)
-//                    .withContext(mActivity.getApplication())//这个在7.0（包括7.0）以上以及大部分7.0以下的国产手机上需要用户授权，需要搭配<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-                    .logo(BitmapFactory.decodeResource(getResources(), R.drawable.yw_game_logo))
-                    .drawCicleMenuBg(true)
-                    .backMenuColor(R.color.color_468ADE)
-                    .setBgDrawable(this.getResources().getDrawable(R.drawable.yw_game_float_menu_bg))
-                    //这个背景色需要和logo的背景色一致
-                    .setFloatItems(itemList)
-                    .defaultLocation(FloatLogoMenu.RIGHT)
-                    .drawRedPointNum(false)
-                    .showWithListener(new FloatMenuView.OnMenuClickListener() {
-                        @Override
-                        public void onItemClick(int position, String title) {
-                            Toast.makeText(MainActivity.this, "position " + position + " title:" + title + " is clicked.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void dismiss() {
-
-                        }
-                    });
-
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    refreshDot();
-                }
-            }, 5000);
-        }
-
-
 //
 //        if (mBaseFloatDailog != null) return;
 //
@@ -318,6 +277,5 @@ public class MainActivity extends QsActivity {
                 menuItem.dotNum = String.valueOf(8);
             }
         }
-        mFloatMenu.setFloatItemList(itemList);
     }
 }

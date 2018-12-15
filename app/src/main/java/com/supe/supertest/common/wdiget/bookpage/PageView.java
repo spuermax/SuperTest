@@ -76,6 +76,12 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
     private RectF mViewF = null;
 
     private Timer timer;
+
+    /*************************************手势滑动********************************************/
+    private Mode mCurrentMode = Mode.Normal;  // 模式
+    private ShowChar FirstSelectShowChar = null;// 选中的做文字，
+    private ShowChar LastSelectShowChar = null; //选中的的右文字
+
     //动画类
     private PageAnimation mPageAnim;
     //动画监听类
@@ -283,6 +289,16 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
                 isMove = false;
                 isLableClick = false;
 
+                //-------------------------------------模式选择   invalidate  是为了如果是选中状态，但是非点击Icon区域，就取消Select状态。
+                if(mCurrentMode != Mode.Normal){//
+                    boolean isSelectIcon = checkoutIfSelectMoveIcon(x, y);
+                    if(!isSelectIcon){
+                        mCurrentMode = Mode.Normal;
+                        invalidate();
+                    }
+                }
+
+
                 //--------------------------------做每个标注的
                 List<Rect> listRect = mPageLoader.getListRect();
                 for (int i = 0; i < listRect.size(); i ++){
@@ -343,6 +359,12 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
+
+                //---------------------------------在此事件进行绘制-------------------------------------------
+
+
+
+
                 //判断是否大于最小滑动值。
                 int slop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
                 if (!isMove) {
@@ -400,6 +422,42 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
                 break;
         }
         return true;
+    }
+
+    /**
+     * Check whether the pressed area is the left and right Icon
+     * @param x
+     * @param y
+     * @return
+     */
+    private boolean checkoutIfSelectMoveIcon(float x, float y){
+        return false;
+    }
+
+
+    /**
+     * Move Event do something...
+     * @param event
+     */
+    private void moveAction(MotionEvent event){
+        if(mCurrentMode == Mode.SelectMoveForward){// Mode is Forward.
+
+            if(checkoutMoveForward(event.getX(), event.getY())){// Check if you're moving up
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Check if you're moving up
+     * @param x
+     * @param y
+     * @return
+     */
+    private boolean checkoutMoveForward(float x, float y){
+        return false;
     }
 
     private void cancelLongClickListen() {
@@ -603,5 +661,13 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
 
         void onLongClickUp(int x, int y);
 
+    }
+
+
+    /**
+     *
+     */
+    private enum Mode{
+        Normal,PressSelectText, SelectMoveForward,SelectMoveBack
     }
 }

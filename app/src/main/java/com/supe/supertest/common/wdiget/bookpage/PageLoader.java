@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -650,6 +651,12 @@ public abstract class PageLoader {
         return pages;
     }
 
+
+    /**
+     * 绘制 页面
+     * @param bitmap
+     * @param isUpdate
+     */
     void onDraw(Bitmap bitmap, boolean isUpdate) {
         drawBackground(mPageView.getBgBitmap(), isUpdate);
         if (!isUpdate) {
@@ -849,6 +856,15 @@ public abstract class PageLoader {
             paintbg.setAntiAlias(true);
             paintbg.setDither(true);
 
+            //------------------------------画虚线的画笔
+            Paint paintLine = new Paint();
+            paintLine.setAntiAlias(true);
+            paintLine.setDither(true);
+            paintLine.setStrokeWidth(3);
+            paintLine.setColor(Color.parseColor("#4C9CFE"));
+            paintLine.setPathEffect(new DashPathEffect(new float[]{4, 8}, 0));
+
+
 //            BitmapDrawable drawable = (BitmapDrawable) MyApplication.getAppContext().getResources().getDrawable(R.drawable.zhushi);
 
             //对内容进行绘制
@@ -865,9 +881,6 @@ public abstract class PageLoader {
                     canvas.drawBitmap(bitmapIconLeft, mMarginWidth - 21, top, paintIcon);
                 }
 
-
-
-
                 // 对内容进行记录。--------------------------------------------------
                 ShowLine showLine = new ShowLine();
                 List<ShowChar> showCharList = new ArrayList<>();
@@ -876,8 +889,13 @@ public abstract class PageLoader {
                 Log.i("BookLineChar", mCurPage.titleLines + "---------" + "mCurPage.position ==" + mCurPage.position);
                 Log.i("BookLineChar", str);
 
+                // -------------------------drawContent-------------------------------------------
                 canvas.drawText(str, mMarginWidth, top, mTextPaint);
 
+                // -----------------------------ad----------------------------画一条直线
+                if(i == 4){
+                    canvas.drawLine(mMarginWidth, top + 20, mMarginWidth + mTextPaint.measureText(str) - 10, top + 20, paintLine);
+                }
                 float w = mMarginWidth;
                 // 保存每个字符的位置。
                 for (int n = 0; n < str.length(); n++) {
