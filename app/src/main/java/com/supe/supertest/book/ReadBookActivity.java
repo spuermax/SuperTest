@@ -4,11 +4,17 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.supe.supertest.R;
+import com.supe.supertest.book.presenter.ReadBookPresenter;
+import com.supe.supertest.common.model.model.BookChaptersModel;
+import com.supe.supertest.common.model.model.ChapterContentModel;
 import com.supe.supertest.common.wdiget.bookpage.PageLoader;
 import com.supe.supertest.common.wdiget.bookpage.PageView;
 import com.supe.supertest.common.wdiget.bookpage.TxtChapter;
 import com.supe.supertest.common.wdiget.bookpage.bean.CollBookBean;
 import com.supe.supertest.common.wdiget.bookpage.manager.ReadSettingManager;
+import com.supermax.base.common.aspect.ThreadPoint;
+import com.supermax.base.common.aspect.ThreadType;
+import com.supermax.base.common.log.L;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.QsActivity;
@@ -21,7 +27,7 @@ import java.util.List;
  * @Date 2018/11/27 16:02
  * @Description
  */
-public class ReadBookActivity extends QsActivity {
+public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
 
     private static final String TAG = "ReadBookActivity";
     public static final String EXTRA_COLL_BOOK = "extra_coll_book";
@@ -57,6 +63,9 @@ public class ReadBookActivity extends QsActivity {
 
         mCollBook.setIsLocal(true);
         mCollBook.set_id(mBookId);
+
+        getPresenter().requestBookChapters("");
+        getPresenter().requestChapterContent("",1,2);
 
 
 
@@ -165,5 +174,19 @@ public class ReadBookActivity extends QsActivity {
             }
         });
 
+    }
+
+    @ThreadPoint(ThreadType.MAIN)
+    public void requestBookChapters(BookChaptersModel model){
+        if(model != null){
+            L.i(initTag(), "-------"+ model);
+        }
+    }
+
+    @ThreadPoint(ThreadType.MAIN)
+    public void requestChapterContent(ChapterContentModel model){
+        if(model != null){
+            L.i(initTag(), "-----" + model);
+        }
     }
 }

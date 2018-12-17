@@ -2,7 +2,7 @@ package com.supe.supertest.common.model;
 
 import com.supermax.base.common.model.QsModel;
 
-/*
+/**
  * @Author yinzh
  * @Date   2018/10/18 14:56
  * @Description
