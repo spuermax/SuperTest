@@ -213,6 +213,9 @@ public class CollBookBean implements Serializable {
         }
         myDao.update(this);
     }
+    public void setBookChapters(List<BookChapterBean> beans){
+        this.bookChapterList = beans;
+    }
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 159260324)
     public void __setDaoSession(DaoSession daoSession) {

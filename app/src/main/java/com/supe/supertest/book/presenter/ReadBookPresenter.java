@@ -3,7 +3,6 @@ package com.supe.supertest.book.presenter;
 import com.supe.supertest.book.ReadBookActivity;
 import com.supe.supertest.common.SuperPresenter;
 import com.supe.supertest.common.http.BookReadApi;
-import com.supe.supertest.common.http.ModelAuthCode;
 import com.supe.supertest.common.model.model.BookChaptersModel;
 import com.supe.supertest.common.model.model.ChapterContentModel;
 import com.supe.supertest.common.model.req.ModelBookChapterReq;

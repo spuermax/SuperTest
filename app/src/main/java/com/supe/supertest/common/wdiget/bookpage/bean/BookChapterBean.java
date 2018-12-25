@@ -1,10 +1,11 @@
 package com.supe.supertest.common.wdiget.bookpage.bean;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Index;
 
 import java.io.Serializable;
+import java.util.List;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * @Author yinzh
@@ -14,61 +15,75 @@ import java.io.Serializable;
 @Entity
 public class BookChapterBean implements Serializable {
     private static final long serialVersionUID = 56423411313L;
+
     /**
-     * title : 第一章 他叫白小纯
-     * link : http://read.qidian.com/chapter/rJgN8tJ_cVdRGoWu-UQg7Q2/6jr-buLIUJSaGfXRMrUjdw2
-     * unreadble : false
+     * bookCode : 1004912299104101110120105100111110103
+     * name : 红楼梦之测试数据1
+     * id : 10
+     * catalogue : [{"chapterId":"1","chapterName":"第1章"},{"chapterId":"2","chapterName":"第2章"},{"chapterId":"3","chapterName":"第3章"}]
      */
-    //链接是唯一的
-    private String link;
 
-    private String title;
+    private String bookCode;
+    private String name;
+    private int id;
+    private String chapterId;
+    private String chapterName;
 
-    //所属的下载任务
-    @Index
-    private String taskName;
-    //所属的书籍
     @Index
     private String bookId;
 
-    private boolean unreadble;
-
-    @Generated(hash = 1921381654)
-    public BookChapterBean(String link, String title, String taskName, String bookId,
-                           boolean unreadble) {
-        this.link = link;
-        this.title = title;
-        this.taskName = taskName;
+    @Generated(hash = 1022884783)
+    public BookChapterBean(String bookCode, String name, int id, String chapterId, String chapterName, String bookId) {
+        this.bookCode = bookCode;
+        this.name = name;
+        this.id = id;
+        this.chapterId = chapterId;
+        this.chapterName = chapterName;
         this.bookId = bookId;
-        this.unreadble = unreadble;
     }
 
     @Generated(hash = 853839616)
     public BookChapterBean() {
     }
 
-    public String getLink() {
-        return this.link;
+    public String getBookCode() {
+        return this.bookCode;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setBookCode(String bookCode) {
+        this.bookCode = bookCode;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getName() {
+        return this.name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTaskName() {
-        return this.taskName;
+    public int getId() {
+        return this.id;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getChapterId() {
+        return this.chapterId;
+    }
+
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
+    }
+
+    public String getChapterName() {
+        return this.chapterName;
+    }
+
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName;
     }
 
     public String getBookId() {
@@ -77,14 +92,6 @@ public class BookChapterBean implements Serializable {
 
     public void setBookId(String bookId) {
         this.bookId = bookId;
-    }
-
-    public boolean getUnreadble() {
-        return this.unreadble;
-    }
-
-    public void setUnreadble(boolean unreadble) {
-        this.unreadble = unreadble;
     }
 
 }

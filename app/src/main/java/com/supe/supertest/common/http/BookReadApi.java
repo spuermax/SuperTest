@@ -1,6 +1,5 @@
 package com.supe.supertest.common.http;
 
-import com.supe.supertest.common.model.BaseModel;
 import com.supe.supertest.common.model.BaseModelReq;
 import com.supe.supertest.common.model.model.BookChaptersModel;
 import com.supe.supertest.common.model.model.ChapterContentModel;

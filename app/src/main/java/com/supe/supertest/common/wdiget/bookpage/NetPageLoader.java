@@ -50,8 +50,8 @@ public class NetPageLoader extends PageLoader{
         for (BookChapterBean bean : bookChapters){
             TxtChapter chapter = new TxtChapter();
             chapter.bookId = bean.getBookId();
-            chapter.title = bean.getTitle();
-            chapter.link = bean.getLink();
+            chapter.title = bean.getChapterName();//-----
+            chapter.link = bean.getChapterId();//--------
             txtChapters.add(chapter);
         }
         return txtChapters;

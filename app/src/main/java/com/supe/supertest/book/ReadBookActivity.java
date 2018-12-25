@@ -10,6 +10,7 @@ import com.supe.supertest.common.model.model.ChapterContentModel;
 import com.supe.supertest.common.wdiget.bookpage.PageLoader;
 import com.supe.supertest.common.wdiget.bookpage.PageView;
 import com.supe.supertest.common.wdiget.bookpage.TxtChapter;
+import com.supe.supertest.common.wdiget.bookpage.bean.BookChapterBean;
 import com.supe.supertest.common.wdiget.bookpage.bean.CollBookBean;
 import com.supe.supertest.common.wdiget.bookpage.manager.ReadSettingManager;
 import com.supermax.base.common.aspect.ThreadPoint;
@@ -43,6 +44,8 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
     private boolean isNightMode = false;
     private boolean isFullScreen = false;
     private String mBookId = null;
+    private List<BookChapterBean> bookChapterList = new ArrayList<>();
+
 
     @Override
     public int layoutId() {
@@ -61,13 +64,8 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
             mCollBook = new CollBookBean();
         }
 
-        mCollBook.setIsLocal(true);
+        mCollBook.setIsLocal(false);
         mCollBook.set_id(mBookId);
-
-        getPresenter().requestBookChapters("");
-        getPresenter().requestChapterContent("",1,2);
-
-
 
         //获取页面加载器
         //用IsLocal字段判断是不是本地
@@ -77,6 +75,13 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
         if(mCollBook.getIsLocal()){
             mPageLoader.openBook(mCollBook);
         }
+
+
+        getPresenter().requestBookChapters("1004912299104101110120105100111110103");
+        getPresenter().requestChapterContent("1004912299104101110120105100111110103",1,2);
+
+
+
 
         mPageLoader.setOnPageChangeListener(new PageLoader.OnPageChangeListener() {
             @Override
@@ -176,10 +181,27 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
 
     }
 
+
     @ThreadPoint(ThreadType.MAIN)
     public void requestBookChapters(BookChaptersModel model){
         if(model != null){
+            bookChapterList.clear();
             L.i(initTag(), "-------"+ model);
+            List<BookChaptersModel.CatalogueBean> catalogueBeans = model.getCatalogue();
+
+            for (BookChaptersModel.CatalogueBean catalogueBean : catalogueBeans){
+                BookChapterBean chapterBean = new BookChapterBean();
+                chapterBean.setBookCode(model.getBookCode());
+                chapterBean.setName(model.getName());
+                chapterBean.setId(model.getId());
+                chapterBean.setChapterId(catalogueBean.getChapterId());
+                chapterBean.setChapterName(catalogueBean.getChapterName());
+                bookChapterList.add(chapterBean);
+            }
+
+
+            mCollBook.setBookChapters(bookChapterList);
+            mPageLoader.openBook(mCollBook);
         }
     }
 
