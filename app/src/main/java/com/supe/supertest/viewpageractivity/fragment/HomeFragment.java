@@ -3,19 +3,14 @@ package com.supe.supertest.viewpageractivity.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import com.supe.supertest.R;
 import com.supe.supertest.home.AKeFragment;
 import com.supe.supertest.home.ShouYueFragment;
 import com.supe.supertest.home.YaDianNaFragment;
 import com.supe.supertest.home.ZhuGeFragment;
-import com.supe.supertest.viewpageractivity.ViewPagerActivity;
-import com.supermax.base.common.viewbind.annotation.OnClick;
-import com.supermax.base.common.widget.toast.QsToast;
-import com.supermax.base.mvp.fragment.QsFragment;
 import com.supermax.base.mvp.fragment.QsViewPagerFragment;
 import com.supermax.base.mvp.model.QsModelPager;
 
-/*
+/**
  * @Author yinzh
  * @Date   2018/10/17 14:14
  * @Description

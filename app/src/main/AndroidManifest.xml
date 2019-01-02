@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ST_Theme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".viewpageractivity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,7 +38,7 @@
             android:theme="@style/ST_Theme" />
 
         <activity
-            android:name=".viewpageractivity.ViewPagerActivity"
+            android:name=".MainActivity"
             android:theme="@style/ST_Theme" />
 
         <activity
@@ -50,22 +50,6 @@
 
         <activity android:name=".rxjava.RxJavaActivity"
             android:theme="@style/ST_Theme" />
-
-
-        <activity android:name=".test.HobbyActivity"
-            android:theme="@style/ST_Theme" />
-
-
-        <activity android:name=".test.JobActivity"
-            android:theme="@style/ST_Theme" />
-
-        <activity android:name=".test.TallActivity"
-            android:theme="@style/ST_Theme" />
-
-        <activity android:name=".test.UserMessageActivity"
-            android:theme="@style/ST_Theme" />
-
-
 
 
     </application>

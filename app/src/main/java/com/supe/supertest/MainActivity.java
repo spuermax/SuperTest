@@ -6,14 +6,10 @@ import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -22,16 +18,11 @@ import com.supe.supertest.abactivity.ActionBarActivity;
 import com.supe.supertest.book.ReadBookActivity;
 import com.supe.supertest.common.button.BaseFloatDailog;
 import com.supe.supertest.common.button.FloatItem;
-import com.supe.supertest.common.button.FloatLogoMenu;
-import com.supe.supertest.common.button.FloatMenuView;
-import com.supe.supertest.common.button.MyFloatDialog;
 import com.supe.supertest.common.utils.PermissionUtils;
 import com.supe.supertest.common.utils.SettingUtil;
 import com.supe.supertest.common.wdiget.SonnyJackDragView;
 import com.supe.supertest.indicator.MagicIndicatorActivity;
-import com.supe.supertest.rxjava.RxJavaActivity;
-import com.supe.supertest.test.UserMessageActivity;
-import com.supe.supertest.viewpageractivity.ViewPagerActivity;
+import com.supe.supertest.viewpageractivity.HomeActivity;
 import com.supermax.base.common.aspect.ThreadPoint;
 import com.supermax.base.common.aspect.ThreadType;
 import com.supermax.base.common.log.L;
@@ -49,7 +40,6 @@ import com.supermax.base.mvp.QsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.MissingFormatArgumentException;
 
 public class MainActivity extends QsActivity {
 
@@ -177,7 +167,7 @@ public class MainActivity extends QsActivity {
                 QsToast.show("ABActivity");
                 break;
             case R.id.bt_ViewPager:
-                intent2Activity(ViewPagerActivity.class);
+                intent2Activity(HomeActivity.class);
                 QsToast.show("ViewPager");
                 break;
             case R.id.bt_ViewPagerA:
@@ -190,7 +180,6 @@ public class MainActivity extends QsActivity {
                 intent2Activity(ReadBookActivity.class);
                 break;
             case R.id.bt_rxJava:
-                intent2Activity(UserMessageActivity.class);
                 break;
         }
     }

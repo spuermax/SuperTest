@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.supe.supertest.common.wdiget.MagicalLabelView
+        android:id="@+id/magical_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:labelBackground="@drawable/select_label_bg"
+        app:labelTextColor="@drawable/select_label_text_color"
+        android:minHeight="@dimen/dp_35"
+        android:minWidth="@dimen/dp_105"
+        app:labelTextPaddingBottom="@dimen/dp_10"
+        app:labelTextPaddingLeft="@dimen/dp_30"
+        app:labelTextPaddingRight="@dimen/dp_30"
+        app:labelTextPaddingTop="@dimen/dp_10"
+        app:labelTextSize="@dimen/dp_14"
+        app:lineMargin="@dimen/dp_15"
+        app:selectType="SINGLE_IRREVOCABLY"
+        app:wordMargin="@dimen/dp_15"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/dp_50"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+
+        />
+
+
+
+</android.support.constraint.ConstraintLayout>

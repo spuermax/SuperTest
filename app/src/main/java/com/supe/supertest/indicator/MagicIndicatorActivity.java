@@ -33,8 +33,8 @@ public class MagicIndicatorActivity extends QsActivity {
 
     @Bind(R.id.magic_indicator)
     MagicIndicator magic_indicator;
-    @Bind(R.id.pager)
-    ViewPager pager;
+    @Bind(R.id.viewpager)
+    ViewPager viewpager;
 
     private String[] arrStr = new String[]{"Super", "Max", "Man", "SuperMax", "SuperText"};
     private ViewPagerAdapter adaper = new ViewPagerAdapter(arrStr);
@@ -55,7 +55,7 @@ public class MagicIndicatorActivity extends QsActivity {
         list.add(new YaDianNaFragment());
         list.add(new YaDianNaFragment());
 
-        pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        viewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
                 return list.get(i);
@@ -100,7 +100,7 @@ public class MagicIndicatorActivity extends QsActivity {
         });
 
         magic_indicator.setNavigator(commonNavigator);
-        ViewPagerIndicatorHelper.bind(magic_indicator, pager);
+        ViewPagerIndicatorHelper.bind(magic_indicator, viewpager);
     }
 
 

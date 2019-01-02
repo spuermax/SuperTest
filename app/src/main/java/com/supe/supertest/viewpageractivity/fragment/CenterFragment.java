@@ -5,18 +5,13 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.supe.supertest.R;
-import com.supe.supertest.viewpageractivity.ViewPagerActivity;
 import com.supe.supertest.viewpageractivity.adapter.CenterAdapter;
 import com.supe.supertest.viewpageractivity.model.Item;
 import com.supe.supertest.viewpageractivity.persenter.CenterPresenter;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.adapter.QsListAdapterItem;
-import com.supermax.base.mvp.fragment.QsFragment;
 import com.supermax.base.mvp.fragment.QsListFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * @Author yinzh

@@ -12,8 +12,10 @@ import com.supe.supertest.common.button.FloatLogoMenu;
 import com.supe.supertest.common.wdiget.SonnyJackDragView;
 import com.supe.supertest.viewpageractivity.fragment.CenterFragment;
 import com.supe.supertest.viewpageractivity.fragment.HomeFragment;
+import com.supe.supertest.viewpageractivity.fragment.TestFragment;
 import com.supe.supertest.viewpageractivity.fragment.UserFragment;
 import com.supermax.base.common.log.L;
+import com.supermax.base.common.model.QsModel;
 import com.supermax.base.mvp.QsViewPagerActivity;
 import com.supermax.base.mvp.model.QsModelPager;
 
@@ -22,9 +24,7 @@ import com.supermax.base.mvp.model.QsModelPager;
  * @Date   2018/10/17 14:09
  * @Description
  */
-public class ViewPagerActivity extends QsViewPagerActivity{
-
-
+public class HomeActivity extends QsViewPagerActivity{
 
 
     @Override
@@ -35,16 +35,21 @@ public class ViewPagerActivity extends QsViewPagerActivity{
         modelPager1.position = 0;
 
         QsModelPager modelPager2 = new QsModelPager();
-        modelPager2.fragment = new CenterFragment();
-        modelPager2.title = "中间";
+        modelPager2.fragment = new TestFragment();
+        modelPager2.title = "测试";
         modelPager2.position = 1;
 
         QsModelPager modelPager3 = new QsModelPager();
-        modelPager3.fragment = new UserFragment();
-        modelPager3.title = "用户";
+        modelPager3.fragment = new CenterFragment();
+        modelPager3.title = "中间";
         modelPager3.position = 2;
 
-        return new QsModelPager[]{modelPager1, modelPager2, modelPager3};
+        QsModelPager modelPager4 = new QsModelPager();
+        modelPager4.fragment = new UserFragment();
+        modelPager4.title = "用户";
+        modelPager4.position = 3;
+
+        return new QsModelPager[]{modelPager1, modelPager2, modelPager3,modelPager4};
     }
 
     /**
@@ -66,9 +71,5 @@ public class ViewPagerActivity extends QsViewPagerActivity{
 
 
     }
-
-
-
-
 
 }

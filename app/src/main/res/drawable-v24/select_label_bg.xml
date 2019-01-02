@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 标签选中时的背景 -->
+    <item android:state_selected="true">
+        <shape>
+            <corners android:radius="@dimen/dp_5" />
+            <solid android:color="@color/color_FE7F4F" />
+        </shape>
+    </item>
+
+
+    <!-- 标签的正常背景 -->
+    <item>
+        <shape>
+            <corners android:radius="@dimen/dp_5" />
+            <solid android:color="@color/color_white" />
+        </shape>
+    </item>
+</selector>

@@ -1,22 +1,18 @@
 package com.supe.supertest.viewpageractivity.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.supe.supertest.R;
-import com.supe.supertest.viewpageractivity.ViewPagerActivity;
 import com.supe.supertest.viewpageractivity.adapter.UserAdapter;
 import com.supe.supertest.viewpageractivity.model.Item;
 import com.supe.supertest.viewpageractivity.persenter.UserPresenter;
-import com.supermax.base.common.log.L;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.adapter.QsRecycleAdapterItem;
-import com.supermax.base.mvp.fragment.QsFragment;
 import com.supermax.base.mvp.fragment.QsRecyclerFragment;
 
 /*
