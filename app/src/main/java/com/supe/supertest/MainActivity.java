@@ -29,6 +29,8 @@ import com.supe.supertest.common.utils.PermissionUtils;
 import com.supe.supertest.common.utils.SettingUtil;
 import com.supe.supertest.common.wdiget.SonnyJackDragView;
 import com.supe.supertest.indicator.MagicIndicatorActivity;
+import com.supe.supertest.rxjava.RxJavaActivity;
+import com.supe.supertest.test.UserMessageActivity;
 import com.supe.supertest.viewpageractivity.ViewPagerActivity;
 import com.supermax.base.common.aspect.ThreadPoint;
 import com.supermax.base.common.aspect.ThreadType;
@@ -160,7 +162,7 @@ public class MainActivity extends QsActivity {
     }
 
 
-    @OnClick({R.id.bt_thread, R.id.bt_ABActivity, R.id.bt_ViewPager, R.id.bt_ViewPagerA, R.id.bt_magic_indicator, R.id.bt_bookPage})
+    @OnClick({R.id.bt_thread, R.id.bt_ABActivity, R.id.bt_ViewPager, R.id.bt_ViewPagerA, R.id.bt_magic_indicator, R.id.bt_bookPage, R.id.bt_rxJava})
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.bt_thread:
@@ -186,6 +188,9 @@ public class MainActivity extends QsActivity {
                 break;
             case R.id.bt_bookPage:
                 intent2Activity(ReadBookActivity.class);
+                break;
+            case R.id.bt_rxJava:
+                intent2Activity(UserMessageActivity.class);
                 break;
         }
     }

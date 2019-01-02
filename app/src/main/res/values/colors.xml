@@ -14,6 +14,7 @@
     <color name="color_bg">#F0F2F5</color>
     <color name="color_toolbar_bg">#FFFFFF</color>
     <color name="color_white">#FFFFFF</color>
+    <color name="colorBaseWhite">#FFFFFF</color>
 
 
     <!--gray color-->

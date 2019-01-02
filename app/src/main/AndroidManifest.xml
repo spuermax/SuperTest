@@ -48,6 +48,25 @@
         <activity android:name=".book.ReadBookActivity"
             android:theme="@style/ST_Theme" />
 
+        <activity android:name=".rxjava.RxJavaActivity"
+            android:theme="@style/ST_Theme" />
+
+
+        <activity android:name=".test.HobbyActivity"
+            android:theme="@style/ST_Theme" />
+
+
+        <activity android:name=".test.JobActivity"
+            android:theme="@style/ST_Theme" />
+
+        <activity android:name=".test.TallActivity"
+            android:theme="@style/ST_Theme" />
+
+        <activity android:name=".test.UserMessageActivity"
+            android:theme="@style/ST_Theme" />
+
+
+
 
     </application>
 
