@@ -24,6 +24,7 @@ private RefWatcher refWatcher = null;
         }
 
       refWatcher =  LeakCanary.install(this);
+        System.gc();
     }
 
     /**

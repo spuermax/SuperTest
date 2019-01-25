@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.supe.supertest.R;
+import com.supe.supertest.abactivity.ActionBarActivity;
 import com.supe.supertest.viewpageractivity.adapter.CenterAdapter;
 import com.supe.supertest.viewpageractivity.model.Item;
 import com.supe.supertest.viewpageractivity.persenter.CenterPresenter;
@@ -52,6 +53,7 @@ public class CenterFragment extends QsListFragment <CenterPresenter, Item>{
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         QsToast.show(position + "");
         super.onItemClick(parent, view, position, id);
+        intent2Activity(ActionBarActivity.class);
     }
 
 

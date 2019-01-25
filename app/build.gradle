@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.supe.supertest"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -48,13 +48,19 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
 
+
+    //引入哈哈库
+    implementation 'com.squareup.haha:haha:2.0.4'
+
     /**
      * leakcanary
      */
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
+
 
 
 

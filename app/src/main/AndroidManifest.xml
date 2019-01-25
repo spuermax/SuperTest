@@ -51,6 +51,9 @@
         <activity android:name=".rxjava.RxJavaActivity"
             android:theme="@style/ST_Theme" />
 
+        <activity android:name=".test.ChapterBitmapActivity"
+            android:theme="@style/ST_Theme" />
+
 
     </application>
 

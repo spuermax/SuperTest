@@ -4,38 +4,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.supe.supertest.common.wdiget.MagicalLabelView
-        android:id="@+id/magical_label"
+    <TextView
+        android:id="@+id/tv_check"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:labelBackground="@drawable/select_label_bg"
-        app:labelTextColor="@drawable/select_label_text_color"
-        android:minHeight="@dimen/dp_35"
-        android:minWidth="@dimen/dp_105"
-        app:labelTextPaddingBottom="@dimen/dp_10"
-        app:labelTextPaddingLeft="@dimen/dp_30"
-        app:labelTextPaddingRight="@dimen/dp_30"
-        app:labelTextPaddingTop="@dimen/dp_10"
-        app:labelTextSize="@dimen/dp_14"
-        app:lineMargin="@dimen/dp_15"
-        app:selectType="SINGLE_IRREVOCABLY"
-        app:wordMargin="@dimen/dp_15"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/dp_50"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="@dimen/dp_15"
-        android:layout_marginRight="@dimen/dp_15"
-        />
-
-    <Button
-        android:id="@+id/bt_show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="展开"
-        app:layout_constraintTop_toBottomOf="@id/magical_label"
+        android:layout_height="@dimen/dp_100"
+        android:gravity="center"
+        android:text="检测图片重复"
+        android:background="@color/colorBaseWhite"
 
         />
-
 
     <ImageView
         android:id="@+id/iv_image1"
@@ -65,6 +42,8 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="@dimen/dp_50"
         />
+
+
 
 
 </android.support.constraint.ConstraintLayout>
