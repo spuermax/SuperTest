@@ -38,7 +38,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
 
-    implementation 'com.github.spuermax:SuperBase:0.55'
+    implementation 'com.github.spuermax:SuperBase:0.58'
 //    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
 
 //    GreenDao
@@ -46,6 +46,10 @@ dependencies {
 
 //    RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    //数据存储 MMKV
+    implementation 'com.tencent:mmkv:1.0.17'
+
 
 
 
@@ -60,11 +64,6 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
-
-
-
-
-
 
 
 

@@ -62,17 +62,22 @@ public class ActionBarActivity extends QsActivity {
     @Override
     public void initData(Bundle bundle) {
 
-        getNotchParams();
+//        getNotchParams();//需要进行判断。
+        int barHeight = getStatusBarHeight(this);
 
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        Log.e("NotchParams", "barHeight====" +barHeight);
+        getWindow().getDecorView().setPadding(0, barHeight, 0, 0);
+
+
+//        WindowManager.LayoutParams lp = getWindow().getAttributes();
 
         //下面图1
 //        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;// 导致刘海区域是黑屏
         //下面图2
-        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;// 全屏
+//        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;// 全屏
         //下面图3
 //        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT;
-        getWindow().setAttributes(lp);
+//        getWindow().setAttributes(lp);
 
 
         MagicIndicator indicator = new MagicIndicator(this);
@@ -144,5 +149,14 @@ public class ActionBarActivity extends QsActivity {
         });
         decorView.setPadding(0, 126,0,0);
 
+    }
+
+    public static int getStatusBarHeight(Context context) {
+        int statusBarHeight = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight;
     }
 }

@@ -10,6 +10,7 @@ import com.supe.supertest.common.button.BaseFloatDailog;
 import com.supe.supertest.common.button.FloatItem;
 import com.supe.supertest.home.adapter.YDNAdapter;
 import com.supe.supertest.home.presenter.YaDianNaPresenter;
+import com.supe.supertest.rxjava.RxJavaActivity;
 import com.supe.supertest.viewpageractivity.model.Item;
 import com.supermax.base.common.log.L;
 import com.supermax.base.common.widget.toast.QsToast;
@@ -79,6 +80,9 @@ public class YaDianNaFragment extends QsPullListFragment<YaDianNaPresenter, Item
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         QsToast.show(position + "");
-        getPresenter().requestAuthCode();
+//        getPresenter().requestAuthCode();
+        intent2Activity(RxJavaActivity.class);
+
+
     }
 }

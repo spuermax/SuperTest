@@ -18,6 +18,7 @@ import com.supermax.base.common.log.L;
 import com.supermax.base.common.model.QsModel;
 import com.supermax.base.mvp.QsViewPagerActivity;
 import com.supermax.base.mvp.model.QsModelPager;
+import com.tencent.mmkv.MMKV;
 
 /**
  * @Author yinzh
@@ -68,8 +69,35 @@ public class HomeActivity extends QsViewPagerActivity{
 
     @Override
     public void initData(Bundle bundle) {
+        String rootDir = MMKV.initialize(this);
+       L.i("mmkv root: " , rootDir);
 
 
-    }
+        MMKV kv = MMKV.defaultMMKV();
+
+        kv.encode("bool", true);
+        L.i("bool: " ,"MMKV"+ kv.decodeBool("bool"));
+
+        kv.encode("int", Integer.MIN_VALUE);
+        L.i("int: " ,"MMKV"+ kv.decodeInt("int"));
+
+        kv.encode("long", Long.MAX_VALUE);
+        L.i("long: " ,"MMKV"+ kv.decodeLong("long"));
+
+        kv.encode("float", -3.14f);
+        L.i("float: " ,"MMKV"+ kv.decodeFloat("float"));
+
+        kv.encode("double", Double.MIN_VALUE);
+        L.i("double: " ,"MMKV"+ kv.decodeDouble("double"));
+
+        kv.encode("string", "Hello from mmkv");
+        L.i("string: " ,"MMKV"+ kv.decodeString("string"));
+
+        byte[] bytes = {'m', 'm', 'k', 'v','3'};
+        kv.encode("byte", bytes);
+//        L.i("bytes: " ,"MMKV"+ kv.decodeBytes("bytes"));
+        L.i("bytes: " ,"MMKV"+ new String(kv.decodeBytes("bytes")));
+        L.i("bytes: " ,"MMKV"+ new String(kv.decodeBytes("byte")));
+        }
 
 }
