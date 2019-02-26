@@ -6,16 +6,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.supe.supertest.R;
 import com.supe.supertest.common.utils.RxUtils;
+import com.supe.supertest.rxjava.view.ChildRecyclerView;
 import com.supe.supertest.rxjava.view.NestRecyclerView;
+import com.supe.supertest.rxjava.view.ParentRecyclerView;
+import com.supe.supertest.rxjava.view.TestTextView;
 import com.supermax.base.common.log.L;
+import com.supermax.base.common.utils.QsHelper;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.widget.indicator.model.ScrollState;
+import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.QsActivity;
 
 import java.util.ArrayList;
@@ -41,7 +47,7 @@ import io.reactivex.schedulers.Schedulers;
 public class RxJavaActivity extends QsActivity {
 
     @Bind(R.id.recycler)
-    RecyclerView recyclerView;
+    ParentRecyclerView recyclerView;
 
     List<String> data = new ArrayList<>();
 
@@ -61,8 +67,6 @@ public class RxJavaActivity extends QsActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new Adapter());
-
-
     }
 
     private Disposable disposable;
@@ -160,7 +164,6 @@ public class RxJavaActivity extends QsActivity {
             adapter2  =    new TwoAdapter(strings);
             myViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(RxJavaActivity.this));
             myViewHolder.recyclerView.setAdapter(adapter2);
-
         }
 
         @Override
@@ -171,11 +174,11 @@ public class RxJavaActivity extends QsActivity {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
 
-            NestRecyclerView recyclerView;
+            ChildRecyclerView recyclerView;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
-                recyclerView = (NestRecyclerView) itemView.findViewById(R.id.recycler);
+                recyclerView = (ChildRecyclerView) itemView.findViewById(R.id.recycler);
             }
         }
 
@@ -202,6 +205,13 @@ public class RxJavaActivity extends QsActivity {
         @Override
         public void onBindViewHolder(@NonNull TwoAdapter.MyViewHolder myViewHolder, int i) {
                 myViewHolder.tv.setText(strings.get(i));
+//                myViewHolder.tv.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        QsToast.show("hha");
+//                        L.i("RecyclerView","我是子TestTextView -------  setOnClickListener");
+//                    }
+//                });
         }
 
         @Override
@@ -211,11 +221,11 @@ public class RxJavaActivity extends QsActivity {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
 
-            TextView tv;
+            TestTextView tv;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
-                tv = (TextView) itemView.findViewById(R.id.tv);
+                tv = (TestTextView) itemView.findViewById(R.id.tv);
             }
         }
     }

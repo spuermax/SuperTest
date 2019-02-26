@@ -54,6 +54,9 @@
         <activity android:name=".test.ChapterBitmapActivity"
             android:theme="@style/ST_Theme" />
 
+        <activity android:name=".nestedscrolling.NestedScrollingActivity"
+            android:theme="@style/ST_Theme"/>
+
 
     </application>
 

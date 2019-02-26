@@ -51,7 +51,6 @@ public class CenterFragment extends QsListFragment <CenterPresenter, Item>{
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        QsToast.show(position + "");
         super.onItemClick(parent, view, position, id);
         intent2Activity(ActionBarActivity.class);
     }

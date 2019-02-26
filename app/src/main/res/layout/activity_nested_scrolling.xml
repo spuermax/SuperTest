@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.supe.supertest.nestedscrolling.NestedScrollingParentView
+        android:layout_width="@dimen/dp_300"
+        android:layout_height="@dimen/dp_200"
+        android:background="@color/color_333333">
+
+
+
+        <com.supe.supertest.nestedscrolling.NestedScrollingChildView
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_100"
+            android:background="@color/colorAccent"
+            />
+
+
+    </com.supe.supertest.nestedscrolling.NestedScrollingParentView>
+
+</LinearLayout>

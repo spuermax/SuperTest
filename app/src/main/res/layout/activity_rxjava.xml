@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="500dp">
 
-    <android.support.v7.widget.RecyclerView
+    <com.supe.supertest.rxjava.view.ParentRecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"></android.support.v7.widget.RecyclerView>
+        android:layout_margin="10dp"/>
 </android.support.constraint.ConstraintLayout>
