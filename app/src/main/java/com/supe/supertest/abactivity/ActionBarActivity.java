@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class ActionBarActivity extends QsActivity {
 
-    private static String[] strArr = new String[]{"SuperMax", "Han", "NaTie"};
+    private String[] strArr = new String[]{"SuperMax", "Han", "NaTie"};
     private List<String> list = Arrays.asList(strArr);
     @Bind(R.id.indicator)
     MagicIndicator indicator;

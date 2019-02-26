@@ -41,11 +41,11 @@ public class NestedScrollingChildView extends View implements NestedScrollingChi
 
     public NestedScrollingChildView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public NestedScrollingChildView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
     }
 
     private void init(){

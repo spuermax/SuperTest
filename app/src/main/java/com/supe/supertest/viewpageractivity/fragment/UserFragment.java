@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.supe.supertest.R;
+import com.supe.supertest.nestedscrolling.NestedScrollingActivity;
 import com.supe.supertest.viewpageractivity.adapter.UserAdapter;
 import com.supe.supertest.viewpageractivity.model.Item;
 import com.supe.supertest.viewpageractivity.persenter.UserPresenter;
@@ -53,7 +54,7 @@ import com.supermax.base.mvp.fragment.QsRecyclerFragment;
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        QsToast.show("" + position);
+        intent2Activity(NestedScrollingActivity.class);
         super.onItemClick(parent, view, position, id);
     }
 
