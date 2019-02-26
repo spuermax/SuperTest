@@ -1,6 +1,7 @@
 package com.supe.supertest.nestedscrolling;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.supe.supertest.R;
 import com.supermax.base.mvp.QsActivity;
