@@ -8,23 +8,22 @@ import com.supermax.base.common.http.HttpBuilder;
 
 /**
  * @Author yinzh
- * @Date   2018/10/17 10:43
+ * @Date 2018/10/17 10:43
  * @Description
  */
-public class SuperApplication extends QsApplication{
+public class SuperApplication extends QsApplication {
 
-private RefWatcher refWatcher = null;
+    private RefWatcher refWatcher = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        if(LeakCanary.isInAnalyzerProcess(this)){
+        if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
 
-      refWatcher =  LeakCanary.install(this);
-        System.gc();
+        refWatcher = LeakCanary.install(this);
     }
 
     /**
