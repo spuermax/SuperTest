@@ -40,26 +40,24 @@ public class NestedScrollingActivity extends QsActivity{
                 .build();
 
         Response response = null;
-        try {
-//            response = client.newCall(request).execute();
-           client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
+        //            response = client.newCall(request).execute();
+        client.newCall(request).enqueue(new Callback() {
+             @Override
+             public void onFailure(Call call, IOException e) {
 
-                }
+             }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
+             @Override
+             public void onResponse(Call call, Response response) throws IOException {
 
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+             }
+         });
         try {
             return response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return "";
     }
 }

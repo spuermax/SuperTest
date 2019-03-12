@@ -100,4 +100,15 @@ public class HomeActivity extends QsViewPagerActivity{
         L.i("bytes: " ,"MMKV"+ new String(kv.decodeBytes("byte")));
         }
 
+
+    @Override
+    public boolean isTransparentStatusBar() {
+        return true;
+    }
+
+    @Override
+    public boolean isTransparentNavigationBar() {
+        return super.isTransparentNavigationBar();
+    }
 }
+

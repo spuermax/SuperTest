@@ -60,13 +60,14 @@ public class RxJavaActivity extends QsActivity {
 
     @Override
     public void initData(Bundle bundle) {
+        showErrorView();
 //        test();
-        for (int i = 'A'; i < 'z'; i++) {
-            data.add("" + (char) i);
-        }
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new Adapter());
+//        for (int i = 'A'; i < 'z'; i++) {
+//            data.add("" + (char) i);
+//        }
+//
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(new Adapter());
     }
 
     private Disposable disposable;
@@ -137,6 +138,7 @@ public class RxJavaActivity extends QsActivity {
 
         private ArrayList<String> strings;
         private TwoAdapter adapter2;
+
         public Adapter() {
             super();
             strings = new ArrayList<>();
@@ -161,7 +163,7 @@ public class RxJavaActivity extends QsActivity {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-            adapter2  =    new TwoAdapter(strings);
+            adapter2 = new TwoAdapter(strings);
             myViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(RxJavaActivity.this));
             myViewHolder.recyclerView.setAdapter(adapter2);
         }
@@ -204,7 +206,7 @@ public class RxJavaActivity extends QsActivity {
 
         @Override
         public void onBindViewHolder(@NonNull TwoAdapter.MyViewHolder myViewHolder, int i) {
-                myViewHolder.tv.setText(strings.get(i));
+            myViewHolder.tv.setText(strings.get(i));
 //                myViewHolder.tv.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
@@ -231,4 +233,8 @@ public class RxJavaActivity extends QsActivity {
     }
 
 
+    @Override
+    public boolean isOpenViewState() {
+        return true;
+    }
 }

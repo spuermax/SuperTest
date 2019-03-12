@@ -43,4 +43,20 @@ public class SuperApplication extends QsApplication {
         httpBuilder.setTerminal(UrlUtils.getCurrentUrl());
         httpBuilder.addHeader("token", token);
     }
+
+
+    @Override
+    public int loadingLayoutId() {
+        return R.layout.layout_loading;
+    }
+
+    @Override
+    public int emptyLayoutId() {
+        return R.layout.layout_empty;
+    }
+
+    @Override
+    public int errorLayoutId() {
+        return R.layout.layout_error;
+    }
 }
