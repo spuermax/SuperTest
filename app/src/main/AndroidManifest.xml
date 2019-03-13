@@ -57,6 +57,9 @@
         <activity android:name=".nestedscrolling.NestedScrollingActivity"
             android:theme="@style/ST_Theme"/>
 
+        <activity android:name=".TestActivtyA"
+            android:theme="@style/ST_Theme"/>
+
 
     </application>
 
