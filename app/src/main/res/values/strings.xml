@@ -12,7 +12,9 @@
     <string name="request_record_audio_permission">录音</string>
     <string name="request_write_external_storage_permission">写入外部存储</string>
     <string name="request_call_permission">电话</string>
+    <string name="tag_name_notification">SuperTest_Notification</string>
 
     <item name="tag_key_data" type="id"/>
     <item name="tag_key_position" type="id"/>
+
 </resources>

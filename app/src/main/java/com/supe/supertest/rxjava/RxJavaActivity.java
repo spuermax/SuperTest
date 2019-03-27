@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.supe.supertest.R;
 import com.supe.supertest.common.utils.RxUtils;
 import com.supe.supertest.rxjava.view.ChildRecyclerView;
@@ -47,7 +49,7 @@ import io.reactivex.schedulers.Schedulers;
 public class RxJavaActivity extends QsActivity {
 
     @Bind(R.id.recycler)
-    RecyclerView recyclerView;
+    ParentRecyclerView recyclerView;
 
     List<String> data = new ArrayList<>();
 
@@ -186,43 +188,31 @@ public class RxJavaActivity extends QsActivity {
     }
 
 
-    class TwoAdapter extends RecyclerView.Adapter<TwoAdapter.MyViewHolder> {
+    class TwoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         ArrayList<String> strings;
 
         public TwoAdapter(ArrayList<String> strings) {
-            super();
+            super(R.layout.item_home2, strings);
             this.strings = strings;
         }
 
-        @NonNull
         @Override
-        public TwoAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            MyViewHolder myViewHolder1 = new MyViewHolder(LayoutInflater.from(
-                    RxJavaActivity.this).inflate(R.layout.item_home2, viewGroup,
-                    false));
-            return myViewHolder1;
+        protected void convert(BaseViewHolder helper, String item) {
+            helper.setText(R.id.tv, item);
+            helper.setOnClickListener(R.id.tv, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    QsToast.show("hha");
+                    L.i("RecyclerView", "我是子TestTextView -------  setOnClickListener");
+                    notifyItemChanged(1, 3);
+                }
+            });
         }
 
-        @Override
-        public void onBindViewHolder(@NonNull TwoAdapter.MyViewHolder myViewHolder, int i) {
-            myViewHolder.tv.setText(strings.get(i));
-                myViewHolder.tv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        QsToast.show("hha");
-                        L.i("RecyclerView","我是子TestTextView -------  setOnClickListener");
-                    }
-                });
-        }
-
-        @Override
-        public int getItemCount() {
-            return strings.size();
-        }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
 
-            TextView tv;
+            TestTextView tv;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -236,4 +226,6 @@ public class RxJavaActivity extends QsActivity {
     public boolean isTransparentStatusBar() {
         return true;
     }
+
+
 }

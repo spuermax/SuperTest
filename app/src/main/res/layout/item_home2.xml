@@ -13,11 +13,12 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-                <TextView
+                <com.supe.supertest.rxjava.view.TestTextView
                     android:id="@+id/tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="@dimen/dp_50"
                     android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="我爱你"
                     android:background="@color/color_333333"
                     android:textColor="#ffffff" />

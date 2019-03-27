@@ -74,7 +74,6 @@ public class HomeActivity extends QsViewPagerActivity{
 
 
         MMKV kv = MMKV.defaultMMKV();
-
         kv.encode("bool", true);
         L.i("bool: " ,"MMKV"+ kv.decodeBool("bool"));
 
