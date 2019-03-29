@@ -12,7 +12,18 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+
+
     }
+
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -67,5 +78,11 @@ dependencies {
 
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+
+    //阿里的路由
+    compile 'com.alibaba:arouter-api:1.4.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+
+
 
 }

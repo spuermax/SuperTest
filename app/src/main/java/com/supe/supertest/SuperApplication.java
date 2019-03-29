@@ -1,5 +1,9 @@
 package com.supe.supertest;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.supe.supertest.common.utils.UrlUtils;
@@ -24,6 +28,13 @@ public class SuperApplication extends QsApplication {
         }
 
         refWatcher = LeakCanary.install(this);
+
+        if(isApkDebug()){
+            ARouter.openLog();
+            ARouter.openDebug();
+        }
+
+        ARouter.init(this);
     }
 
     /**
@@ -58,5 +69,15 @@ public class SuperApplication extends QsApplication {
     @Override
     public int errorLayoutId() {
         return R.layout.layout_error;
+    }
+
+    private boolean isApkDebug() {
+        try {
+            ApplicationInfo info = getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 }
