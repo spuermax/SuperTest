@@ -15,6 +15,9 @@ import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.supe.supertest.notification.NotificationHelper;
 import com.supermax.base.common.utils.QsHelper;
 import com.supermax.base.common.viewbind.annotation.Bind;
@@ -28,10 +31,15 @@ import com.supermax.base.mvp.QsActivity;
  * @Date 2019/3/13 11:13
  * @Description
  */
+@Route(path = "/supe/supertest")
 public class TestActivityA extends QsActivity {
     NotificationManager mNotificationManager;
     @Bind(R.id.bt_Notification)
     Button bt_Notification;
+    @Autowired (name = "name")
+    public String name;
+    @Autowired(name = "age")
+    int age;
 
     @Override
     public int layoutId() {
@@ -40,6 +48,8 @@ public class TestActivityA extends QsActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        ARouter.getInstance().inject(this);//添加在onCreate（）
+
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -85,6 +95,8 @@ public class TestActivityA extends QsActivity {
                         .setContentIntent(pendingIntent)
                         .build();
                 manager.notify(1, notification);
+
+                QsToast.show(name + age + "--");
                 break;
         }
     }
