@@ -9,10 +9,10 @@ import com.supermax.base.mvp.adapter.QsListAdapterItem;
 
 /**
  * @Author yinzh
- * @Date   2018/10/18 14:05
+ * @Date 2019/4/3 14:25
  * @Description
  */
-public class YDNAdapter extends QsListAdapterItem<Item>{
+public class TopBottomAdapter extends QsListAdapterItem<Item>{
 
     @Bind(R.id.tv_age)
     TextView tv_age;
@@ -25,8 +25,9 @@ public class YDNAdapter extends QsListAdapterItem<Item>{
     }
 
     @Override
-    public void bindData(Item item, int i, int i1) {
+    public void bindData(Item item, int position, int count) {
         tv_name.setText(item.name);
         tv_age.setText(String.valueOf(item.age));
     }
+
 }

@@ -27,23 +27,9 @@ import java.util.ArrayList;
  */
 public class YaDianNaFragment extends QsPullListFragment<YaDianNaPresenter, Item> {
 
-    String HOME = "首页";
-    String FEEDBACK = "客服";
-    String MESSAGE = "消息";
-
-    String[] MENU_ITEMS = {HOME, FEEDBACK, MESSAGE};
-
-    private int[] menuIcons = new int[]{R.drawable.yw_menu_account, R.drawable.yw_menu_fb, R.drawable.yw_menu_msg};
-
-    ArrayList<FloatItem> itemList = new ArrayList<>();
-
     @Override
     public void initData(Bundle bundle) {
         getPresenter().requestData(false);
-
-        for (int i = 0; i < menuIcons.length; i++) {
-            itemList.add(new FloatItem(MENU_ITEMS[i], 0x99000000, 0x99000000, BitmapFactory.decodeResource(this.getResources(), menuIcons[i]), String.valueOf(i + 1)));
-        }
     }
 
     @Override
@@ -85,8 +71,8 @@ public class YaDianNaFragment extends QsPullListFragment<YaDianNaPresenter, Item
 //        intent2Activity(TestActivityA.class);
 
         ARouter.getInstance().build("/supe/supertest")
-                .withString("name","SuperMax")
-                .withInt("age",18)
+//                .withString("name","SuperMax")
+//                .withInt("age",18)
                 .navigation();
     }
 }
