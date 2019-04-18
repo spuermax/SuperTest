@@ -33,6 +33,9 @@ public class SuperApplication extends QsApplication {
             ARouter.openLog();
             ARouter.openDebug();
         }
+
+
+        
         ARouter.init(this);
     }
 
