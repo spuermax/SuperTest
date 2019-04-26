@@ -22,6 +22,7 @@ import com.supe.supertest.common.utils.PermissionUtils;
 import com.supe.supertest.common.utils.SettingUtil;
 import com.supe.supertest.common.wdiget.SonnyJackDragView;
 import com.supe.supertest.indicator.MagicIndicatorActivity;
+import com.supe.supertest.realm.TestModel;
 import com.supe.supertest.viewpageractivity.HomeActivity;
 import com.supermax.base.common.aspect.ThreadPoint;
 import com.supermax.base.common.aspect.ThreadType;
@@ -40,6 +41,10 @@ import com.supermax.base.mvp.QsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 public class MainActivity extends QsActivity {
 
@@ -72,7 +77,18 @@ public class MainActivity extends QsActivity {
         testGlide();
         testImageHelper();
 
+        TestModel testModel = new TestModel();
+        testModel.setAge("12");
+        testModel.setAgeA(15);
+        testModel.setName("yzh");
 
+
+        Realm defaultInstance = Realm.getDefaultInstance();
+
+        defaultInstance.insert(testModel);
+        TestModel object = defaultInstance.createObject(TestModel.class);
+
+        QsToast.show(object.getAge());
 
 
     }
