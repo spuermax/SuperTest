@@ -58,7 +58,8 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
         isNightMode = ReadSettingManager.getInstance().isNightMode();
         isFullScreen = ReadSettingManager.getInstance().isFullScreen();
         if(mBookId == null){
-            mBookId = "/storage/emulated/0/Download/browser/元尊.txt";
+//            mBookId = "/storage/emulated/0/Download/browser/test.txt";
+            mBookId = "file:////android_asset/test.txt";
         }
         if(mCollBook == null){
             mCollBook = new CollBookBean();

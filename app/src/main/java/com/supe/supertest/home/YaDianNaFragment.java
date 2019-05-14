@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.supe.supertest.MainActivity;
 import com.supe.supertest.R;
 import com.supe.supertest.TestActivityA;
 import com.supe.supertest.common.button.BaseFloatDailog;
@@ -68,11 +69,11 @@ public class YaDianNaFragment extends QsPullListFragment<YaDianNaPresenter, Item
 
         QsToast.show(position + "");
 //        getPresenter().requestAuthCode();
-//        intent2Activity(TestActivityA.class);
+        intent2Activity(MainActivity.class);
 
-        ARouter.getInstance().build("/supe/supertest")
-//                .withString("name","SuperMax")
-//                .withInt("age",18)
-                .navigation();
+//        ARouter.getInstance().build("/supe/supertest")
+////                .withString("name","SuperMax")
+////                .withInt("age",18)
+//                .navigation();
     }
 }

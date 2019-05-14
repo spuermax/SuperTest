@@ -31,8 +31,8 @@ import com.supermax.base.mvp.adapter.QsRecycleAdapterItem;
 
     @Override
     protected void onBindItemData(Item item, int i, int i1) {
-//        tv_name.setText(item.name);
-//        tv_age.setText(String.valueOf(item.age));
+//        tv_name.setText("item.name");
+//        tv_age.setText(String.valueOf("item.age"));
     }
 
 }
