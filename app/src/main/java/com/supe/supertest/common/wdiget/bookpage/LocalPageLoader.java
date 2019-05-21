@@ -76,7 +76,7 @@ public class LocalPageLoader extends PageLoader {
         if (!mBookFile.exists()) return;
 
         //获取文件的大小
-        mBookSize = mBookFile.length();// 5392717
+        mBookSize = mBookFile.length();//
 
         //文件内容为空
         if (mBookSize == 0) {

@@ -1,13 +1,12 @@
 package com.supe.supertest.common.wdiget.bookpage;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -15,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
+import com.supe.supertest.book.module.ShowChar;
 import com.supe.supertest.common.utils.ScreenUtils;
 import com.supe.supertest.common.wdiget.bookpage.animation.CoverPageAnim;
 import com.supe.supertest.common.wdiget.bookpage.animation.HorizonPageAnim;
@@ -23,17 +23,9 @@ import com.supe.supertest.common.wdiget.bookpage.animation.PageAnimation;
 import com.supe.supertest.common.wdiget.bookpage.animation.ScrollPageAnim;
 import com.supe.supertest.common.wdiget.bookpage.animation.SimulationPageAnim;
 import com.supe.supertest.common.wdiget.bookpage.animation.SlidePageAnim;
-import com.supe.supertest.common.wdiget.bookpage.show.ShowChar;
-import com.supe.supertest.common.wdiget.bookpage.show.ShowLine;
-import com.supermax.base.common.log.L;
-import com.supermax.base.common.widget.toast.QsToast;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static android.content.Context.CLIPBOARD_SERVICE;
-
 
 /**
  * @Author yinzh
@@ -72,11 +64,18 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
     private boolean isLongClick = false;
     //唤醒菜单的区域
     private RectF mCenterRect = null;
+    //取消长按事件的选中状态
+    private boolean isCancelSelected;
+    private boolean isLastRefresh = false;
 
     private RectF mViewF = null;
 
+
+    //做长按事件
     private Timer timer;
 
+    //Mode
+    private Mode currentMode = Mode.Normal;
     /*************************************手势滑动********************************************/
     private Mode mCurrentMode = Mode.Normal;  // 模式
     private ShowChar FirstSelectShowChar = null;// 选中的做文字，
@@ -247,12 +246,24 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         //绘制背景
         canvas.drawColor(mBgColor);
-
         //绘制动画
         mPageAnim.draw(canvas);
+
+        if (isCancelSelected) {
+            isCancelSelected = false;
+            mPageLoader.onDraw(getNextPage());
+        }
+
+        //绘制高亮
+        mPageLoader.onDraw();
+        //绘制文本
+        /**
+         * 此此绘制Content，是为了刷掉高亮显示，但不是每次onDraw都需要，是在高亮显示的需要。
+         * 在调用invalidate的时候，高亮显示并没有被刷新。 两种可能，一个是绘制的不是一个Canvas，另一个是没有走这写代码。
+         *
+         */
     }
 
     private float Down_X = -1, Down_Y = -1;
@@ -271,6 +282,7 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
 
     private boolean isLableClick;
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
@@ -283,103 +295,104 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
             case MotionEvent.ACTION_DOWN:
                 mStartX = x;
                 mStartY = y;
-
-                Down_X = x;
-                Down_Y = y;
                 isMove = false;
-                isLableClick = false;
-
-                //-------------------------------------模式选择   invalidate  是为了如果是选中状态，但是非点击Icon区域，就取消Select状态。
-                if(mCurrentMode != Mode.Normal){//
-                    boolean isSelectIcon = checkoutIfSelectMoveIcon(x, y);
-                    if(!isSelectIcon){
-                        mCurrentMode = Mode.Normal;
-                        invalidate();
-                    }
-                }
-
-
-                //--------------------------------做每个标注的
-                List<Rect> listRect = mPageLoader.getListRect();
-                for (int i = 0; i < listRect.size(); i ++){
-                    if(listRect.get(i).contains(x, y)){
-                        isLableClick = true;
-                    }
-                }
+                isCancelSelected = false;
 
                 cancelLongClickListen();
-                canTouch = mTouchListener.onTouch();//  onTouch 事件。
+                canTouch = mTouchListener.onTouch();
                 mPageAnim.onTouchEvent(event);
 
+                /**
+                 * 当长按高亮显示之后，然后进行点击区域模式划分
+                 */
+                if (currentMode != Mode.Normal) {
+                    if (!mPageLoader.checkIfSelectRegionMove(x, y)) {
+                        currentMode = Mode.Normal;
+                        isCancelSelected = true;
+                        mPageLoader.setMode(Mode.Normal);
+                        Log.d("PageView", "这是取消长按的postInvalidate");
+                        Log.i("postInvalidate", "---------这是取消长按----------我是MOVE事件的刷新页面");
+                        postInvalidate();
+                    } else {
+                        currentMode = mPageLoader.getMode();
+                        Log.d("PageView", "我是点击的滑动模式");
+                    }
 
-                // 长按事件  ---------------------
+                } else {
+                    Log.d("PageView", " mPageAnim.onTouchEvent");
+                }
+
+                /**
+                 * 长按事件
+                 * 此出会需要过滤在滑动时候的长按
+                 */
                 timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        ((Activity) getContext()).runOnUiThread(() ->
-                                isLongClick = true
-                        );
+
+                        ((Activity) getContext()).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (currentMode == Mode.Normal) {
+                                    isLongClick = true;
+                                    currentMode = Mode.PressSelectText;
+                                    mPageLoader.setMode(Mode.PressSelectText);// 设置Mode
+                                    mPageLoader.setDown_x(x);
+                                    mPageLoader.setDown_y(y);
+                                    Log.d("PageView", "这是长按的postInvalidate");
+                                    Log.i("postInvalidate", "---------这是长按----------我是MOVE事件的刷新页面");
+                                    postInvalidate();
+                                }
+                            }
+                        });
                     }
                 }, LONG_CLICK_DURATION);
-
-                //定位----行-------字----------------------------------------------------
-                TxtPage curPage = mPageLoader.getCurPage(mPageLoader.getPagePos());
-                List<ShowLine> showLines = curPage.showLines;
-                for (int m = 0; m < showLines.size(); m++) {
-                    if (y < showLines.get(m).lintHeight) {// 确定行
-                        if (m == 0) {
-                            char firstChar = showLines.get(m).CharsData.get(0).charData;
-                            char lastChar = showLines.get(m).CharsData.get(showLines.get(m).CharsData.size() - 1).charData;
-                        } else {
-                            if (y > showLines.get(m - 1).lintHeight && y < showLines.get(m).lintHeight) {
-
-                                //------------------遍历循环每个字的位置，得到具体位置的某个字
-                                List<ShowChar> charList = showLines.get(m).CharsData;
-
-                                for (int n = 0; n < charList.size(); n++) {
-
-                                    if (n == charList.size() - 1) {
-                                        Log.i("PageView Log", "踏破铁鞋无觅处  是你-  是你--  就是你---" + charList.get(n).charData);
-                                        break;
-                                    }
-                                    if (x >= charList.get(n).x && x <= charList.get(n + 1).x) {
-                                        Log.i("PageView Log", "踏破铁鞋无觅处  是你-  是你--  就是你---" + charList.get(n).charData);
-                                        break;
-                                    }
-                                }
-                                Log.i("PageView Log", showLines.get(m).getLineData());
-                                //  复制到粘贴板。
-                            }
-
-                        }
-
-                    }
-
-                }
                 break;
             case MotionEvent.ACTION_MOVE:
 
-                //---------------------------------在此事件进行绘制-------------------------------------------
+                mTouchListener.onWindow(Mode.Normal);
 
+                /**
+                 * 滑动绘制高亮显示
+                 * 与滑动翻页事件冲突。
+                 */
+                if (currentMode == Mode.SelectMoveForward) {//向前滑动的模式
+                    if (mPageLoader.isCanMoveForward(event.getX(), event.getY())) {
+                        Log.i("PageView", "CanMoveForward  I Can Move Forward");
+                        isCancelSelected = true;
+                        mPageLoader.checkSelectForwardText(event.getX(), event.getY());// 选择选中的字体。
+                        postInvalidate();
+                        Log.i("postInvalidate", "-------------SelectMoveForward------我是MOVE事件的刷新页面");
+                    }
+                } else if (currentMode == Mode.SelectMoveBack) {
+                    if (mPageLoader.isCanMoveBack(event.getX(), event.getY())) {
+                        Log.i("PageView", "CanMoveBack  I Can Move Back");
+                        isCancelSelected = true;
+                        mPageLoader.checkSelectBackText(event.getX(), event.getY());// 选择选中的字体。
+                        Log.i("postInvalidate", "---------SelectMoveBack----------我是MOVE事件的刷新页面");
+                        postInvalidate();
+                    }
+                } else {
+                    //判断是否大于最小滑动值。
+                    int slop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+                    if (!isMove) {
+                        isMove = Math.abs(mStartX - event.getX()) > slop || Math.abs(mStartY - event.getY()) > slop;
+                    }
 
-
-
-                //判断是否大于最小滑动值。
-                int slop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-                if (!isMove) {
-                    isMove = Math.abs(mStartX - event.getX()) > slop || Math.abs(mStartY - event.getY()) > slop;
+                    //如果滑动了，则进行翻页。
+                    if (isMove) {
+                        isLableClick = false;
+                        cancelLongClickListen();// 取消长按事件
+                        mPageAnim.onTouchEvent(event);//
+                    }
                 }
 
-                //如果滑动了，则进行翻页。
-                if (isMove) {
-                    cancelLongClickListen();
-                    isLableClick = false;
-                    mPageAnim.onTouchEvent(event);
-                }
+
                 break;
             case MotionEvent.ACTION_UP:
-                Release();
+                isLastRefresh = true;
+                mTouchListener.onWindow(currentMode);
                 if (!isMove && !isLongClick && !isLableClick) {// 事件优先级最低 的中间区域事件
                     cancelLongClickListen();
                     //设置中间区域范围
@@ -388,37 +401,24 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
                                 mViewWidth * 4 / 5, mViewHeight * 2 / 3);
                     }
 
-                    //是否点击了中间  return true 会消费此事件  先注释，验证isLongClick。
+                    //是否点击了中间
                     if (mCenterRect.contains(x, y)) {
-                        if (mTouchListener != null) {
+                        if (mTouchListener != null && !isLongClick) {
                             mTouchListener.center();
                         }
                         return true;
                     }
-
                 } else {
-
-                    if(isLableClick){//-------如果点击是标注，需要进行查找。 定位
-                        L.i("PageView Rect","我点击的是标注。。");
-                        mTouchListener.onLabel(1);
-                        isLableClick = false;
-                        return true;
-
-                    }
-
-                    if(isLongClick){
+                    if (isLongClick) {
                         cancelLongClickListen();
-                        Log.i("PageView  Log","我是长按事件   isLongClick");
-                        isLongClick = false;
+                        Log.i("PageView  Log", "我是长按事件   isLongClick");
                         return true;
                     }
-
-                    cancelLongClickListen();
-
                 }
 
-
-                mPageAnim.onTouchEvent(event);
+                if (currentMode == Mode.Normal) {
+                    mPageAnim.onTouchEvent(event);
+                }
                 break;
         }
         return true;
@@ -655,19 +655,21 @@ public class PageView extends View implements GestureDetector.OnGestureListener{
 
         void onLabel(int id);
 
-        boolean onLongClickDown(int x, int y);
-
-        void onLongClickMove(int x, int y);
-
-        void onLongClickUp(int x, int y);
-
+        void onWindow(Mode mode);
     }
 
 
     /**
-     *
+     * Long press operation corresponding to the four modes
      */
-    private enum Mode{
-        Normal,PressSelectText, SelectMoveForward,SelectMoveBack
+    public enum Mode {
+        Normal,
+        PressSelectText,//按下滑动模式
+        SelectMoveForward,//向前滑动模式
+        SelectMoveBack//向后滑动模式
     }
+
+
+
+
 }

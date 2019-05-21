@@ -1,6 +1,6 @@
 package com.supe.supertest.common.wdiget.bookpage;
 
-import com.supe.supertest.common.wdiget.bookpage.show.ShowLine;
+import com.supe.supertest.book.module.ShowLine;
 
 import java.util.List;
 

@@ -6,8 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Region;
 import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +18,8 @@ import android.text.TextPaint;
 import android.util.Log;
 
 import com.supe.supertest.R;
+import com.supe.supertest.book.module.ShowChar;
+import com.supe.supertest.book.module.ShowLine;
 import com.supe.supertest.common.utils.RxUtils;
 import com.supe.supertest.common.utils.ScreenUtils;
 import com.supe.supertest.common.utils.StringUtils;
@@ -23,8 +28,6 @@ import com.supe.supertest.common.wdiget.bookpage.bean.BookRecordBean;
 import com.supe.supertest.common.wdiget.bookpage.bean.CollBookBean;
 import com.supe.supertest.common.wdiget.bookpage.helper.BookRecordHelper;
 import com.supe.supertest.common.wdiget.bookpage.manager.ReadSettingManager;
-import com.supe.supertest.common.wdiget.bookpage.show.ShowChar;
-import com.supe.supertest.common.wdiget.bookpage.show.ShowLine;
 import com.supermax.base.common.log.L;
 import com.supermax.base.common.utils.QsHelper;
 import com.supermax.base.common.utils.StreamCloseUtils;
@@ -152,6 +155,35 @@ public abstract class PageLoader {
 
     /*****************************ShowChar**********************************/
     private List<ShowLine> showLines = new ArrayList<>();
+    private ShowChar FirstSelectShowChar = null;
+    private ShowChar LastSelectShowChar = null;
+    private PageView.Mode mCurrentMode = PageView.Mode.Normal;
+    private float Down_x = 0;
+    private float Down_y = 0;
+
+    //当前滑动选择的数据
+    private final List<ShowLine> mSelectLines = new ArrayList<>();
+
+    public List<ShowLine> getSelectLines() {
+        return mSelectLines;
+    }
+
+    /**************************************耦合较高****************************/
+    public void setMode(PageView.Mode mode) {
+        this.mCurrentMode = mode;
+    }
+
+    public PageView.Mode getMode() {
+        return mCurrentMode;
+    }
+
+    public void setDown_x(float down_x) {
+        Down_x = down_x;
+    }
+
+    public void setDown_y(float down_y) {
+        Down_y = down_y;
+    }
 
     /*****************************init params*******************************/
     public PageLoader(PageView pageView) {
@@ -473,7 +505,6 @@ public abstract class PageLoader {
                 .findBookRecordById(mCollBook.get_id());
         if (mBookRecord == null) {
             mBookRecord = new BookRecordBean();
-//            mBookRecord.setChapter(1);//
         }
 
         mCurChapterPos = mBookRecord.getChapter();
@@ -651,9 +682,255 @@ public abstract class PageLoader {
         return pages;
     }
 
+    /**
+     * Determine whether you can move forward
+     *
+     * @return
+     */
+    public boolean isCanMoveForward(float down_x, float down_y) {
+        Path p = new Path();
+        p.moveTo(LastSelectShowChar.TopRightPosition.x, LastSelectShowChar.TopRightPosition.y);
+        p.lineTo(mPageView.getWidth(), LastSelectShowChar.TopRightPosition.y);
+        p.lineTo(mPageView.getWidth(), 0);
+        p.lineTo(0, 0);
+        p.lineTo(0, LastSelectShowChar.BottomRightPosition.y);
+        p.lineTo(LastSelectShowChar.BottomRightPosition.x, LastSelectShowChar.BottomRightPosition.y);
+        p.lineTo(LastSelectShowChar.TopRightPosition.x, LastSelectShowChar.TopRightPosition.y);
+
+        return computeRegion(p).contains((int) down_x, (int) down_y);
+
+    }
+
+    /**
+     * Determine whether you can move back
+     *
+     * @param down_x
+     * @param down_y
+     * @return
+     */
+    public boolean isCanMoveBack(float down_x, float down_y) {
+        Path p = new Path();
+        p.moveTo(FirstSelectShowChar.TopLeftPosition.x, FirstSelectShowChar.TopLeftPosition.y);
+        p.lineTo(mPageView.getWidth(), FirstSelectShowChar.TopLeftPosition.y);
+        p.lineTo(mPageView.getWidth(), mPageView.getHeight());
+        p.lineTo(0, mPageView.getHeight());
+        p.lineTo(0, FirstSelectShowChar.BottomLeftPosition.y);
+        p.lineTo(FirstSelectShowChar.BottomLeftPosition.x, FirstSelectShowChar.BottomLeftPosition.y);
+        p.lineTo(FirstSelectShowChar.TopLeftPosition.x, FirstSelectShowChar.TopLeftPosition.y);
+
+        return computeRegion(p).contains((int) down_x, (int) down_y);
+    }
+
+
+    /**
+     * Calculate the region by path
+     *
+     * @return
+     */
+    public Region computeRegion(Path path) {
+        Region region = new Region();
+        RectF f = new RectF();
+        path.computeBounds(f, true);
+        region.setPath(path, new Region((int) f.left, (int) f.top, (int) f.right, (int) f.bottom));
+        return region;
+    }
+
+    /**
+     * Checks the selected font
+     *
+     * @return
+     */
+    public void checkSelectForwardText(float down_x, float down_y) {
+        ShowChar moveToChar = searchPressShowChar(down_x, down_y);
+        Log.i("PageView", "moveToChar --" + moveToChar);
+
+        if (LastSelectShowChar != null && moveToChar != null) {
+            if (moveToChar.BottomLeftPosition.x < LastSelectShowChar.BottomLeftPosition.x
+                    || (moveToChar.BottomLeftPosition.x == LastSelectShowChar.BottomLeftPosition.x
+                    && moveToChar.TopRightPosition.y <= LastSelectShowChar.TopRightPosition.y)) {
+
+                Log.i("PageView", "我是checkSelectForwardText  ------------ ");
+                FirstSelectShowChar = moveToChar;
+
+                checkSelectText();
+
+            }
+
+        }
+    }
+
+
+    /**
+     * Find the corresponding character based on the point pressed.
+     *
+     * @param down_X2
+     * @param down_Y2
+     * @return
+     */
+    public ShowChar searchPressShowChar(float down_X2, float down_Y2) {
+        Log.i("Point --", "点击的事件是 down_X2---" + down_X2 + "----down_Y2 ---" + down_Y2);
+        TxtPage curPage = getCurPage(getPagePos());
+        List<ShowLine> showLines = curPage.showLines;
+        for (ShowLine l : showLines) {
+            for (ShowChar showChar : l.CharsData) {
+                if (down_Y2 > showChar.BottomLeftPosition.y) {
+                    break;// 说明是在下一行
+                }
+
+                if (down_Y2 <= showChar.BottomLeftPosition.y && down_X2 >= showChar.BottomLeftPosition.x && down_X2 <= showChar.BottomRightPosition.x) {
+                    Log.i("Point --", "点击的事件是 down_X2---" + down_X2 + "----down_Y2 ---" + down_Y2 + "---我选的是 ---" + showChar.toString());
+                    return showChar;
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
+     * 选择遍历搜选字符  需要加Synchronized
+     */
+    private synchronized void checkSelectText() {
+        Boolean Started = false;
+        Boolean Ended = false;
+        //清空之前滑动的数据
+        mSelectLines.clear();
+
+        TxtPage curPage = getCurPage(getPagePos());
+        //当前页面没有数据或者没有选择或者已经释放了长按选择事件，不执行
+        if (curPage == null || FirstSelectShowChar == null || LastSelectShowChar == null) {
+            return;
+        }
+
+        //获取当前页面行数据
+        List<ShowLine> lines = curPage.showLines;
+        // 找到选择的字符数据，转化为选择的行，然后将行选择背景画出来。
+        for (ShowLine line : lines) {
+            ShowLine selectLine = new ShowLine();
+            selectLine.CharsData = new ArrayList<>();
+            for (ShowChar c : line.CharsData) {
+                if (!Started) {// 定位到行中的字，然后转换成行。  主要是分行
+                    if (c.TopLeftPosition.x == FirstSelectShowChar.TopLeftPosition.x && c.TopLeftPosition.y == FirstSelectShowChar.TopLeftPosition.y) {
+                        Started = true;
+                        selectLine.CharsData.add(c);
+
+                        if (c.TopLeftPosition.x == LastSelectShowChar.TopLeftPosition.x && c.TopLeftPosition.y == LastSelectShowChar.TopLeftPosition.y) {
+                            Ended = true;
+
+                            break;
+                        }
+                    }
+
+                } else {
+                    if (c.TopLeftPosition.x == LastSelectShowChar.TopLeftPosition.x && c.TopLeftPosition.y == LastSelectShowChar.TopLeftPosition.y) {
+                        Ended = true;
+                        if (selectLine.CharsData != null || !selectLine.CharsData.contains(c)) {
+                            selectLine.CharsData.add(c);
+                        }
+                        break;
+
+                    } else {
+                        selectLine.CharsData.add(c);
+                    }
+                }
+            }
+
+            if (selectLine != null) {
+                mSelectLines.add(selectLine);
+            }
+
+
+            Log.i("PageLoaderSelect", "选择字体是 --- " + mSelectLines);
+
+            if (Started && Ended) {
+                return;
+            }
+        }
+    }
+
+
+    private Path mSelectTextPath = new Path();
+
+    /**
+     * Draw by pressing mode
+     */
+    private void drawPressSelectText() {
+        ShowChar showChar = searchPressShowChar(Down_x, Down_y);
+
+        if (showChar != null) {
+            FirstSelectShowChar = LastSelectShowChar = showChar;
+            mSelectTextPath.reset();
+            mSelectTextPath.moveTo(showChar.TopLeftPosition.x, showChar.TopLeftPosition.y);
+            mSelectTextPath.lineTo(showChar.TopRightPosition.x, showChar.TopRightPosition.y);
+            mSelectTextPath.lineTo(showChar.BottomRightPosition.x, showChar.BottomRightPosition.y + 10);
+            mSelectTextPath.lineTo(showChar.BottomLeftPosition.x, showChar.BottomLeftPosition.y + 10);
+            canvas.drawPath(mSelectTextPath, mSelectBgPaint);
+
+            //绘制两个Icon
+            drawBorderPoint();
+
+            Down_x = -1;
+            Down_y = -1;
+        }
+
+
+    }
+
+    /**
+     * Draws the selected boundary Icon
+     */
+    private void drawBorderPoint() {
+
+        if (FirstSelectShowChar != null && LastSelectShowChar != null) {
+            Paint paintIcon = new Paint();
+            paintIcon.setAntiAlias(true);
+            paintIcon.setDither(true);
+            Bitmap bitmapIconLeft = BitmapFactory.decodeResource(QsHelper.getInstance().getApplication().getResources(), R.mipmap.iv_book_left_icon);
+            Bitmap bitmapIconRight = BitmapFactory.decodeResource(QsHelper.getInstance().getApplication().getResources(), R.mipmap.iv_book_right_icon);
+            canvas.drawBitmap(bitmapIconLeft, FirstSelectShowChar.BottomLeftPosition.x - 30, FirstSelectShowChar.BottomLeftPosition.y, paintIcon);
+            canvas.drawBitmap(bitmapIconRight, LastSelectShowChar.BottomRightPosition.x, LastSelectShowChar.BottomRightPosition.y, paintIcon);
+            Log.i("Point", "drawBorderPoint -- " + FirstSelectShowChar.toString());
+        }
+
+    }
+
+
+    /**
+     *
+     */
+    public void checkSelectBackText(float down_x, float down_y) {
+        ShowChar moveToChar = searchPressShowChar(down_x, down_y);
+        if (FirstSelectShowChar != null && moveToChar != null) {
+            if (moveToChar.BottomRightPosition.x > FirstSelectShowChar.BottomRightPosition.x
+                    || (moveToChar.BottomRightPosition.x == FirstSelectShowChar.BottomRightPosition.x
+                    && moveToChar.TopRightPosition.y >= FirstSelectShowChar.TopRightPosition.y)) {
+                Log.i("PageView", "我是checkSelectBackText  ------------ ");
+                LastSelectShowChar = moveToChar;
+                checkSelectText();
+            }
+        }
+    }
+
+
+    /**
+     * 绘制选中的字体
+     */
+    public void onDraw() {
+
+        if (mCurrentMode != PageView.Mode.Normal) {
+            Log.i("PageView", "我是PressSelectText");
+            drawSelectText();
+        } else {
+            Log.i("PageView", "我是选中字体的Normal");
+        }
+    }
+
+
 
     /**
      * 绘制 页面
+     *
      * @param bitmap
      * @param isUpdate
      */
@@ -664,6 +941,13 @@ public abstract class PageLoader {
         }
         //更新绘制
         mPageView.invalidate();
+    }
+
+    void onDraw(Bitmap bitmap) {
+        drawBackground(mPageView.getBgBitmap(), false);
+        drawContent(bitmap);
+        Log.i("postInvalidate", "---------绘制pageLoader----------刷新页面");
+        Log.d("PageView", "这是onDraw  PageLoader  的invalidate");
     }
 
     void drawBackground(Bitmap bitmap, boolean isUpdate) {
@@ -751,18 +1035,18 @@ public abstract class PageLoader {
     private Canvas canvas;
     private List<Rect> listRect = new ArrayList<>();
 
-    public List<Rect> getListRect(){
+    public List<Rect> getListRect() {
         return listRect;
     }
 
     void drawContent(Bitmap bitmap) {
-        L.i("BookLineChar", "111111111111111111111111111");
         canvas = new Canvas(bitmap);
         listRect.clear();
 
         if (mPageMode == PageView.PAGE_MODE_SCROLL) {
             canvas.drawColor(mPageBg);
         }
+
         /******绘制内容****/
         if (mStatus != STATUS_FINISH) {
             //绘制字体
@@ -815,8 +1099,7 @@ public abstract class PageLoader {
 
             //对标题进行绘制
             for (int i = 0; i < mCurPage.titleLines; ++i) {
-
-                str = mCurPage.lines.get(i);
+                str = mCurPage.lines.get(i);// lines
 
                 //设置顶部间距
                 if (i == 0) {
@@ -826,7 +1109,8 @@ public abstract class PageLoader {
                 //计算文字显示的起始点
                 int start = (int) (mDisplayWidth - mTitlePaint.measureText(str)) / 2;
                 //进行绘制
-                canvas.drawText(str, start, top, mTitlePaint);
+                canvas.drawText(str, start, top, mTitlePaint);// -------------修改标题的top只
+                Log.i("PageView Top", str + " ]]]]]]]]]]]]]]]]]");
 
                 //设置尾部间距
                 if (i == mCurPage.titleLines - 1) {
@@ -843,20 +1127,17 @@ public abstract class PageLoader {
             paintPostill.setAntiAlias(true);
             paintPostill.setDither(true);
             paintPostill.setTextSize(30);
-            paintPostill.setColor(ContextCompat.getColor(QsHelper.getInstance().getApplication(), R.color.color_white));
+            paintPostill.setColor(ContextCompat.getColor(QsHelper.getInstance().getApplication(), R.color.white));
 
 
             Paint paintbg = new Paint();
             paintbg.setAntiAlias(true);
             paintbg.setDither(true);
             paintbg.setTextSize(40);
-            paintbg.setColor(ContextCompat.getColor(QsHelper.getInstance().getApplication(), R.color.colorAccen));
+            paintbg.setColor(ContextCompat.getColor(QsHelper.getInstance().getApplication(), R.color.color_bright_blue));
+//            BitmapDrawable drawable = (BitmapDrawable) MyApplication.getAppContext().getResources().getDrawable(R.drawable.zhushi);
 
-            Paint paintIcon = new Paint();
-            paintbg.setAntiAlias(true);
-            paintbg.setDither(true);
-
-            //------------------------------画虚线的画笔
+            //------------------------------画虚线的画笔------------------------
             Paint paintLine = new Paint();
             paintLine.setAntiAlias(true);
             paintLine.setDither(true);
@@ -864,71 +1145,82 @@ public abstract class PageLoader {
             paintLine.setColor(Color.parseColor("#4C9CFE"));
             paintLine.setPathEffect(new DashPathEffect(new float[]{4, 8}, 0));
 
-
-//            BitmapDrawable drawable = (BitmapDrawable) MyApplication.getAppContext().getResources().getDrawable(R.drawable.zhushi);
+            CharSequence notation = "&";
 
             //对内容进行绘制
             for (int i = mCurPage.titleLines; i < mCurPage.lines.size(); ++i) {
-//                L.i("BookLineChar", mCurPage.lines.get(i));
+//                NotationBean notationBean = new NotationBean();
                 str = mCurPage.lines.get(i);
-
-                if (i == 3) {
-                    canvas.drawRect(mMarginWidth + 10, top - 70, mMarginWidth + mTextPaint.measureText(str) - 10, top + 10, mSelectBgPaint);//--------------画选中的背景
-                    // 绘制选中的边界icon
-                    Bitmap bitmapIconLeft = BitmapFactory.decodeResource(QsHelper.getInstance().getApplication().getResources(), R.mipmap.iv_book_left_icon);
-                    Bitmap bitmapIconRight = BitmapFactory.decodeResource(QsHelper.getInstance().getApplication().getResources(), R.mipmap.iv_book_right_icon);
-                    canvas.drawBitmap(bitmapIconRight, mMarginWidth + mTextPaint.measureText(str) - 10, top, paintIcon);
-                    canvas.drawBitmap(bitmapIconLeft, mMarginWidth - 21, top, paintIcon);
-                }
-
-                // 对内容进行记录。--------------------------------------------------
-                ShowLine showLine = new ShowLine();
-                List<ShowChar> showCharList = new ArrayList<>();
-
-
-                Log.i("BookLineChar", mCurPage.titleLines + "---------" + "mCurPage.position ==" + mCurPage.position);
-                Log.i("BookLineChar", str);
-
-                // -------------------------drawContent-------------------------------------------
                 canvas.drawText(str, mMarginWidth, top, mTextPaint);
 
-                // -----------------------------ad----------------------------画一条直线
-                if(i == 4){
-                    canvas.drawLine(mMarginWidth, top + 20, mMarginWidth + mTextPaint.measureText(str) - 10, top + 20, paintLine);
-                }
+                // ------------------------对内容进行记录。----------------------------
+                ShowLine showLine = new ShowLine();
+                List<ShowChar> showCharList = new ArrayList<>();
                 float w = mMarginWidth;
-                // 保存每个字符的位置。
+
+                float leftPosition = mMarginWidth;
+                float rightPosition = 0;
+                float bottomPosition = top;// 得到字体的高度。
+                // 保存内个字符的位置。
+                float charWidth = mTextPaint.measureText(str) / str.length();
                 for (int n = 0; n < str.length(); n++) {
                     ShowChar showChar = new ShowChar();
                     showChar.charData = str.charAt(n);
                     showChar.id = i;
                     showChar.x = w;
                     showChar.y = top + 10;
-                    showCharList.add(showChar);
                     w = w + mTextPaint.measureText(str) / 12;
+
+                    //--------------------------保存位置--------------------------------
+
+                    rightPosition = leftPosition + mTextPaint.measureText(str) / str.length();
+
+                    Point topLeftPoint = new Point();
+                    showChar.TopLeftPosition = topLeftPoint;
+                    topLeftPoint.x = (int) leftPosition;
+                    topLeftPoint.y = (int) (bottomPosition - mTextPaint.getTextSize());
+
+                    Point bottomLeftPoint = new Point();
+                    showChar.BottomLeftPosition = bottomLeftPoint;
+                    bottomLeftPoint.x = (int) leftPosition;
+                    bottomLeftPoint.y = (int) bottomPosition;
+
+                    Point topRightPoint = new Point();
+                    showChar.TopRightPosition = topRightPoint;
+                    topRightPoint.x = (int) rightPosition;
+                    topRightPoint.y = (int) (bottomPosition - mTextPaint.getTextSize());
+
+                    Point bottomRightPoint = new Point();
+                    showChar.BottomRightPosition = bottomRightPoint;
+                    bottomRightPoint.x = (int) rightPosition;
+                    bottomRightPoint.y = (int) bottomPosition;
+
+                    leftPosition = rightPosition;
+
+                    showCharList.add(showChar);
                 }
 
                 showLine.CharsData = showCharList;
                 showLine.lintHeight = top;
                 showLines.add(showLine);
                 mCurPage.showLines = showLines;
+                if (str.contains("\n\n")) {
+                    Log.i("StringBuffer", "----" + str);
+                }
 
-
-                Log.i("BookLineChar", "mMarginWidth = " + mMarginWidth + "=====top = " + top + "=======measureText = " + mTextPaint.measureText(str));//measureText 得到字符串的宽度。
+                Log.i("Point", "mMarginWidth = " + mMarginWidth + "=====top = " + top + "=======measureText = " + mTextPaint.measureText(str));
                 if (str.endsWith("\n")) {
-                    canvas.drawCircle(mTextPaint.measureText(str) + mMarginWidth + 5, top + 5, 30, paintbg);
-                    canvas.drawText("注", mTextPaint.measureText(str) + mMarginWidth - 10, top + 12, paintPostill);// 画每个段后的批注标识
                     // 标注的区域
                     int leftX = (int) (mTextPaint.measureText(str) + mMarginWidth);
-                    int leftY = (int) (top );
-                    int rightX = (int) (leftX + mTextPaint.measureText("标注") + 10);
-                    int rightY = (int) (top + 10 + interval);
-
-                    //------------------------------------进行区域的选中。
-                    Rect rect = new Rect(leftX, leftY, rightX, rightY);
-                    listRect.add(rect);
-
-                    Log.i("PageView Rect ", "----leftX" + leftX + "----leftY"+  leftY + "----rightX" + rightX + "----rightY" + rightY + "-----");
+//                    int leftY = (int) (top + 10);
+//                    int rightX = (int) (leftX + mTextPaint.measureText("标注"));
+//                    int rightY = (int) (top + 10 - interval);
+//                    int leftY = (int) (top);
+//                    int rightX = (int) (leftX + mTextPaint.measureText("标注") + 10);
+//                    int rightY = (int) (top + 10 + interval);
+//                    //------------------------------------进行区域的选中。
+//                    Rect rect = new Rect(leftX, leftY, rightX, rightY);
+//                    Log.i("FBReader", "----" + leftX + leftY + "----" + rightX + "----" + rightY + "-----");
 
                     top += para;
                 } else {
@@ -945,6 +1237,50 @@ public abstract class PageLoader {
     public void drawSeelctedIcon(float leftX, float leftY, float rightX, float rightY, int type) {
 
     }
+
+    /**
+     * Draws selected text to distinguish between different modes
+     */
+    private void drawSelectText() {
+        if (mCurrentMode == PageView.Mode.PressSelectText) {
+            Log.i("PageView", "我是长按滑动模式");
+            drawPressSelectText();
+        } else if (mCurrentMode == PageView.Mode.SelectMoveForward) {
+            Log.i("PageView", "我是向前滑动模式");
+            drawMoveSelectText();
+        } else if (mCurrentMode == PageView.Mode.SelectMoveBack) {
+            Log.i("PageView", "我是向后滑动模式");
+            drawMoveSelectText();
+        }
+    }
+
+    /**
+     * 绘制行背景
+     */
+    private void drawMoveSelectText() {
+        if (mSelectLines != null && mSelectLines.size() > 0) {
+            for (ShowLine line : mSelectLines) {
+                Path path = new Path();
+                if (line.CharsData.size() > 0) {
+
+                    Log.i("PageLoaderSelect", "draw-------------move------------select------------text");
+                    ShowChar firstChar = line.CharsData.get(0);
+                    ShowChar lastChar = line.CharsData.get(line.CharsData.size() - 1);
+
+                    path.moveTo(firstChar.TopLeftPosition.x, firstChar.TopLeftPosition.y);
+                    path.lineTo(lastChar.TopRightPosition.x, lastChar.TopRightPosition.y);
+                    path.lineTo(lastChar.BottomRightPosition.x, lastChar.BottomRightPosition.y + 10);
+                    path.lineTo(firstChar.BottomLeftPosition.x, firstChar.BottomLeftPosition.y + 10);
+                    path.lineTo(firstChar.TopLeftPosition.x, firstChar.TopLeftPosition.y);
+                    canvas.drawPath(path, mSelectBgPaint);
+                    drawBorderPoint();
+                }
+            }
+        }
+
+
+    }
+
 
 
     void setDisplaySize(int w, int h) {
@@ -1288,4 +1624,47 @@ public abstract class PageLoader {
         //页面改变
         void onPageChange(int pos);
     }
+
+
+    /**
+     * Determine whether the click area is movable or not
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean checkIfSelectRegionMove(float x, float y) {
+
+        if (FirstSelectShowChar == null && LastSelectShowChar == null) {
+            return false;
+        }
+
+        float flx, frx, fty, fby;
+        flx = FirstSelectShowChar.TopLeftPosition.x - 40;
+        frx = FirstSelectShowChar.TopLeftPosition.x + 10;
+
+        fty = FirstSelectShowChar.TopLeftPosition.y - 10;
+        fby = FirstSelectShowChar.BottomLeftPosition.y + 20;
+
+
+        float llx, lrx, lty, lby;
+        llx = LastSelectShowChar.TopRightPosition.x - 10;
+        lrx = LastSelectShowChar.TopRightPosition.x + 40;
+
+        lty = LastSelectShowChar.TopRightPosition.y - 10;
+        lby = LastSelectShowChar.BottomRightPosition.y + 20;
+
+        if ((x >= flx && x <= frx) && (y >= fty && y <= fby)) {
+            mCurrentMode = PageView.Mode.SelectMoveForward;
+            return true;
+        }
+
+        if ((x >= llx && x <= lrx) && (y >= lty && y < lby)) {
+            mCurrentMode = PageView.Mode.SelectMoveBack;
+            return true;
+        }
+
+        return false;
+    }
+
 }

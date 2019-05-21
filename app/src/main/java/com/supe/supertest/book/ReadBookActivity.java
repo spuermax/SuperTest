@@ -20,6 +20,7 @@ import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.QsActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,15 +58,19 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
         mCollBook = (CollBookBean) getIntent().getSerializableExtra(EXTRA_COLL_BOOK);
         isNightMode = ReadSettingManager.getInstance().isNightMode();
         isFullScreen = ReadSettingManager.getInstance().isFullScreen();
-        if(mBookId == null){
-//            mBookId = "/storage/emulated/0/Download/browser/test.txt";
-            mBookId = "file:////android_asset/test.txt";
+        if (mBookId == null) {
+            mBookId = "/storage/emulated/0/Download/browser/元尊.txt";
         }
-        if(mCollBook == null){
+
+        //这里id表示本地文件的路径
+
+        //判断是否文件存在
+        if (mCollBook == null) {
             mCollBook = new CollBookBean();
         }
 
-        mCollBook.setIsLocal(false);
+
+        mCollBook.setIsLocal(true);
         mCollBook.set_id(mBookId);
 
         //获取页面加载器
@@ -73,20 +78,19 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
         mPageLoader = pageView.getPageLoader(mCollBook.getIsLocal());//=====update为数据库方法
 
 
-        if(mCollBook.getIsLocal()){
+        if (mCollBook.getIsLocal()) {
             mPageLoader.openBook(mCollBook);
         }
 
 
-        getPresenter().requestBookChapters("1004912299104101110120105100111110103");
-        getPresenter().requestChapterContent("1004912299104101110120105100111110103",1,2);
-
-
+//        getPresenter().requestBookChapters("1004912299104101110120105100111110103");
+//        getPresenter().requestChapterContent("1004912299104101110120105100111110103",1,2);
 
 
         mPageLoader.setOnPageChangeListener(new PageLoader.OnPageChangeListener() {
             @Override
             public void onChapterChange(int pos) {
+                Log.i("FreeChapter", "" + pos);
                 // 选中可选的 章节目录。
             }
 
@@ -118,7 +122,6 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
         pageView.setTouchListener(new PageView.TouchListener() {
             @Override
             public void center() {
-//                toggleMenu(true);
                 QsToast.show("点击中间区域");
             }
 
@@ -129,8 +132,7 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
              */
             @Override
             public boolean onTouch() {
-//                ToastUtils.showShort("点击");
-                Log.i("FBReader","onTouch");
+                Log.i("FBReader", "onTouch");
                 return true;
             }
 
@@ -140,7 +142,7 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
              */
             @Override
             public boolean prePage() {
-                Log.i("FBReader","prePage");
+                Log.i("FBReader", "prePage");
                 return true;
             }
 
@@ -150,7 +152,7 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
              */
             @Override
             public boolean nextPage() {
-                Log.i("FBReader","prePage");
+                Log.i("FBReader", "prePage");
                 return true;
             }
 
@@ -165,17 +167,7 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
             }
 
             @Override
-            public boolean onLongClickDown(int x, int y) {
-                return true;
-            }
-
-            @Override
-            public void onLongClickMove(int x, int y) {
-
-            }
-
-            @Override
-            public void onLongClickUp(int x, int y) {
+            public void onWindow(PageView.Mode mode) {
 
             }
         });
@@ -184,13 +176,13 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
 
 
     @ThreadPoint(ThreadType.MAIN)
-    public void requestBookChapters(BookChaptersModel model){
-        if(model != null){
+    public void requestBookChapters(BookChaptersModel model) {
+        if (model != null) {
             bookChapterList.clear();
-            L.i(initTag(), "-------"+ model);
+            L.i(initTag(), "-------" + model);
             List<BookChaptersModel.CatalogueBean> catalogueBeans = model.getCatalogue();
 
-            for (BookChaptersModel.CatalogueBean catalogueBean : catalogueBeans){
+            for (BookChaptersModel.CatalogueBean catalogueBean : catalogueBeans) {
                 BookChapterBean chapterBean = new BookChapterBean();
                 chapterBean.setBookCode(model.getBookCode());
                 chapterBean.setName(model.getName());
@@ -207,8 +199,8 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
     }
 
     @ThreadPoint(ThreadType.MAIN)
-    public void requestChapterContent(ChapterContentModel model){
-        if(model != null){
+    public void requestChapterContent(ChapterContentModel model) {
+        if (model != null) {
             L.i(initTag(), "-----" + model);
         }
     }
