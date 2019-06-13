@@ -21,7 +21,6 @@ import io.realm.RealmConfiguration;
  */
 public class SuperApplication extends QsApplication {
 
-    private RefWatcher refWatcher = null;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -33,17 +32,13 @@ public class SuperApplication extends QsApplication {
     public void onCreate() {
         super.onCreate();
 
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
 
-        refWatcher = LeakCanary.install(this);
+        LeakCanary.install(this);
 
-        if(isApkDebug()){
+        if (isApkDebug()) {
             ARouter.openLog();
             ARouter.openDebug();
         }
-
 
 
         ARouter.init(this);

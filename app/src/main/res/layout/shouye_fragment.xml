@@ -1,46 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_200"
-            android:background="@color/colorAccent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+    <include layout="@layout/actionbar_title_back" />
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_70"
-                android:background="@color/color_dark_grey" />
 
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_30"
-            android:text="@string/app_name"
-            android:background="@color/color_white"
-            android:gravity="center"
-            />
-    </android.support.design.widget.AppBarLayout>
-
-
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@color/colormediaController_bg"
         >
-    </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:text="@string/app_name"
+                android:gravity="center_vertical"
+                />
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_left_arrow_black"
+                />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:lineSpacingMultiplier="2"
+                android:text="要实现这样的效果, 需要用到:
+CoordinatorLayout和AppbarLayout的配合, 以及实现了NestedScrollView的布局或控件.
+AppbarLayout是一种支持响应滚动手势的app bar布局, CollapsingToolbarLayout则是专门用来实现子布局内不同元素响应滚动细节的布局.
+与AppbarLayout组合的滚动布局(RecyclerView, NestedScrollView等),需要设置 app:layout_behavior = @string/appbar_scrolling_view_behavior没有设置的话, AppbarLayout将不会响应滚动布局的滚动事件.
+要实现这样的效果, 需要用到:
+CoordinatorLayout和AppbarLayout的配合, 以及实现了NestedScrollView的布局或控件.
+AppbarLayout是一种支持响应滚动手势的app bar布局, CollapsingToolbarLayout则是专门用来实现子布局内不同元素响应滚动细节的布局.
+与AppbarLayout组合的滚动布局(RecyclerView, NestedScrollView等),需要设置 app:layout_behavior = @string/appbar_scrolling_view_behavior没有设置的话, AppbarLayout将不会响应滚动布局的滚动事件.
+要实现这样的效果, 需要用到:
+CoordinatorLayout和AppbarLayout的配合, 以及实现了NestedScrollView的布局或控件.
+AppbarLayout是一种支持响应滚动手势的app bar布局, CollapsingToolbarLayout则是专门用来实现子布局内不同元素响应滚动细节的布局.
+与AppbarLayout组合的滚动布局(RecyclerView, NestedScrollView等),需要设置 app:layout_behavior = @string/appbar_scrolling_view_behavior没有设置的话, AppbarLayout将不会响应滚动布局的滚动事件.
+          " />
+
+        </LinearLayout>
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

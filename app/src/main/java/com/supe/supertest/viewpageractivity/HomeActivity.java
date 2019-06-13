@@ -92,6 +92,9 @@ public class HomeActivity extends QsViewPagerActivity{
         kv.encode("string", "Hello from mmkv");
         L.i("string: " ,"MMKV"+ kv.decodeString("string"));
 
+        kv.encode("String","Hello for MMKV");
+        kv.encode("String","Hello for MMKV");
+
         byte[] bytes = {'m', 'm', 'k', 'v','3'};
         kv.encode("byte", bytes);
 //        L.i("bytes: " ,"MMKV"+ kv.decodeBytes("bytes"));

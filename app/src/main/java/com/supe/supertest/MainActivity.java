@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +25,7 @@ import com.supe.supertest.common.utils.SettingUtil;
 import com.supe.supertest.common.wdiget.SonnyJackDragView;
 import com.supe.supertest.indicator.MagicIndicatorActivity;
 import com.supe.supertest.realm.TestModel;
+import com.supe.supertest.test.LoginManager;
 import com.supe.supertest.viewpageractivity.HomeActivity;
 import com.supermax.base.common.aspect.ThreadPoint;
 import com.supermax.base.common.aspect.ThreadType;
@@ -37,6 +40,7 @@ import com.supermax.base.common.utils.QsHelper;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
+import com.supermax.base.mvp.QsABActivity;
 import com.supermax.base.mvp.QsActivity;
 
 import java.util.ArrayList;
@@ -46,10 +50,15 @@ import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
-public class MainActivity extends QsActivity {
+public class MainActivity extends QsABActivity {
 
     @Bind(R.id.iv_image)
     ImageView iv_image;
+
+    @Bind(R.id.draw_layout)
+    DrawerLayout drawerLayout;
+
+    ActionBarDrawerToggle drawerToggle;
 
     String HOME = "首页";
     String FEEDBACK = "客服";
@@ -90,6 +99,9 @@ public class MainActivity extends QsActivity {
 
         QsToast.show(object.getAge());
 
+
+
+        LoginManager.getInstance(this).dealData();
 
     }
 
@@ -287,5 +299,10 @@ public class MainActivity extends QsActivity {
                 menuItem.dotNum = String.valueOf(8);
             }
         }
+    }
+
+    @Override
+    public int actionbarLayoutId() {
+        return R.layout.actionbar_title_back;
     }
 }
