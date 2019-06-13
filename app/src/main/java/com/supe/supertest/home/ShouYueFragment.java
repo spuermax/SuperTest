@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.supe.supertest.R;
+import com.supe.supertest.Recycler2Recycler.SortActivity;
 import com.supermax.base.common.viewbind.annotation.Bind;
+import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.fragment.QsFragment;
 import com.supermax.base.mvp.fragment.QsPullFragment;
@@ -41,6 +43,8 @@ public class ShouYueFragment extends QsFragment {
     @Bind(R.id.iv_image)
     ImageView iv_image;
 
+    @Bind(R.id.tv_cancel)
+    TextView tv_cancel;
 
     @Override
     public int layoutId() {
@@ -84,5 +88,15 @@ public class ShouYueFragment extends QsFragment {
                 TypedValue.COMPLEX_UNIT_DIP,
                 dp,
                 mContext.getResources().getDisplayMetrics());
+    }
+
+    @OnClick({R.id.tv_cancel})
+    @Override
+    public void onViewClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_cancel:
+                intent2Activity(SortActivity.class);
+                break;
+        }
     }
 }

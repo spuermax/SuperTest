@@ -76,6 +76,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/ST_Theme"/>
 
+        <activity android:name=".Recycler2Recycler.SortActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ST_Theme"/>
+
         <activity android:name=".notification.NotificationActivity"
             android:theme="@style/ST_Theme"/>
 
