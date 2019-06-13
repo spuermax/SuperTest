@@ -58,27 +58,23 @@ public class ShouYueFragment extends QsFragment {
                 .bindToTargetView(tv_title);
 
 
+        nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (nestedScrollView, i, i1, i2, i3) -> {
+            int height = dp2Px(45, getContext());
 
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView nestedScrollView, int i, int i1, int i2, int i3) {
-                int height = dp2Px(45, getContext());
-
-                if (i1 <= 0) {
-                    tv_title.setText("SuperTest");
-                    tv_title.setAlpha(0);
-                } else if (i1 > 0 && i1 < height) {
-                    tv_title.setText("教师资格证");
-                    //获取渐变率
-                    float scale = (float) i1 / height;
-                    //获取渐变数值
-                    float alpha = (1.0f * scale);
-                    tv_title.setAlpha(alpha);
-                } else {
-                    tv_title.setAlpha(1f);
-                }
-
+            if (i1 <= 0) {
+                tv_title.setText("教师资格证");
+                tv_title.setAlpha(0);
+            } else if (i1 > 0 && i1 < height) {
+                tv_title.setText("教师资格证");
+                //获取渐变率
+                float scale = (float) i1 / height;
+                //获取渐变数值
+                float alpha = (1.0f * scale);
+                tv_title.setAlpha(alpha);
+            } else {
+                tv_title.setAlpha(1f);
             }
+
         });
     }
 
