@@ -80,6 +80,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/ST_Theme"/>
 
+        <activity android:name=".rxjava.RxTestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ST_Theme"/>
+
         <activity android:name=".notification.NotificationActivity"
             android:theme="@style/ST_Theme"/>
 

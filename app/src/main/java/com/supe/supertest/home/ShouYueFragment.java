@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.supe.supertest.R;
 import com.supe.supertest.Recycler2Recycler.SortActivity;
+import com.supe.supertest.rxjava.RxTestActivity;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
@@ -90,12 +91,15 @@ public class ShouYueFragment extends QsFragment {
                 mContext.getResources().getDisplayMetrics());
     }
 
-    @OnClick({R.id.tv_cancel})
+    @OnClick({R.id.tv_cancel, R.id.bt_rxJava})
     @Override
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.tv_cancel:
                 intent2Activity(SortActivity.class);
+                break;
+            case R.id.bt_rxJava:
+                intent2Activity(RxTestActivity.class);
                 break;
         }
     }

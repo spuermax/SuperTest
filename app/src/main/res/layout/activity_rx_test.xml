@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/create"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="Create" />
+
+        <Button
+            android:id="@+id/zip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="ZIP" />
+
+        <Button
+            android:id="@+id/map"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="MAP" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:layout_constraintTop_toBottomOf="@id/ll_1">
+
+        <Button
+            android:id="@+id/flatmap"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="flatmap" />
+
+        <Button
+            android:id="@+id/concatmap"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="concatMap" />
+
+
+        <Button
+            android:id="@+id/doOnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="doonnext" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:layout_constraintTop_toBottomOf="@id/ll_2"
+        android:orientation="horizontal"
+        >
+
+
+        <Button
+            android:id="@+id/filter"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="filter" />
+
+        <Button
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="skip" />
+
+
+        <Button
+            android:id="@+id/take"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="take" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:layout_constraintTop_toBottomOf="@id/ll_3"
+        android:orientation="horizontal"
+        >
+
+
+        <Button
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="timer" />
+
+        <Button
+            android:id="@+id/just"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="just" />
+
+
+        <Button
+            android:id="@+id/interval"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_weight="1"
+            android:text="interval" />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

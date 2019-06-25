@@ -28,18 +28,18 @@ import com.supermax.base.mvp.QsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-
+import io.reactivex.functions.Predicate;
 
 /**
  * @Author yinzh
@@ -69,6 +69,110 @@ public class RxJavaActivity extends QsActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new Adapter());
+
+//        test();
+
+
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                e.onNext(100);
+            }
+        }).map(new Function<Integer, Integer>() {
+            @Override
+            public Integer apply(Integer integer) throws Exception {
+                return integer + 100;
+            }
+        }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+//                QsToast.show(integer + "");
+            }
+        });
+
+
+        Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                e.onNext(234);
+                e.onComplete();
+                L.i("RxJAva2","我是第二个事件的轮询");
+            }
+        });
+
+
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                e.onNext(100);
+                e.onComplete();
+                L.i("RxJAva2","我是第一个事件的轮询");
+            }
+        }).flatMap(new Function<Integer, ObservableSource<?>>() {
+            @Override
+            public ObservableSource<?> apply(Integer integer) throws Exception {
+
+                if (integer == 100) {
+                    return observable;
+                }
+
+                return null;
+            }
+        }).repeatWhen(new Function<Observable<Object>, ObservableSource<?>>() {
+            @Override
+            public ObservableSource<?> apply(Observable<Object> objectObservable) throws Exception {
+                return objectObservable.delay(3000, TimeUnit.MILLISECONDS);
+            }
+        }).takeUntil(new Predicate<Object>() {
+            @Override
+            public boolean test(Object integer) throws Exception {
+                return true;
+            }
+        }).subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object integer) throws Exception {
+                QsToast.show(integer.toString());
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
+
+
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                e.onNext(100);
+                e.onComplete();
+            }
+        }).repeatWhen(new Function<Observable<Object>, ObservableSource<?>>() {
+            @Override
+            public ObservableSource<?> apply(Observable<Object> objectObservable) throws Exception {
+                return objectObservable.delay(5, TimeUnit.SECONDS);
+            }
+        }).takeUntil(new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) throws Exception {
+                return true;
+            }
+        }).subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object integer) throws Exception {
+//                QsToast.show(integer.toString());
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
+
+
+
+
+
     }
 
     private Disposable disposable;
@@ -105,34 +209,57 @@ public class RxJavaActivity extends QsActivity {
         };
 
 
-        Observable observable = Observable.create(new ObservableOnSubscribe<Object>() {
+        Observable observable = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void subscribe(ObservableEmitter<Object> e) throws Exception {
-                e.onNext("111");
-                L.i("RxJavaTest", "发送111" + "======current thread + " + Thread.currentThread().getName());
-                e.onNext("222");
-                L.i("RxJavaTest", "发送222" + "======current thread + " + Thread.currentThread().getName());
-                e.onNext("333");
-                L.i("RxJavaTest", "发送3333" + "======current thread + " + Thread.currentThread().getName());
-                e.onNext("444");
-                L.i("RxJavaTest", "发送333" + "======current thread + " + Thread.currentThread().getName());
-                e.onComplete();
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                e.onNext(100);
+//                L.i("RxJavaTest", "发送111" + "======current thread + " + Thread.currentThread().getName());
+//                e.onNext("222");
+//                L.i("RxJavaTest", "发送222" + "======current thread + " + Thread.currentThread().getName());
+//                e.onNext("333");
+//                L.i("RxJavaTest", "发送3333" + "======current thread + " + Thread.currentThread().getName());
+//                e.onNext("444");
+//                L.i("RxJavaTest", "发送333" + "======current thread + " + Thread.currentThread().getName());
+//                e.onComplete();
 
             }
         });
 
+        final int[] no = new int[1];
 
-        observable
-                .map(new Function() {
+        observable.map(new Function<Integer, Integer>() {
+            @Override
+            public Integer apply(Integer o) throws Exception {
+
+                return no[0] + o;
+            }
+        }).flatMap(new Function() {
+            @Override
+            public Object apply(Object o) throws Exception {
+                Observable.create(new ObservableOnSubscribe<Integer>() {
                     @Override
-                    public Object apply(Object o) throws Exception {
-                        return null;
+                    public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                        e.onNext(100 + no[0]);
                     }
-                })
-                .subscribeOn(Schedulers.io())//被观察者在子线程
-                .observeOn(AndroidSchedulers.mainThread())// 观察者在主线程
-                .subscribe(observer);
-
+                });
+                return null;
+            }
+        }).repeatWhen(new Function<Observable<Object>, ObservableSource<?>>() {
+            @Override
+            public ObservableSource<?> apply(Observable<Object> objectObservable) throws Exception {
+                return objectObservable.delay(500, TimeUnit.MILLISECONDS);
+            }
+        }).takeUntil(new Predicate() {
+            @Override
+            public boolean test(Object o) throws Exception {
+                return no[0] != 400;
+            }
+        }).subscribe(new Consumer() {
+            @Override
+            public void accept(Object o) throws Exception {
+                QsToast.show(o.toString());
+            }
+        });
     }
 
     class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {

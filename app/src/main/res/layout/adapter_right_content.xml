@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_child"
+    android:layout_width="116dp"
+    android:layout_height="50dp"
+    android:layout_marginLeft="@dimen/dp_10"
+    app:cardCornerRadius="5dp"
+    android:layout_marginTop="@dimen/dp_10"
+
+    app:cardElevation="6dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/item_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+
+        <ImageView
+            android:id="@+id/iv_child_icon"
+            android:layout_width="18dp"
+            android:layout_height="17dp"
+            android:layout_marginLeft="13dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@mipmap/ic_launcher"
+            />
+
+        <TextView
+            android:id="@+id/tv_child_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:includeFontPadding="false"
+            android:maxLines="2"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/iv_child_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
