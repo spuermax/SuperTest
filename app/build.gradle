@@ -118,4 +118,7 @@ dependencies {
     // 下拉菜单
     implementation 'com.github.spuermax:DropMenu:1.0.0'
 
+    api 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
+
+
 }

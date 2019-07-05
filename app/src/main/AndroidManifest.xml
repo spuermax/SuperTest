@@ -49,6 +49,7 @@
 
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ST_Theme" />
 
         <activity
