@@ -10,7 +10,7 @@
 
     app:cardElevation="6dp">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,6 +40,6 @@
             app:layout_constraintLeft_toRightOf="@id/iv_child_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

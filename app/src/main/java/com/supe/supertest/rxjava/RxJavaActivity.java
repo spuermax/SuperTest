@@ -1,28 +1,18 @@
 package com.supe.supertest.rxjava;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.supe.supertest.R;
-import com.supe.supertest.common.utils.RxUtils;
-import com.supe.supertest.rxjava.view.ChildRecyclerView;
 import com.supe.supertest.rxjava.view.NestRecyclerView;
 import com.supe.supertest.rxjava.view.ParentRecyclerView;
 import com.supe.supertest.rxjava.view.TestTextView;
 import com.supermax.base.common.log.L;
-import com.supermax.base.common.utils.QsHelper;
 import com.supermax.base.common.viewbind.annotation.Bind;
-import com.supermax.base.common.widget.indicator.model.ScrollState;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.QsActivity;
 
@@ -30,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;

@@ -2,7 +2,6 @@ package com.supe.supertest;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.squareup.leakcanary.LeakCanary;
@@ -11,6 +10,7 @@ import com.supe.supertest.common.utils.UrlUtils;
 import com.supermax.base.QsApplication;
 import com.supermax.base.common.http.HttpBuilder;
 
+import androidx.multidex.MultiDex;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 

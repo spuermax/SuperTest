@@ -1,8 +1,6 @@
 package com.supe.supertest.Recycler2Recycler.adapter;
 
 import android.graphics.Color;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -12,6 +10,8 @@ import com.supe.supertest.Recycler2Recycler.module.LeftModule;
 import com.supermax.base.common.log.L;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * @Author yinzh

@@ -1,7 +1,6 @@
 package com.supe.supertest.common.utils;
 
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -9,6 +8,8 @@ import android.view.View;
 import com.supermax.base.common.utils.QsHelper;
 
 import java.lang.reflect.Method;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * @Author yinzh

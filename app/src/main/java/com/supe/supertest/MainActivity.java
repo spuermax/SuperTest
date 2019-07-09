@@ -6,9 +6,9 @@ import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,14 +41,12 @@ import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.QsABActivity;
-import com.supermax.base.mvp.QsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.drawerlayout.widget.DrawerLayout;
 import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 public class MainActivity extends QsABActivity {
 

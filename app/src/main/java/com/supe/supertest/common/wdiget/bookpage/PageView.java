@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -26,6 +25,8 @@ import com.supe.supertest.common.wdiget.bookpage.animation.SlidePageAnim;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * @Author yinzh

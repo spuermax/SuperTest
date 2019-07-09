@@ -10,7 +10,7 @@
 
 
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -69,6 +69,6 @@ AppbarLayout是一种支持响应滚动手势的app bar布局, CollapsingToolbar
 
 
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

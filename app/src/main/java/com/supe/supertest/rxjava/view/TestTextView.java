@@ -7,12 +7,14 @@ import android.widget.TextView;
 
 import com.supermax.base.common.log.L;
 
+import androidx.appcompat.widget.AppCompatTextView;
+
 /**
  * @Author yinzh
  * @Date 2019/2/23 10:21
  * @Description
  */
-public class TestTextView extends android.support.v7.widget.AppCompatTextView{
+public class TestTextView extends AppCompatTextView {
     public TestTextView(Context context) {
         super(context);
     }

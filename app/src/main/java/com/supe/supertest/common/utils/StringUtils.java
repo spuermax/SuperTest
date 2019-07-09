@@ -1,14 +1,13 @@
 package com.supe.supertest.common.utils;
 
-import android.support.annotation.StringRes;
-
 import com.supermax.base.common.utils.QsHelper;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import androidx.annotation.StringRes;
 
 /**
  * @Author yinzh

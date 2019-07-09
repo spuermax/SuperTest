@@ -1,11 +1,7 @@
 package com.supe.supertest.Recycler2Recycler;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.supe.supertest.R;
@@ -13,11 +9,13 @@ import com.supe.supertest.Recycler2Recycler.adapter.LeftAdapter;
 import com.supe.supertest.Recycler2Recycler.adapter.RightAdapter;
 import com.supe.supertest.Recycler2Recycler.module.LeftModule;
 import com.supe.supertest.Recycler2Recycler.module.RightModule;
-import com.supe.supertest.common.utils.ScreenUtils;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.mvp.QsActivity;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @Author yinzh
@@ -53,7 +51,7 @@ public class SortActivity extends QsActivity {
         }
 
         mLeftManager = new LinearLayoutManager(this);
-        mLeftManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mLeftManager.setOrientation(RecyclerView.VERTICAL);
         rv_left.setLayoutManager(mLeftManager);
         leftAdapter = new LeftAdapter(leftModules);
         rv_left.setAdapter(leftAdapter);
@@ -75,7 +73,7 @@ public class SortActivity extends QsActivity {
 
 
         mRightManager = new LinearLayoutManager(this);
-        mRightManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRightManager.setOrientation(RecyclerView.VERTICAL);
         rv_right.setLayoutManager(mRightManager);
         ArrayList<RightModule> rightModules = new ArrayList<>();
         for (int i = 0; i < 30; i++) {

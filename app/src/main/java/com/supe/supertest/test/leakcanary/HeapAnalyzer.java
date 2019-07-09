@@ -16,8 +16,6 @@ package com.supe.supertest.test.leakcanary;
  * limitations under the License.
  */
 
-import android.support.annotation.NonNull;
-
 import com.squareup.haha.perflib.ArrayInstance;
 import com.squareup.haha.perflib.ClassInstance;
 import com.squareup.haha.perflib.ClassObj;
@@ -31,6 +29,8 @@ import com.squareup.leakcanary.ExcludedRefs;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 import static com.supe.supertest.test.leakcanary.HahaHelper.extendsThread;
 import static com.supe.supertest.test.leakcanary.HahaHelper.threadName;

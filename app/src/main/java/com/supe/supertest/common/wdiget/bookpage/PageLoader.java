@@ -12,8 +12,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.Typeface;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.text.TextPaint;
 import android.util.Log;
 
@@ -28,7 +29,6 @@ import com.supe.supertest.common.wdiget.bookpage.bean.BookRecordBean;
 import com.supe.supertest.common.wdiget.bookpage.bean.CollBookBean;
 import com.supe.supertest.common.wdiget.bookpage.helper.BookRecordHelper;
 import com.supe.supertest.common.wdiget.bookpage.manager.ReadSettingManager;
-import com.supermax.base.common.log.L;
 import com.supermax.base.common.utils.QsHelper;
 import com.supermax.base.common.utils.StreamCloseUtils;
 import com.supermax.base.common.widget.toast.QsToast;

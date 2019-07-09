@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,7 +24,6 @@ import com.squareup.haha.perflib.Instance;
 import com.squareup.haha.perflib.Snapshot;
 import com.squareup.haha.perflib.io.HprofBuffer;
 import com.squareup.haha.perflib.io.MemoryMappedFileBuffer;
-import com.squareup.leakcanary.internal.HeapAnalyzerService;
 import com.supe.supertest.R;
 import com.supe.supertest.test.leakcanary.HahaHelper;
 import com.supe.supertest.test.leakcanary.HeapAnalyzer;
@@ -43,6 +41,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * @Author yinzh

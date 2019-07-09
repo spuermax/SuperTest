@@ -1,7 +1,8 @@
 package com.supe.supertest.viewpageractivity;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
+
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -10,7 +11,7 @@ import android.view.MotionEvent;
  * @Date 2018/11/25 14:52
  * @Description
  */
-public class NoScrollViewPager extends ViewPager{
+public class NoScrollViewPager extends ViewPager {
     private boolean isScroll;
     public NoScrollViewPager(Context context, AttributeSet attrs){
         super(context, attrs);

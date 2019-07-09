@@ -7,8 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.support.annotation.IntDef;
-import android.support.design.widget.TabLayout;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -17,11 +15,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.google.android.material.tabs.TabLayout;
 import com.supe.supertest.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
+
+import androidx.annotation.IntDef;
 
 /**
  * 作者:东芝(2018/8/23).

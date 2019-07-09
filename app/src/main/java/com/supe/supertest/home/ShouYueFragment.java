@@ -1,12 +1,10 @@
 package com.supe.supertest.home;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
-import android.util.Log;
+import androidx.core.widget.NestedScrollView;
+
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,9 +14,7 @@ import com.supe.supertest.Recycler2Recycler.SortActivity;
 import com.supe.supertest.rxjava.RxTestActivity;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.viewbind.annotation.OnClick;
-import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.fragment.QsFragment;
-import com.supermax.base.mvp.fragment.QsPullFragment;
 
 /**
  * @Author yinzh

@@ -1,8 +1,9 @@
 package com.supe.supertest.indicator;
 
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
+
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import android.widget.TextView;
  * @Date 2018/11/15 10:43
  * @Description
  */
-public class ViewPagerAdapter extends PagerAdapter{
+public class ViewPagerAdapter extends PagerAdapter {
     private String[] arrStr;
 
     public ViewPagerAdapter(String [] arrStr) {

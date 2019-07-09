@@ -1,7 +1,5 @@
 package com.supe.supertest.common.wdiget.bookpage;
 
-import android.support.annotation.Nullable;
-
 import com.supe.supertest.common.utils.FileUtils;
 import com.supe.supertest.common.utils.StringUtils;
 import com.supe.supertest.common.wdiget.bookpage.bean.BookChapterBean;
@@ -14,6 +12,8 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * @Author yinzh

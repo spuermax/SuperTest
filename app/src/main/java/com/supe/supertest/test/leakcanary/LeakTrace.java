@@ -15,11 +15,12 @@ package com.supe.supertest.test.leakcanary;
  * limitations under the License.
  */
 
-import android.support.annotation.NonNull;
 
 
 import java.io.Serializable;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * A chain of references that constitute the shortest strong reference path from a leaking instance
