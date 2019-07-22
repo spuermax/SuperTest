@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.supe.supertest.R;
 import com.supe.supertest.Recycler2Recycler.SortActivity;
 import com.supe.supertest.rxjava.RxTestActivity;
@@ -95,7 +96,8 @@ public class ShouYueFragment extends QsFragment {
                 intent2Activity(SortActivity.class);
                 break;
             case R.id.bt_rxJava:
-                intent2Activity(RxTestActivity.class);
+//                intent2Activity(RxTestActivity.class);
+                FeedbackAPI.openFeedbackActivity();
                 break;
         }
     }

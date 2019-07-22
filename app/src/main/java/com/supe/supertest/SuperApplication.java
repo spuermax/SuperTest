@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.supe.supertest.common.utils.UrlUtils;
@@ -40,6 +41,8 @@ public class SuperApplication extends QsApplication {
             ARouter.openDebug();
         }
 
+
+//        FeedbackAPI.init(this, "27684165","c3cb246e14c6fa93197db09f5593a181 ");
 
         ARouter.init(this);
 

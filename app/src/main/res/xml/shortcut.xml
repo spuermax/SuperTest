@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/iv_book_left_icon"
+        android:shortcutDisabledMessage="@string/request_camera_permission"
+        android:shortcutId="publish"
+        android:shortcutLongLabel="@string/request_camera_permission"
+        android:shortcutShortLabel="@string/request_camera_permission">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.supe.supertest.TestActivityA"
+            android:targetPackage="com.supe.supertest" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/iv_book_right_icon"
+        android:shortcutDisabledMessage="@string/request_location_permission"
+        android:shortcutId="write"
+        android:shortcutLongLabel="@string/request_location_permission"
+        android:shortcutShortLabel="@string/request_location_permission">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.supe.supertest.TestActivityA"
+            android:targetPackage="com.supe.supertest" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+</shortcuts>
