@@ -4,13 +4,23 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_220"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:src="@mipmap/ic_launcher"
+        />
+
+
 
     <Button
         android:id="@+id/bt_Notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Notification"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_image"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

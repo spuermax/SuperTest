@@ -1,7 +1,11 @@
 package com.supe.supertest.Recycler2Recycler;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.supe.supertest.R;
@@ -30,10 +34,18 @@ public class SortActivity extends QsActivity {
     @Bind(R.id.rv_right)
     RecyclerView rv_right;
 
+    @Bind(R.id.ll_layout)
+    LinearLayout ll_layout;
+
     private LinearLayoutManager mLeftManager;
     private LinearLayoutManager mRightManager;
     private RightAdapter rightAdapter;
     private LeftAdapter leftAdapter;
+    private ArrayList<RightModule> rightModules;
+
+
+    private int targetPosition;//点击左边某一个具体的item的位置
+    private boolean isMoved;
 
     @Override
     public int layoutId() {
@@ -65,9 +77,8 @@ public class SortActivity extends QsActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 leftAdapter.setCheckedPosition(position);
-//                rv_right.scrollTo(0, ScreenUtils.dpToPx(200));
-                mRightManager.scrollToPositionWithOffset(45,0);
-//                rv_right.smoothScrollToPosition(18);
+                targetPosition = position;
+                setChecked(position, true);
             }
         });
 
@@ -75,7 +86,7 @@ public class SortActivity extends QsActivity {
         mRightManager = new LinearLayoutManager(this);
         mRightManager.setOrientation(RecyclerView.VERTICAL);
         rv_right.setLayoutManager(mRightManager);
-        ArrayList<RightModule> rightModules = new ArrayList<>();
+        rightModules = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
 
             if (i % 2 == 0) {
@@ -100,6 +111,57 @@ public class SortActivity extends QsActivity {
 
         rightAdapter = new RightAdapter(rightModules);
         rv_right.setAdapter(rightAdapter);
+
+
+    }
+
+
+    private void setChecked(int position, boolean isMoved) {
+        if (isMoved) {
+            int count = 0;
+            count += position * 4;
+            setRightData(count);
+        }
+
+    }
+
+    private void setRightData(int position) {
+        rv_right.stopScroll();
+        smoothMoveToPosition(position);
+    }
+
+    int count = 0;
+    private void smoothMoveToPosition(int position) {
+        int firstItem = mRightManager.findFirstVisibleItemPosition();
+        int lastItem = mRightManager.findLastVisibleItemPosition();
+        Log.d("SortActivity", "first --- >" + String.valueOf(firstItem));
+        Log.d("SortActivity", "last --- >" + String.valueOf(lastItem));
+        Log.d("SortActivity", "total---->" + rv_right.getChildCount());
+        Log.d("SortActivity", "size---->" + rightModules.size());
+        Log.d("SortActivity", "position---->" + position);
+
+        if (position <= firstItem) {
+            rv_right.scrollToPosition(position);
+        } else if (position <= lastItem) {
+            Log.d("SortActivity", "pos---->" + String.valueOf(position) + "VS" + firstItem);
+            int top = rv_right.getChildAt(position - firstItem).getTop();
+            Log.d("SortActivity", "top---->" + String.valueOf(top));
+            rv_right.scrollBy(0, top);
+
+            if (lastItem == rightModules.size() - 1) {
+                count++;
+                if (count > 1) {
+                    TextView textView = new TextView(this);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 564);
+                    textView.setLayoutParams(params);
+                    ll_layout.addView(textView);
+                }
+            }
+
+
+        } else {
+            rv_right.scrollToPosition(position);
+        }
 
 
     }

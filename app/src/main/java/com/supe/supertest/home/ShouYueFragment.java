@@ -13,9 +13,13 @@ import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.supe.supertest.R;
 import com.supe.supertest.Recycler2Recycler.SortActivity;
 import com.supe.supertest.rxjava.RxTestActivity;
+import com.supe.supertest.tablayout.TabLayoutActivity;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.mvp.fragment.QsFragment;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 /**
  * @Author yinzh
@@ -44,6 +48,10 @@ public class ShouYueFragment extends QsFragment {
     @Bind(R.id.tv_cancel)
     TextView tv_cancel;
 
+    private IWXAPI api;
+    private String WX_ID = "wxff6bbd5dfc9c8e7e";
+    private String WX_SECRET = "e4cd86942b4de908ca415b9562e06345";
+
     @Override
     public int layoutId() {
         return R.layout.shouye_fragment;
@@ -52,6 +60,13 @@ public class ShouYueFragment extends QsFragment {
 
     @Override
     public void initData(Bundle bundle) {
+
+
+        //通过WXAPIFactory工厂获取IWXApI的示例
+        api = WXAPIFactory.createWXAPI(getContext(),WX_ID ,true);
+        //将应用的appid注册到微信
+        api.registerApp(WX_ID);
+
 
 
         new BadgeHelper(getContext())
@@ -96,8 +111,14 @@ public class ShouYueFragment extends QsFragment {
                 intent2Activity(SortActivity.class);
                 break;
             case R.id.bt_rxJava:
-//                intent2Activity(RxTestActivity.class);
-                FeedbackAPI.openFeedbackActivity();
+//                intent2Activity(TabLayoutActivity.class);
+
+                SendAuth.Req req = new SendAuth.Req();
+                req.scope = "snsapi_userinfo";
+//                req.scope = "snsapi_login";//提示 scope参数错误，或者没有scope权限
+                req.state = "wechat_sdk_微信登录";
+                api.sendReq(req);
+
                 break;
         }
     }

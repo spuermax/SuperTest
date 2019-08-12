@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.androidkun.xtablayout.XTabLayout
+        android:id="@+id/tab_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+        app:xTabIndicatorColor="#0f0"
+        app:xTabIndicatorHeight="4dp"
+        app:xTabIndicatorWidth="15dp"
+        app:xTabMode="scrollable"
+        app:xTabSelectedTextColor="#f00"
+        app:xTabSelectedTextSize="20sp"
+        app:xTabTextColor="#000"
+        app:xTabTextSize="15sp" />
+
+    <com.supermax.base.common.widget.viewpager.PagerSlidingTabStrip
+        android:id="@+id/tab_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout1" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

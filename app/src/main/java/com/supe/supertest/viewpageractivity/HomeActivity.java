@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.supe.supertest.R;
 import com.supe.supertest.common.button.FloatLogoMenu;
 import com.supe.supertest.common.wdiget.SonnyJackDragView;
@@ -67,8 +68,22 @@ public class HomeActivity extends QsViewPagerActivity{
 
     }
 
+
+
     @Override
     public void initData(Bundle bundle) {
+
+
+//        ImmersionBar.with(this).init();
+
+
+
+
+
+
+
+
+
         String rootDir = MMKV.initialize(this);
        L.i("mmkv root: " , rootDir);
 
@@ -105,6 +120,11 @@ public class HomeActivity extends QsViewPagerActivity{
     @Override
     public boolean isTransparentNavigationBar() {
         return super.isTransparentNavigationBar();
+    }
+
+    @Override
+    public boolean isTransparentStatusBar() {
+        return false;
     }
 }
 

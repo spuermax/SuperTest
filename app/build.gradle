@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.supe.supertest"
-        minSdkVersion 25
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -119,6 +119,11 @@ dependencies {
 
     api 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
 
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
+
+    implementation 'com.androidkun:XTabLayout:1.1.4'
+
+
 //
     implementation 'com.aliyun.ams:alicloud-android-feedback:3.1.8'
 //    implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
@@ -131,6 +136,16 @@ dependencies {
 //    compile files('libs/utdid4all-1.1.5.3_proguard.jar')
 //    compile files('libs/alicloud-android-utils-1.1.3.jar')
 //    compile files('libs/alicloud-android-beacon-1.0.1.jar')
+
+//    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+
+
+    compile 'com.alibaba:fastjson:1.1.56.android'
+    compile 'com.zhy:okhttputils:2.6.2'
+
 
 
 }

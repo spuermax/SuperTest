@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.core.app.NotificationCompat;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -46,6 +47,15 @@ public class TestActivityA extends QsActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+
+        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+
+        getWindow().setAttributes(lp);
+
+
         ARouter.getInstance().inject(this);//添加在onCreate（）
 
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
