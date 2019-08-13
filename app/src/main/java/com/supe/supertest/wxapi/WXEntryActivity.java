@@ -127,9 +127,10 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
                                     L.d("WXEntry_LOG","获取失败");
                                 }
 
-                                finish();
                             }
                         });
+
+                finish();
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
                 result = "发送取消";

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:aandroid="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.supe.supertest">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,17 +25,17 @@
     <application
         android:name=".SuperApplication"
         android:allowBackup="true"
-        android:resizeableActivity="true"
         android:hardwareAccelerated="true"
-        android:largeHeap="true"
-        android:persistent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
+        android:persistent="true"
+        android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:replace="android:allowBackup"
+        android:theme="@style/ST_Theme"
         tools:ignore="GoogleAppIndexingWarning"
-        android:theme="@style/ST_Theme">
+        tools:replace="android:allowBackup">
         <activity android:name=".viewpageractivity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,37 +62,56 @@
             android:name=".indicator.MagicIndicatorActivity"
             android:theme="@style/ST_Theme" />
 
-        <activity android:name=".book.ReadBookActivity"
+        <activity
+            android:name=".book.ReadBookActivity"
             android:theme="@style/ST_Theme" />
 
-        <activity android:name=".rxjava.RxJavaActivity"
+        <activity
+            android:name=".rxjava.RxJavaActivity"
             android:theme="@style/ST_Theme" />
 
-        <activity android:name=".test.ChapterBitmapActivity"
+        <activity
+            android:name=".test.ChapterBitmapActivity"
             android:theme="@style/ST_Theme" />
 
-        <activity android:name=".nestedscrolling.NestedScrollingActivity"
-            android:theme="@style/ST_Theme"/>
+        <activity
+            android:name=".nestedscrolling.NestedScrollingActivity"
+            android:theme="@style/ST_Theme" />
 
-        <activity android:name=".TestActivityA"
+        <activity
+            android:name=".TestActivityA"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/ST_Theme"/>
+            android:theme="@style/ST_Theme" />
 
-        <activity android:name=".TopBottomActivity"
+        <activity
+            android:name=".TopBottomActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ST_Theme"/>
+            android:theme="@style/ST_Theme" />
 
-        <activity android:name=".Recycler2Recycler.SortActivity"
+        <activity
+            android:name=".Recycler2Recycler.SortActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ST_Theme"/>
+            android:theme="@style/ST_Theme" />
 
-        <activity android:name=".rxjava.RxTestActivity"
+        <activity
+            android:name=".rxjava.RxTestActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ST_Theme"/>
+            android:theme="@style/ST_Theme" />
 
-        <activity android:name=".notification.NotificationActivity"
-            android:theme="@style/ST_Theme"/>
+        <activity
+            android:name=".TestPagerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ST_Theme" />
+
+        <activity
+            android:name=".question.QuestionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ST_Theme" />
+
+        <activity
+            android:name=".notification.NotificationActivity"
+            android:theme="@style/ST_Theme" />
 
         <!--微信登录配置 start-->
         <activity
@@ -101,10 +120,11 @@
             android:exported="true"
             android:theme="@style/ST_Theme" />
 
-        <activity android:name=".tablayout.TabLayoutActivity"
-            android:theme="@style/ST_Theme"/>
+        <activity
+            android:name=".tablayout.TabLayoutActivity"
+            android:theme="@style/ST_Theme" />
 
-       <!--************允许全屏界面内容显示到刘海区域配置**************-->
+        <!--************允许全屏界面内容显示到刘海区域配置**************-->
 
         <!--允许绘制到oppo、vivo刘海屏机型的刘海区域 -->
         <meta-data
@@ -120,10 +140,6 @@
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
-
-
-
-
 
 
         <meta-data
@@ -159,8 +175,6 @@
         <meta-data
             android:name="BaiduMobAd_WIFI_LOCATION"
             android:value="true" />
-
-
 
 
     </application>

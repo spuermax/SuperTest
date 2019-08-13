@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50">
+
+        <Button
+            android:id="@+id/tv_rxJava"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="RXJAVA"
+            android:textSize="@dimen/sp_15"
+            android:gravity="center"
+            />
+
+
+        <Button
+            android:id="@+id/tv_login"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="WXLOGIN"
+            android:textSize="@dimen/sp_15"
+            android:gravity="center"
+            />
+
+
+        <Button
+            android:id="@+id/tv_question"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="QUESTION"
+            android:textSize="@dimen/sp_15"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

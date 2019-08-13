@@ -2,11 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-    <com.supe.supertest.rxjava.view.NestRecyclerView
-        android:id="@+id/recycler"
-        android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.supe.supertest.rxjava.view.NestRecyclerView>
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
