@@ -16,5 +16,7 @@
 
     <item name="tag_key_data" type="id"/>
     <item name="tag_key_position" type="id"/>
+    <string name="view_analysis">查看解析</string>
+    <string name="answer_analysis">答案解析</string>
 
 </resources>

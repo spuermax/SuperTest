@@ -74,6 +74,9 @@ public class QuestionPagerAdapter extends PagerAdapter {
             case uncertain_choice:
                 layoutId = R.layout.item_pager_homework_question_choice;
                 break;
+            case single_choice:
+                layoutId = R.layout.item_pager_homework_question_singlechoice;
+                break;
             default:
                 break;
         }

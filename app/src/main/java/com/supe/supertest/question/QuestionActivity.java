@@ -64,7 +64,7 @@ public class QuestionActivity extends QsABActivity {
         metas.add("行政法规");
         metas.add("行政规章");
         HomeworkQuestionBean homeworkQuestionBean1 = new HomeworkQuestionBean();
-        homeworkQuestionBean1.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.choice;
+        homeworkQuestionBean1.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.single_choice;
         homeworkQuestionBean1.setMetas(metas);
         homeworkQuestionBean1.setStem("1、下列发的形式中，由全国人民代表大会及其常务委员会经一定立法程序制定颁布，" +
                 "调整国家、社会和公民生活中基本社会关系的是（）。");
@@ -76,7 +76,7 @@ public class QuestionActivity extends QsABActivity {
         metas1.add("按照首席仲裁员的意见作出裁决");
         metas1.add("提请仲裁委员会作出裁决");
         HomeworkQuestionBean homeworkQuestionBean2 = new HomeworkQuestionBean();
-        homeworkQuestionBean2.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.choice;
+        homeworkQuestionBean2.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.single_choice;
         homeworkQuestionBean2.setMetas(metas1);
         homeworkQuestionBean2.setStem("2、甲、乙因合同纠纷申请仲裁，仲裁庭对案件裁决时两位仲裁员支持甲方的请求，但首席仲裁员支持乙的请求，关于该案件仲裁" +
                 "裁决的下列表述中，符合法律规定的是（）。");

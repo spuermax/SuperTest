@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.supe.supertest.question.view.QuestionHomeworkChoiceWidget xmlns:android="http://schemas.android.com/apk/res/android"
+<com.supe.supertest.question.view.QuestionHomeworkSingleChoiceWidget xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/es_bg_white"
@@ -17,7 +17,7 @@
         android:paddingRight="24dp">
 
         <TextView
-            android:id="@+id/question_stem"
+            android:id="@id/question_stem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="3dp"
@@ -46,9 +46,10 @@
         android:button="@null"
         android:drawableRight="@drawable/sel_homework_analysis"
         android:drawablePadding="3dp"
-        android:text="查看解析"
+        android:text="@string/view_analysis"
         android:textColor="@color/yellow"
         android:textSize="14sp" />
+
 
     <LinearLayout
         android:id="@+id/ll_question_analysis"
@@ -65,14 +66,14 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="12dp"
             android:background="@color/es_divider" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:includeFontPadding="false"
-            android:text="答案解析"
+            android:text="@string/answer_analysis"
             android:textColor="@color/es_font_3"
             android:textSize="14sp" />
 
@@ -85,5 +86,4 @@
             android:textColor="@color/es_font_1"
             android:textSize="14sp" />
     </LinearLayout>
-
-</com.supe.supertest.question.view.QuestionHomeworkChoiceWidget>
+</com.supe.supertest.question.view.QuestionHomeworkSingleChoiceWidget>
