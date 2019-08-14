@@ -99,6 +99,25 @@
     <color name="color_708170">#708170</color>
 
 
+    <!--                     v2.0                    -->
+    <color name="es_bg">#F5F5F5</color>
+    <color name="es_bg_white">#FFFFFF</color>
+    <color name="bar_line">#F1F1F1</color>
+
+    <color name="es_green">#01AE66</color>
+    <color name="yellow">#FF9800</color>
+    <color name="red">#FF5722</color>
+    <color name="gray">#808080</color>
 
 
+    <color name="white">#FFFFFF</color>
+    <color name="es_font_white">#FFFFFF</color>
+
+
+
+    <color name="es_font_1">#313131</color>
+    <color name="es_font_2">#616161</color>
+    <color name="es_font_3">#919191</color>
+    <color name="es_font_4">#B0BDC9</color>
+    <color name="es_divider">#F5F5F5</color>
 </resources>

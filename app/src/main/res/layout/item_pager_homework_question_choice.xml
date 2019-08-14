@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.supe.supertest.question.view.QuestionHomeworkChoiceWidget xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/es_bg_white"
+    android:paddingBottom="40dp">
+
+    <include layout="@layout/include_homework_question_head_layout" />
+
+    <RelativeLayout
+        android:id="@+id/rl_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_head"
+        android:paddingLeft="24dp"
+        android:paddingTop="16dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:id="@+id/question_stem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/es_font_1"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/quetion_choice_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/question_stem"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical" />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/check_show_analysis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_question"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="48dp"
+        android:layout_marginRight="24dp"
+        android:button="@null"
+        android:drawableRight="@drawable/sel_homework_analysis"
+        android:drawablePadding="3dp"
+        android:text="查看解析"
+        android:textColor="@color/yellow"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_question_analysis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quetion_choice_analysis"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/es_divider" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="答案解析"
+            android:textColor="@color/es_font_3"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_question_analysis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/es_font_1"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</com.supe.supertest.question.view.QuestionHomeworkChoiceWidget>
