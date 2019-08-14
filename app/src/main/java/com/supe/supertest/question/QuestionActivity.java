@@ -7,11 +7,15 @@ import android.widget.TextView;
 
 import com.supe.supertest.R;
 import com.supe.supertest.question.adapter.QuestionPagerAdapter;
+import com.supe.supertest.question.event.MessageEvent;
 import com.supe.supertest.question.module.HomeworkQuestionBean;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.QsABActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -42,6 +46,7 @@ public class QuestionActivity extends QsABActivity {
 
 
     private QuestionPagerAdapter mAdapter;
+    public ArrayList<HomeworkQuestionBean> mQuestionList = new ArrayList<>();
 
 
     @Override
@@ -81,14 +86,11 @@ public class QuestionActivity extends QsABActivity {
         homeworkQuestionBean2.setStem("2、甲、乙因合同纠纷申请仲裁，仲裁庭对案件裁决时两位仲裁员支持甲方的请求，但首席仲裁员支持乙的请求，关于该案件仲裁" +
                 "裁决的下列表述中，符合法律规定的是（）。");
 
+        mQuestionList.add(homeworkQuestionBean1);
+        mQuestionList.add(homeworkQuestionBean2);
 
 
-        ArrayList<HomeworkQuestionBean> homeworkQuestionBeans = new ArrayList<>();
-        homeworkQuestionBeans.add(homeworkQuestionBean1);
-        homeworkQuestionBeans.add(homeworkQuestionBean2);
-
-
-        setStartExamData(homeworkQuestionBeans);
+        setStartExamData(mQuestionList);
 
         initListener();
 
@@ -97,7 +99,7 @@ public class QuestionActivity extends QsABActivity {
 
 
     private void setStartExamData(ArrayList<HomeworkQuestionBean> results) {
-        mAdapter = new QuestionPagerAdapter(getContext(),results);
+        mAdapter = new QuestionPagerAdapter(getContext(), results);
         viewPager.setAdapter(mAdapter);
 
     }
@@ -150,5 +152,30 @@ public class QuestionActivity extends QsABActivity {
                 break;
 
         }
+    }
+
+    @Subscribe
+    public void onEvent(MessageEvent messageEvent) {
+        switch (messageEvent.getType()) {
+            case MessageEvent.EXAM_CHANGE_ANSWER:
+                break;
+            case MessageEvent.EXAM_NEXT_QUESTION:
+                //自动下一题
+                if (viewPager.getCurrentItem() == mQuestionList.size() - 1) {
+                    QsToast.show( "已经是最后一题");
+                    return;
+                }
+
+                if (viewPager.getCurrentItem() < mQuestionList.size() - 1) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                    EventBus.getDefault().cancelEventDelivery(messageEvent);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public boolean isOpenEventBus() {
+        return true;
     }
 }

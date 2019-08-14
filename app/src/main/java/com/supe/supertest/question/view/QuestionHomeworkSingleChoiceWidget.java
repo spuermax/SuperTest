@@ -12,7 +12,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.supe.supertest.R;
+import com.supe.supertest.question.event.MessageEvent;
 import com.supe.supertest.question.module.HomeworkQuestionBean;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -104,6 +106,9 @@ public class QuestionHomeworkSingleChoiceWidget extends BaseHomeworkQuestionWidg
         sendMsgToTestpaper();
     }
 
+    /**
+     * 选择选项事件触发
+     */
     protected void sendMsgToTestpaper() {
         Bundle bundle = new Bundle();
         bundle.putInt("index", mIndex - 1);
@@ -118,7 +123,7 @@ public class QuestionHomeworkSingleChoiceWidget extends BaseHomeworkQuestionWidg
             }
         }
         bundle.putStringArrayList("data", data);
-//        EventBus.getDefault().post(new MessageEvent<>(bundle, MessageEvent.EXAM_CHANGE_ANSWER));
+        EventBus.getDefault().post(new MessageEvent<>(bundle, MessageEvent.EXAM_NEXT_QUESTION));
     }
 
     @Override
