@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:paddingTop="24dp">
+
+    <View
+        android:id="@+id/top_divider"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@color/es_bg" />
+
+    <LinearLayout
+        android:id="@+id/ll_choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_divider"
+        android:orientation="horizontal"
+        android:paddingLeft="24dp"
+        android:paddingTop="40dp"
+        android:paddingRight="24dp"
+        android:paddingBottom="20dp"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="正确答案"
+            android:textColor="@color/es_font_1"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_right_anwer"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:includeFontPadding="false"
+            android:text="C"
+            android:textColor="@color/es_green"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="您的答案"
+            android:textColor="@color/es_font_1"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_my_anwer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:includeFontPadding="false"
+            android:text="C"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_fill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_divider"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingTop="28dp"
+        android:paddingRight="24dp"
+        android:paddingBottom="20dp"
+        android:visibility="gone">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_essay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_divider"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="正确答案"
+            android:textColor="@color/es_font_1"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/es_font_1"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>

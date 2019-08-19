@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.supe.supertest.question.view.QuestionHomeworkEssayWidget xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_homework_question_head_layout" />
+
+    <RelativeLayout
+        android:id="@+id/rl_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_head"
+        android:paddingLeft="24dp"
+        android:paddingTop="16dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:id="@id/question_stem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/es_font_1"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_reply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/question_stem"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/rect_2_line_gray_freetopic"
+            android:gravity="top"
+            android:hint="你的回答..."
+            android:lines="6"
+            android:padding="5dp"
+            android:textColor="@color/es_font_2"
+            android:textColorHint="#C1C1C1"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/check_show_analysis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_question"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="64dp"
+        android:layout_marginRight="24dp"
+        android:button="@null"
+        android:drawableRight="@drawable/sel_homework_analysis"
+        android:drawablePadding="3dp"
+        android:text="@string/view_analysis"
+        android:textColor="@color/yellow"
+        android:textSize="14sp" />
+
+    <ViewStub
+        android:id="@+id/quetion_choice_analysis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/check_show_analysis"
+        android:inflatedId="@+id/quetion_choice_analysis"
+        android:layout="@layout/include_homework_question_analysis"
+        android:paddingTop="40dp"
+        android:paddingBottom="12dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_question_analysis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quetion_choice_analysis"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/es_divider" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:includeFontPadding="false"
+            android:text="@string/answer_analysis"
+            android:textColor="@color/es_font_3"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_question_analysis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/es_font_1"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</com.supe.supertest.question.view.QuestionHomeworkEssayWidget>
