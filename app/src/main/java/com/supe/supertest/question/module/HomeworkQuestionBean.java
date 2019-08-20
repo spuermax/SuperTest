@@ -1,5 +1,7 @@
 package com.supe.supertest.question.module;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
  * @Date 2019/8/13 14:18
  * @Description
  */
-public class HomeworkQuestionBean {
+public class HomeworkQuestionBean implements MultiItemEntity {
 
     private int id;
     public HomeworkQuestionTypeBean type; //题型
@@ -21,6 +23,11 @@ public class HomeworkQuestionBean {
     private List<HomeworkQuestionBean> items; //材料题子题
     private HomeworkQuestionBean parent;
     private HomeworkItemResultBean result; //结果
+    private int itemType;
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
 
     public HomeworkItemResultBean getResult() {
         return result;
@@ -100,6 +107,11 @@ public class HomeworkQuestionBean {
 
     public String getDifficulty() {
         return this.difficulty;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
     }
 
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.supe.supertest.question.view.QuestionHomeworkMaterialWidget xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_homework_question_head_layout" />
+    <RelativeLayout
+        android:id="@+id/rl_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_head"
+        android:paddingLeft="24dp"
+        android:paddingTop="16dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:id="@id/question_stem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:textStyle="bold"
+            android:textColor="@color/es_font_1"
+            android:textSize="16sp" />
+
+        <RadioGroup
+            android:id="@+id/quetion_choice_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/question_stem"
+            android:layout_gravity="right"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical" />
+
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</com.supe.supertest.question.view.QuestionHomeworkMaterialWidget>

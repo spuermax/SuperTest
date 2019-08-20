@@ -68,20 +68,26 @@ public class QuestionPagerAdapter extends PagerAdapter {
     private View switchQuestionWidget(HomeworkQuestionBean question, int index, int totalNum) {
         BaseHomeworkQuestionWidget mWidget;
         HomeworkQuestionBean.HomeworkQuestionTypeBean typeBean = question.getType();
+        if (typeBean == HomeworkQuestionBean.HomeworkQuestionTypeBean.material) {
+            typeBean = question.getItems().get(0).getType();
+        }
         int layoutId = 0;
         switch (typeBean) {
-            case choice:
-            case uncertain_choice:
+            case choice://多选
+            case uncertain_choice://不定向
                 layoutId = R.layout.item_pager_homework_question_choice;
                 break;
-            case single_choice:
+            case single_choice://单选题
                 layoutId = R.layout.item_pager_homework_question_singlechoice;
                 break;
-            case essay:
+            case essay://问答题
                 layoutId = R.layout.item_pager_homework_question_essay;
                 break;
             case determine://判断题
                 layoutId = R.layout.item_pager_homework_question_determine;
+                break;
+            case material://材料题
+                layoutId = R.layout.item_pager_homework_question_material;
                 break;
             default:
                 break;

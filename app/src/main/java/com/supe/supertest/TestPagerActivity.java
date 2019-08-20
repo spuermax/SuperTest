@@ -3,9 +3,11 @@ package com.supe.supertest;
 import android.os.Bundle;
 import android.view.View;
 
+import com.supe.supertest.question.MaterialQuestionActivity;
 import com.supe.supertest.question.QuestionActivity;
 import com.supe.supertest.rxjava.RxJavaActivity;
 import com.supermax.base.common.viewbind.annotation.OnClick;
+import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.QsActivity;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -22,6 +24,7 @@ public class TestPagerActivity extends QsActivity {
     private IWXAPI api;
     private String WX_ID = "wxff6bbd5dfc9c8e7e";
     private String WX_SECRET = "e4cd86942b4de908ca415b9562e06345";
+
     @Override
     public int layoutId() {
         return R.layout.activity_testpager;
@@ -31,13 +34,13 @@ public class TestPagerActivity extends QsActivity {
     public void initData(Bundle savedInstanceState) {
 
         //通过WXAPIFactory工厂获取IWXApI的示例
-        api = WXAPIFactory.createWXAPI(getContext(),WX_ID ,true);
+        api = WXAPIFactory.createWXAPI(getContext(), WX_ID, true);
         //将应用的appid注册到微信
         api.registerApp(WX_ID);
 
     }
 
-    @OnClick({R.id.tv_rxJava, R.id.tv_login, R.id.tv_question})
+    @OnClick({R.id.tv_rxJava, R.id.tv_login, R.id.tv_question, R.id.bt_material})
     @Override
     public void onViewClick(View view) {
         super.onViewClick(view);
@@ -54,6 +57,11 @@ public class TestPagerActivity extends QsActivity {
                 break;
             case R.id.tv_question:
                 intent2Activity(QuestionActivity.class);
+                QsToast.show("123");
+                break;
+            case R.id.bt_material:
+                intent2Activity(MaterialQuestionActivity.class);
+                QsToast.show("123");
                 break;
         }
     }

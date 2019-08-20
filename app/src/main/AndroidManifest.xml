@@ -113,6 +113,11 @@
             android:name=".notification.NotificationActivity"
             android:theme="@style/ST_Theme" />
 
+        <activity
+            android:name=".question.MaterialQuestionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ST_Theme" />
+
         <!--微信登录配置 start-->
         <activity
             android:name=".wxapi.WXEntryActivity"
