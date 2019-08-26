@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.supe.supertest.R;
 import com.supe.supertest.home.YaDianNaFragment;
+import com.supe.supertest.home.ZhuGeFragment;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.widget.indicator.MagicIndicator;
 import com.supermax.base.common.widget.indicator.ViewPagerIndicatorHelper;
@@ -50,11 +51,11 @@ public class MagicIndicatorActivity extends QsActivity {
     @Override
     public void initData(Bundle bundle) {
 
-        list.add(new YaDianNaFragment());
-        list.add(new YaDianNaFragment());
-        list.add(new YaDianNaFragment());
-        list.add(new YaDianNaFragment());
-        list.add(new YaDianNaFragment());
+        list.add(new ZhuGeFragment());
+        list.add(new ZhuGeFragment());
+        list.add(new ZhuGeFragment());
+        list.add(new ZhuGeFragment());
+        list.add(new ZhuGeFragment());
 
         viewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

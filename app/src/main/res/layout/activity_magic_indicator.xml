@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_300"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
         >
 
 
 
-        <android.support.design.widget.CollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -34,26 +37,27 @@
 
 
 
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-
-        <com.supermax.base.common.widget.indicator.MagicIndicator
-            android:id="@+id/magic_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:background="@color/color_cool_grey"
-
-            />
-
-    </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
 
-    <androidx.core.view.ViewPager
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <com.supermax.base.common.widget.indicator.MagicIndicator
+        android:id="@+id/magic_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/color_cool_grey"
+
+        />
+
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
-</android.support.design.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

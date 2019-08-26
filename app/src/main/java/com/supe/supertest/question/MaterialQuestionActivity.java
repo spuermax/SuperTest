@@ -37,14 +37,33 @@ public class MaterialQuestionActivity extends QsActivity {
         return super.initView();
     }
 
+    final byte[] sendLed = {(byte) 0xCC, (byte) 0xEE, (byte) 0x01, (byte) 0x09,
+            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xFF};
+
+
+    public static String toHexString(byte[] byteArray) {
+        if (byteArray == null || byteArray.length < 1)
+            throw new IllegalArgumentException("this byteArray must not be null or empty");
+
+        final StringBuilder hexString = new StringBuilder();
+        for (int i = 0; i < byteArray.length; i++) {
+            if ((byteArray[i] & 0xff) < 0x10)//0~F前面不零
+                hexString.append("0");
+            hexString.append(Integer.toHexString(0xFF & byteArray[i]));
+        }
+        return hexString.toString().toLowerCase();
+    }
+
     @Override
     public void initData(Bundle savedInstanceState) {
-
-        Log.i("AAAAAAA","AAAAAAAAA");
+        String str= toHexString(sendLed);
+        Log.i("AAAAAAA","str" + str);
         ArrayList<HomeworkQuestionBean> arrayList = new ArrayList<>();
 
         for (int i = 1; i < 6; i++) {
-            Log.i("AAAAAAAAa","i = "+ i);
+            Log.e("AAAAAAAAa","i = "+ i);
             HomeworkQuestionBean homeworkQuestionBean = new HomeworkQuestionBean();
             homeworkQuestionBean.setItemType(i);
             arrayList.add(homeworkQuestionBean);
