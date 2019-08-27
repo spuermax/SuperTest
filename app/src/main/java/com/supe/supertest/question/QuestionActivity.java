@@ -62,7 +62,7 @@ public class QuestionActivity extends QsABActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         tv_title.setText("第一章（练习二）");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 4; i++) {
             ArrayList<String> metas = new ArrayList<>();
             metas.add("宪法");
             metas.add("法律");
@@ -84,7 +84,7 @@ public class QuestionActivity extends QsABActivity {
             metas1.add("按照首席仲裁员的意见作出裁决");
             metas1.add("提请仲裁委员会作出裁决");
             HomeworkQuestionBean homeworkQuestionBean2 = new HomeworkQuestionBean();
-            homeworkQuestionBean2.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.determine;
+            homeworkQuestionBean2.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.fill;
             homeworkQuestionBean2.setMetas(metas1);
             homeworkQuestionBean2.setStem("2、甲、乙因合同纠纷申请仲裁，仲裁庭对案件裁决时两位仲裁员支持甲方的请求，但首席仲裁员支持乙的请求，关于该案件仲裁" +
                     "裁决的下列表述中，符合法律规定的是（）。");
