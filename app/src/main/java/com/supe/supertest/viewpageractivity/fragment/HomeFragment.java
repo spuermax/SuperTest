@@ -7,8 +7,11 @@ import com.supe.supertest.home.AKeFragment;
 import com.supe.supertest.home.ShouYueFragment;
 import com.supe.supertest.home.YaDianNaFragment;
 import com.supe.supertest.home.ZhuGeFragment;
+import com.supe.supertest.realm.TestModel;
+import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.fragment.QsViewPagerFragment;
 import com.supermax.base.mvp.model.QsModelPager;
+
 
 /**
  * @Author yinzh
@@ -24,6 +27,14 @@ public class HomeFragment extends QsViewPagerFragment {
 
     @Override
     public void initData(Bundle bundle) {
+
+
+//        Realm realm = Realm.getDefaultInstance();
+//
+//        TestModel testModel = realm.where(TestModel.class).findFirst();
+
+//        QsToast.show(testModel.getName());
+
 
     }
 

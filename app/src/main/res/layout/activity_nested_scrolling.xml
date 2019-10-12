@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <com.supe.supertest.nestedscrolling.NestedScrollingParentView
+        android:id="@+id/scroll_view_parent"
         android:layout_width="@dimen/dp_300"
         android:layout_height="@dimen/dp_200"
-        android:background="@color/color_333333">
+        android:background="@color/color_333333"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        >
 
 
 
@@ -20,4 +25,16 @@
 
     </com.supe.supertest.nestedscrolling.NestedScrollingParentView>
 
-</LinearLayout>
+
+    <com.supe.supertest.nestedscrolling.view.ScrollViewFrameLayout
+        android:id="@+id/scroll_frame"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/colorAccen"
+        app:layout_constraintTop_toBottomOf="@id/scroll_view_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

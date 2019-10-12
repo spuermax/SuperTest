@@ -46,7 +46,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.drawerlayout.widget.DrawerLayout;
-import io.realm.Realm;
 
 public class MainActivity extends QsABActivity {
 
@@ -87,17 +86,17 @@ public class MainActivity extends QsABActivity {
         testImageHelper();
 
         TestModel testModel = new TestModel();
-        testModel.setAge("12");
-        testModel.setAgeA(15);
-        testModel.setName("yzh");
+//        testModel.setAge("12");
+//        testModel.setAgeA(15);
+//        testModel.setName("yzh");
 
 
-        Realm defaultInstance = Realm.getDefaultInstance();
+//        Realm defaultInstance = Realm.getDefaultInstance();
 
-        defaultInstance.insert(testModel);
-        TestModel object = defaultInstance.createObject(TestModel.class);
+//        defaultInstance.insert(testModel);
+//        TestModel object = defaultInstance.createObject(TestModel.class);
 
-        QsToast.show(object.getAge());
+//        QsToast.show(object.getAge());
 
 
 

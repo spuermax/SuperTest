@@ -16,7 +16,7 @@ buildscript {
          /*GreenDao*/
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
         /*数据库  Realm*/
-        classpath "io.realm:realm-gradle-plugin:5.8.0"
+        classpath "io.realm:realm-gradle-plugin:6.0.0"
 
 
 

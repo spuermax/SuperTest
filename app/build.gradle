@@ -126,7 +126,7 @@ dependencies {
 
 //
     implementation 'com.aliyun.ams:alicloud-android-feedback:3.1.8'
-//    implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
+    implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
 //    implementation 'com.aliyun.ams:alicloud-android-ut:5.4.0'
 //    implementation 'com.aliyun.ams:alicloud-android-utils:1.1.3'
 

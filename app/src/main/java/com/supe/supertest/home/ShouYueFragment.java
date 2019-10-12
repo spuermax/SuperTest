@@ -13,6 +13,7 @@ import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.supe.supertest.R;
 import com.supe.supertest.Recycler2Recycler.SortActivity;
 import com.supe.supertest.TestPagerActivity;
+import com.supe.supertest.paint.PaintActivity;
 import com.supe.supertest.rxjava.RxTestActivity;
 import com.supe.supertest.tablayout.TabLayoutActivity;
 import com.supermax.base.common.viewbind.annotation.Bind;
@@ -48,8 +49,6 @@ public class ShouYueFragment extends QsFragment {
 
     @Bind(R.id.tv_cancel)
     TextView tv_cancel;
-
-
 
     @Override
     public int layoutId() {
@@ -100,11 +99,13 @@ public class ShouYueFragment extends QsFragment {
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.tv_cancel:
-                intent2Activity(SortActivity.class);
+//                intent2Activity(SortActivity.class);
+                intent2Activity(PaintActivity.class);
+
                 break;
             case R.id.bt_rxJava:
                 intent2Activity(TestPagerActivity.class);
-
+//                FeedbackAPI.openFeedbackActivity();
                 break;
         }
     }

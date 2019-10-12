@@ -42,31 +42,26 @@ public class SuperApplication extends QsApplication {
         }
 
 
-//        FeedbackAPI.init(this, "27684165","c3cb246e14c6fa93197db09f5593a181 ");
+//        FeedbackAPI.init(this, "27704404","ad8f16ef360fea53aef8005c25b6cbfc ");
 
         ARouter.init(this);
 
-//        initRealm();
+        initRealm();
     }
 
     /**
      * 初始化 数据库
      */
     private void initRealm() {
-//        Realm.init(this);
-//
-//        RealmConfiguration config = new RealmConfiguration.Builder()
-//                .name("myrealm.realm")
-//                .schemaVersion(1)
-//                .deleteRealmIfMigrationNeeded()//声明版本冲突时自动删除原数据库
-//                .build();
-//
-//        Realm.setDefaultConfiguration(config);
-
         Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder().build();
-        Realm.setDefaultConfiguration(config);
 
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name("myrealm.realm")
+                .schemaVersion(1)
+                .deleteRealmIfMigrationNeeded()//声明版本冲突时自动删除原数据库
+                .build();
+
+        Realm.setDefaultConfiguration(config);
     }
 
     /**
