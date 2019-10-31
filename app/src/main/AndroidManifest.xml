@@ -36,6 +36,7 @@
         android:theme="@style/ST_Theme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
+
         <activity android:name=".viewpageractivity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

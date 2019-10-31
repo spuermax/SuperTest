@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 import com.supe.supertest.common.utils.UrlUtils;
 import com.supermax.base.QsApplication;
 import com.supermax.base.common.http.HttpBuilder;
@@ -19,6 +17,7 @@ import io.realm.RealmConfiguration;
  * @Author yinzh
  * @Date 2018/10/17 10:43
  * @Description
+ *      Caused by: java.lang.ClassNotFoundException: Didn't find class "io.realm.Realm" on path: DexPathList[[zip file "/data/app/com.supe.supertest-qdKeJ1bmfT86GsNxdndZuQ==/base.apk"],nativeLibraryDirectories=[/data/app/com.supe.supertest-qdKeJ1bmfT86GsNxdndZuQ==/lib/arm64, /data/app/com.supe.supertest-qdKeJ1bmfT86GsNxdndZuQ==/base.apk!/lib/arm64-v8a, /system/lib64, /product/lib64]]
  */
 public class SuperApplication extends QsApplication {
 
@@ -46,7 +45,7 @@ public class SuperApplication extends QsApplication {
 
         ARouter.init(this);
 
-        initRealm();
+//        initRealm();
     }
 
     /**
