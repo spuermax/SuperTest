@@ -10,6 +10,7 @@
         android:layout_height="@dimen/dp_100"
         android:gravity="center"
         android:text="检测图片重复"
+        app:layout_constraintTop_toTopOf="parent"
         android:background="@color/colorBaseWhite"
 
         />

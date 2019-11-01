@@ -93,7 +93,6 @@ public class ChapterBitmapActivity extends QsActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @OnClick({R.id.tv_check})
     public void onViewClick(View view) {
         switch (view.getId()) {
@@ -106,7 +105,7 @@ public class ChapterBitmapActivity extends QsActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     private void startAnalyze() {
         Snapshot snapshot = createDump();
 
@@ -190,6 +189,9 @@ public class ChapterBitmapActivity extends QsActivity {
     }
 
 
+    /**
+     * 生成堆转储文件
+     */
     private Snapshot createDump() {
         File fileDir = new File(DUMP_PATH);
         if (!fileDir.exists()) {
