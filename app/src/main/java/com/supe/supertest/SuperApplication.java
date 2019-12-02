@@ -8,6 +8,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.supe.supertest.common.utils.UrlUtils;
 import com.supermax.base.QsApplication;
 import com.supermax.base.common.http.HttpBuilder;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import androidx.multidex.MultiDex;
 import io.realm.Realm;
@@ -34,6 +35,8 @@ public class SuperApplication extends QsApplication {
 
 
         LeakCanary.install(this);
+
+        CrashReport.initCrashReport(this, "3a7015de5a", false);
 
         if (isApkDebug()) {
             ARouter.openLog();
