@@ -25,6 +25,8 @@
         app:xTabTextColor="#000"
         app:xTabTextSize="15sp" />
 
+
+
     <com.supermax.base.common.widget.viewpager.PagerSlidingTabStrip
         android:id="@+id/tab_layout2"
         android:layout_width="match_parent"

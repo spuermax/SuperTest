@@ -27,6 +27,14 @@
     </style>
 
 
+    <!-- 星星 -->
+    <style name="my_bar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
+        <item name="android:minHeight">@dimen/dp_15</item>
+        <item name="android:maxHeight">@dimen/dp_15</item>
+    </style>
+
+
 
 
 
