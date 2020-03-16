@@ -1,4 +1,4 @@
-package com.supe.supertest.question;
+package com.supe.supertest.homework;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,9 +6,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.supe.supertest.R;
-import com.supe.supertest.question.adapter.QuestionPagerAdapter;
-import com.supe.supertest.question.event.MessageEvent;
-import com.supe.supertest.question.module.HomeworkQuestionBean;
+import com.supe.supertest.homework.adapter.QuestionPagerAdapter;
+import com.supe.supertest.homework.event.MessageEvent;
+import com.supe.supertest.homework.module.HomeworkQuestionBean;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.viewbind.annotation.OnClick;
 import com.supermax.base.common.widget.toast.QsToast;
@@ -24,7 +24,7 @@ import androidx.viewpager.widget.ViewPager;
 /**
  * @Author yinzh
  * @Date 2019/8/12 21:10
- * @Description
+ * @Description 题库demo 入口
  */
 public class QuestionActivity extends QsABActivity {
 
@@ -62,7 +62,9 @@ public class QuestionActivity extends QsABActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         tv_title.setText("第一章（练习二）");
-        for (int i = 0; i < 4; i++) {
+
+        // 单选题
+        for (int i = 0; i < 2; i++) {
             ArrayList<String> metas = new ArrayList<>();
             metas.add("宪法");
             metas.add("法律");
@@ -77,7 +79,8 @@ public class QuestionActivity extends QsABActivity {
         }
 
 
-        for (int i = 0; i < 10; i++) {
+        // 填空题
+        for (int i = 0; i < 2; i++) {
             ArrayList<String> metas1 = new ArrayList<>();
             metas1.add("应当按照多数仲裁员的意见作出裁决");
             metas1.add("应当有仲裁庭达成一致意见作出在裁决");
@@ -85,6 +88,82 @@ public class QuestionActivity extends QsABActivity {
             metas1.add("提请仲裁委员会作出裁决");
             HomeworkQuestionBean homeworkQuestionBean2 = new HomeworkQuestionBean();
             homeworkQuestionBean2.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.fill;
+            homeworkQuestionBean2.setMetas(metas1);
+            homeworkQuestionBean2.setStem("2、甲、乙因合同纠纷申请仲裁，仲裁庭对案件裁决时两位仲裁员支持甲方的请求，但首席仲裁员支持乙的请求，关于该案件仲裁" +
+                    "裁决的下列表述中，符合法律规定的是（）。");
+
+            mQuestionList.add(homeworkQuestionBean2);
+        }
+
+
+        //判断题
+        for (int i = 0; i < 2; i++) {
+            ArrayList<String> metas1 = new ArrayList<>();
+            metas1.add("应当按照多数仲裁员的意见作出裁决");
+            metas1.add("应当有仲裁庭达成一致意见作出在裁决");
+            metas1.add("按照首席仲裁员的意见作出裁决");
+            metas1.add("提请仲裁委员会作出裁决");
+            HomeworkQuestionBean homeworkQuestionBean2 = new HomeworkQuestionBean();
+            homeworkQuestionBean2.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.determine;
+            homeworkQuestionBean2.setMetas(metas1);
+            homeworkQuestionBean2.setStem("2、甲、乙因合同纠纷申请仲裁，仲裁庭对案件裁决时两位仲裁员支持甲方的请求，但首席仲裁员支持乙的请求，关于该案件仲裁" +
+                    "裁决的下列表述中，符合法律规定的是（）。");
+
+            mQuestionList.add(homeworkQuestionBean2);
+        }
+
+
+        // 问答题
+        for (int i = 0; i < 2; i++) {
+            ArrayList<String> metas1 = new ArrayList<>();
+            metas1.add("应当按照多数仲裁员的意见作出裁决");
+            metas1.add("应当有仲裁庭达成一致意见作出在裁决");
+            metas1.add("按照首席仲裁员的意见作出裁决");
+            metas1.add("提请仲裁委员会作出裁决");
+            HomeworkQuestionBean homeworkQuestionBean2 = new HomeworkQuestionBean();
+            homeworkQuestionBean2.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.essay;
+            homeworkQuestionBean2.setMetas(metas1);
+            homeworkQuestionBean2.setStem("2、甲、乙因合同纠纷申请仲裁，仲裁庭对案件裁决时两位仲裁员支持甲方的请求，但首席仲裁员支持乙的请求，关于该案件仲裁" +
+                    "裁决的下列表述中，符合法律规定的是（）。");
+
+            mQuestionList.add(homeworkQuestionBean2);
+        }
+
+        // 材料题
+        for (int i = 0; i < 2; i++) {
+            ArrayList<String> metas1 = new ArrayList<>();
+            metas1.add("应当按照多数仲裁员的意见作出裁决");
+            metas1.add("应当有仲裁庭达成一致意见作出在裁决");
+            metas1.add("按照首席仲裁员的意见作出裁决");
+            metas1.add("提请仲裁委员会作出裁决");
+            HomeworkQuestionBean homeworkQuestionBean2 = new HomeworkQuestionBean();
+            homeworkQuestionBean2.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.material;
+            homeworkQuestionBean2.setMetas(metas1);
+            homeworkQuestionBean2.setStem("2、甲、乙因合同纠纷申请仲裁，仲裁庭对案件裁决时两位仲裁员支持甲方的请求，但首席仲裁员支持乙的请求，关于该案件仲裁" +
+                    "裁决的下列表述中，符合法律规定的是（）。");
+
+            // 材料题子题
+
+            ArrayList<HomeworkQuestionBean> items = new ArrayList<>();
+            HomeworkQuestionBean homeworkQuestionBean3 = new HomeworkQuestionBean();
+            homeworkQuestionBean3.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.material;
+            homeworkQuestionBean3.setMetas(metas1);
+            items.add(homeworkQuestionBean3);
+            homeworkQuestionBean2.setItems(items);
+
+            mQuestionList.add(homeworkQuestionBean2);
+        }
+
+
+        // 多选题
+        for (int i = 0; i < 2; i++) {
+            ArrayList<String> metas1 = new ArrayList<>();
+            metas1.add("应当按照多数仲裁员的意见作出裁决");
+            metas1.add("应当有仲裁庭达成一致意见作出在裁决");
+            metas1.add("按照首席仲裁员的意见作出裁决");
+            metas1.add("提请仲裁委员会作出裁决");
+            HomeworkQuestionBean homeworkQuestionBean2 = new HomeworkQuestionBean();
+            homeworkQuestionBean2.type = HomeworkQuestionBean.HomeworkQuestionTypeBean.choice;
             homeworkQuestionBean2.setMetas(metas1);
             homeworkQuestionBean2.setStem("2、甲、乙因合同纠纷申请仲裁，仲裁庭对案件裁决时两位仲裁员支持甲方的请求，但首席仲裁员支持乙的请求，关于该案件仲裁" +
                     "裁决的下列表述中，符合法律规定的是（）。");

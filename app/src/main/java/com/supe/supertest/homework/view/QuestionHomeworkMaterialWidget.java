@@ -1,16 +1,15 @@
-package com.supe.supertest.question.view;
+package com.supe.supertest.homework.view;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.supe.supertest.R;
-import com.supe.supertest.question.adapter.MaterialAdapter;
-import com.supe.supertest.question.module.HomeworkQuestionBean;
+import com.supe.supertest.homework.adapter.MaterialAdapter;
+import com.supe.supertest.homework.module.HomeworkQuestionBean;
 
 import java.util.ArrayList;
 

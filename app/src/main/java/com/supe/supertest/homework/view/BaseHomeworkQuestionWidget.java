@@ -1,9 +1,8 @@
-package com.supe.supertest.question.view;
+package com.supe.supertest.homework.view;
 
 import android.content.Context;
 import android.text.Html;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
@@ -17,11 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.supe.supertest.R;
-import com.supe.supertest.question.module.HomeworkQuestionBean;
+import com.supe.supertest.homework.module.HomeworkQuestionBean;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.constraintlayout.widget.ConstraintLayout;

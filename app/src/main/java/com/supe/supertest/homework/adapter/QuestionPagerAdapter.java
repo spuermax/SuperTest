@@ -1,4 +1,4 @@
-package com.supe.supertest.question.adapter;
+package com.supe.supertest.homework.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 
 import com.supe.supertest.R;
-import com.supe.supertest.question.module.HomeworkQuestionBean;
-import com.supe.supertest.question.view.BaseHomeworkQuestionWidget;
+import com.supe.supertest.homework.module.HomeworkQuestionBean;
+import com.supe.supertest.homework.view.BaseHomeworkQuestionWidget;
 
 import java.util.ArrayList;
 

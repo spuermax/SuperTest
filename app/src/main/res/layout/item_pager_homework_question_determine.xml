@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.supe.supertest.question.view.QuestionHomeworkDetermineWidget xmlns:android="http://schemas.android.com/apk/res/android"
+<com.supe.supertest.homework.view.QuestionHomeworkDetermineWidget xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/es_bg_white"
@@ -98,4 +98,4 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-</com.supe.supertest.question.view.QuestionHomeworkDetermineWidget>
+</com.supe.supertest.homework.view.QuestionHomeworkDetermineWidget>

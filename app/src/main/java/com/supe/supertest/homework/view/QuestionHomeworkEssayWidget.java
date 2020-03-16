@@ -1,23 +1,18 @@
-package com.supe.supertest.question.view;
+package com.supe.supertest.homework.view;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Html;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.supe.supertest.R;
-import com.supe.supertest.question.QuestionActivity;
-import com.supe.supertest.question.event.MessageEvent;
-import com.supe.supertest.question.module.HomeworkQuestionBean;
+import com.supe.supertest.homework.QuestionActivity;
+import com.supe.supertest.homework.event.MessageEvent;
+import com.supe.supertest.homework.module.HomeworkQuestionBean;
 
 import org.greenrobot.eventbus.EventBus;
 

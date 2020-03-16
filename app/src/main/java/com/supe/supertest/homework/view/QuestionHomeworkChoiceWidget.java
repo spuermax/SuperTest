@@ -1,4 +1,4 @@
-package com.supe.supertest.question.view;
+package com.supe.supertest.homework.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,8 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.supe.supertest.R;
-import com.supe.supertest.question.adapter.QuestionPagerAdapter;
-import com.supe.supertest.question.module.HomeworkQuestionBean;
+import com.supe.supertest.homework.module.HomeworkQuestionBean;
 import com.supermax.base.common.log.L;
 
 import java.util.ArrayList;

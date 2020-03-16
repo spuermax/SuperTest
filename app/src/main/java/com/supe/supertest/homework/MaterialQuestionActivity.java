@@ -1,12 +1,12 @@
-package com.supe.supertest.question;
+package com.supe.supertest.homework;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.supe.supertest.R;
-import com.supe.supertest.question.adapter.MaterialAdapter;
-import com.supe.supertest.question.module.HomeworkQuestionBean;
+import com.supe.supertest.homework.adapter.MaterialAdapter;
+import com.supe.supertest.homework.module.HomeworkQuestionBean;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.mvp.QsActivity;
 

@@ -108,7 +108,7 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".question.QuestionActivity"
+            android:name=".homework.QuestionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ST_Theme" />
 
@@ -117,7 +117,7 @@
             android:theme="@style/ST_Theme" />
 
         <activity
-            android:name=".question.MaterialQuestionActivity"
+            android:name=".homework.MaterialQuestionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ST_Theme" />
 

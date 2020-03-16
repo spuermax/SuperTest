@@ -1,13 +1,11 @@
-package com.supe.supertest.question.adapter;
+package com.supe.supertest.homework.adapter;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.supe.supertest.R;
-import com.supe.supertest.question.module.HomeworkQuestionBean;
+import com.supe.supertest.homework.module.HomeworkQuestionBean;
 
 import java.util.List;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @Author yinzh
