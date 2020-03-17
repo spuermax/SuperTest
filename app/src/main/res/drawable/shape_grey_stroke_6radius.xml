@@ -5,7 +5,7 @@
 
 
     <solid
-        android:color="@color/color_toolbar_bg"/>
+        android:color="@color/color_cool_grey"/>
 
     <corners
         android:radius="@dimen/dp_6"/>

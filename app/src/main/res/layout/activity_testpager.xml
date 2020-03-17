@@ -101,11 +101,45 @@
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/ll4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_below="@id/ll3"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/collapsing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="悬浮效果" />
+
+
+        <Button
+            android:id="@+id/collapsing1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="悬浮效果" />
+
+
+        <Button
+            android:id="@+id/collapsing2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="悬浮效果" />
+
+
+    </LinearLayout>
+
     <com.supe.supertest.nestedscrolling.view.ScrollViewFrameLayout
         android:id="@+id/tv_view"
         android:layout_width="@dimen/dp_120"
         android:layout_height="@dimen/dp_90"
-        android:layout_below="@id/ll3"
+        android:layout_below="@id/ll4"
         android:layout_alignParentRight="true"
         android:background="@color/es_font_3" />
 
@@ -114,7 +148,7 @@
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
-        android:layout_below="@id/ll3"
+        android:layout_below="@id/ll4"
         android:imeOptions="actionSend"
         android:singleLine="true" />
 
@@ -123,7 +157,8 @@
         android:id="@+id/top_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
-        android:background="@color/es_font_3" />
+        android:background="@color/es_font_3"
+        android:visibility="gone" />
 
 
     <View
@@ -131,6 +166,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         android:layout_below="@id/ll3"
-        android:background="@color/es_font_3" />
+        android:background="@color/es_font_3"
+        android:visibility="gone" />
 
 </RelativeLayout>

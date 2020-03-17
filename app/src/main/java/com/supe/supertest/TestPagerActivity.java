@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.supe.supertest.collapsing.CollapsingActivity;
 import com.supe.supertest.common.utils.ScreenUtils;
 import com.supe.supertest.nestedscrolling.view.ScrollViewFrameLayout;
 import com.supe.supertest.paint.PaintActivity;
@@ -102,7 +103,9 @@ public class TestPagerActivity extends QsActivity {
 
     }
 
-    @OnClick({R.id.tv_rxJava, R.id.tv_login, R.id.tv_question, R.id.bt_material, R.id.pupop, R.id.paint, R.id.btn_input, R.id.relative_layout})
+    @OnClick({R.id.tv_rxJava, R.id.tv_login, R.id.tv_question,
+            R.id.bt_material, R.id.pupop, R.id.paint,
+            R.id.btn_input, R.id.relative_layout, R.id.collapsing})
     @Override
     public void onViewClick(View view) {
         super.onViewClick(view);
@@ -135,7 +138,7 @@ public class TestPagerActivity extends QsActivity {
                 // 设置点击popupwindow外屏幕其它地方消失
                 mPopWindow.setOutsideTouchable(true);
                 mPopWindow.setFocusable(true);
-                mPopWindow.showAsDropDown(popup, Gravity.BOTTOM, 0, 0);
+//                mPopWindow.showAsDropDown(popup, Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.paint:
                 intent2Activity(PaintActivity.class);
@@ -144,12 +147,16 @@ public class TestPagerActivity extends QsActivity {
             case R.id.btn_input:
 //                editText.setVisibility(View.VISIBLE);
 //                showInput(editText);
-
                 setScreen();
 
                 break;
             case R.id.relative_layout:
                 controllersView.setStae();
+                break;
+            case R.id.collapsing:
+                intent2Activity(CollapsingActivity.class);
+                break;
+            default:
                 break;
         }
     }

@@ -84,6 +84,18 @@ public class ShouYueFragment extends QsFragment {
             }
 
         });
+
+
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                int height = dp2Px(45, getContext());
+
+
+
+            }
+        });
     }
 
 
