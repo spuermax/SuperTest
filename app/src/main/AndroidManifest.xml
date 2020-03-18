@@ -141,6 +141,9 @@
         <activity android:name=".collapsing.CollapsingActivity"
             android:theme="@style/ST_Theme" />
 
+        <activity android:name=".collapsing.demo.CollapsingDemoActivity"
+            android:theme="@style/ST_Theme" />
+
 
         <!--************允许全屏界面内容显示到刘海区域配置**************-->
 

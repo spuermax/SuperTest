@@ -37,7 +37,7 @@ import androidx.viewpager.widget.ViewPager;
 /**
  * @Author yinzh
  * @Date 2020/3/17 11:09
- * @Description
+ * @Description 悬浮效果
  */
 public class CollapsingActivity extends QsActivity {
 

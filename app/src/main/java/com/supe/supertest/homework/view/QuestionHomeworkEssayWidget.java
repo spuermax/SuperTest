@@ -86,7 +86,7 @@ public class QuestionHomeworkEssayWidget extends BaseHomeworkQuestionWidget{
         public void onTextChanged(CharSequence charSequence, int index, int i2, int i3) {
             Bundle bundle = new Bundle();
             bundle.putInt("index", mIndex - 1);
-            bundle.putSerializable("QuestionType", mChildQuestion.getType());
+            bundle.putSerializable("HomeworkQuestionTypeBean", mChildQuestion.getType());
             ArrayList<String> data = new ArrayList<>();
             data.add(etReply.getText().toString());
 

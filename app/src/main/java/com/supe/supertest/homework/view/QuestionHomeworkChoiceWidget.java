@@ -122,7 +122,7 @@ public class QuestionHomeworkChoiceWidget extends BaseHomeworkQuestionWidget imp
 
 //        Bundle bundle = new Bundle();
 //        bundle.putInt("index", mIndex - 1);
-//        bundle.putSerializable("QuestionType", mChildQuestion.getType());
+//        bundle.putSerializable("HomeworkQuestionTypeBean", mChildQuestion.getType());
 //
 //        int count = radioGroup.getChildCount();
 //        ArrayList<String> data = new ArrayList<>();

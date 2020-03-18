@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.supe.supertest.R;
 import com.supe.supertest.homework.module.HomeworkQuestionBean;
+import com.supe.supertest.homework.module.HomeworkQuestionTypeBean;
 
 import java.util.ArrayList;
 
@@ -116,7 +117,7 @@ public abstract class BaseHomeworkQuestionWidget extends RelativeLayout {
     public void setData(HomeworkQuestionBean question, int index, int totalNum) {
         mIndex = index;
         mQuestion = question;
-        if (mQuestion.getType() == HomeworkQuestionBean.HomeworkQuestionTypeBean.material) {
+        if (mQuestion.getType() == HomeworkQuestionTypeBean.material) {
             mChildQuestion = question.getItems().get(0);
         } else {
             mChildQuestion = question;
@@ -163,14 +164,14 @@ public abstract class BaseHomeworkQuestionWidget extends RelativeLayout {
         checkShowAnalysis.setVisibility(GONE);
         llQuestionAnalysis.setVisibility(VISIBLE);
 
-        if (mChildQuestion.getType() == HomeworkQuestionBean.HomeworkQuestionTypeBean.essay) {
+        if (mChildQuestion.getType() == HomeworkQuestionTypeBean.essay) {
             llChoice.setVisibility(GONE);
             llFill.setVisibility(GONE);
             llEssay.setVisibility(VISIBLE);
 
             TextView tvRight = view.findViewById(R.id.tv_right);
             tvRight.setText(TextUtils.isEmpty(mChildQuestion.getAnalysis()) ? "暂无答案" : Html.fromHtml(mChildQuestion.getAnswer().get(0)));
-        } else if (mChildQuestion.getType() == HomeworkQuestionBean.HomeworkQuestionTypeBean.fill) {
+        } else if (mChildQuestion.getType() == HomeworkQuestionTypeBean.fill) {
             llChoice.setVisibility(GONE);
             llFill.setVisibility(VISIBLE);
             llEssay.setVisibility(GONE);
@@ -228,7 +229,7 @@ public abstract class BaseHomeworkQuestionWidget extends RelativeLayout {
 
 
 
-    protected String getAnswerByType(HomeworkQuestionBean.HomeworkQuestionTypeBean qt, String answer) {
+    protected String getAnswerByType(HomeworkQuestionTypeBean qt, String answer) {
         switch (qt) {
             case choice:
             case single_choice:

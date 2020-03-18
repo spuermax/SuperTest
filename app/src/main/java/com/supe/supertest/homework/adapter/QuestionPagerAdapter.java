@@ -8,6 +8,7 @@ import android.widget.ScrollView;
 
 import com.supe.supertest.R;
 import com.supe.supertest.homework.module.HomeworkQuestionBean;
+import com.supe.supertest.homework.module.HomeworkQuestionTypeBean;
 import com.supe.supertest.homework.view.BaseHomeworkQuestionWidget;
 
 import java.util.ArrayList;
@@ -67,8 +68,8 @@ public class QuestionPagerAdapter extends PagerAdapter {
 
     private View switchQuestionWidget(HomeworkQuestionBean question, int index, int totalNum) {
         BaseHomeworkQuestionWidget mWidget;
-        HomeworkQuestionBean.HomeworkQuestionTypeBean typeBean = question.getType();
-        if (typeBean == HomeworkQuestionBean.HomeworkQuestionTypeBean.material) {
+        HomeworkQuestionTypeBean typeBean = question.getType();
+        if (typeBean == HomeworkQuestionTypeBean.material) {
             typeBean = question.getItems().get(0).getType();
         }
         int layoutId = 0;

@@ -75,6 +75,7 @@
     <color name="text_radiobutton_color">#e60012</color>
     <color name="text_main_color">#4d4d4d</color>
 
+    <color name="transparent">#00000000</color>
 
     <color name="color_4CBCFE">#4CBCFE</color>
     <color name="color_468ADE">#468ADE</color>
@@ -99,6 +100,15 @@
     <color name="color_77fadb08">#77fadb08</color>
     <color name="color_FF5529">#FF5529</color>
     <color name="color_708170">#708170</color>
+    <color name="color_EEEEEE">#EEEEEE</color>
+    <color name="color_F8F8F8">#F8F8F8</color>
+    <color name="color_11D69A">#11D69A</color>
+    <color name="color_DEE0DE">#DEE0DE</color>
+    <color name="color_E5E5E5">#E5E5E5</color>
+    <color name="color_F1FAF7">#F1FAF7</color>
+    <color name="color_74CEA9">#74CEA9</color>
+    <color name="color_F6F6F6">#F6F6F6</color>
+    <color name="color_404046">#404046</color>
 
 
     <!--                     v2.0                    -->

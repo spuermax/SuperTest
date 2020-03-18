@@ -2,7 +2,6 @@ package com.supe.supertest.homework.module;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +19,11 @@ public class HomeworkQuestionBean implements MultiItemEntity {
     private String analysis; //解析
     private ArrayList<String> metas; //选项
     private String difficulty;
-    private List<HomeworkQuestionBean> items; //材料题子题
     private HomeworkQuestionBean parent;
     private HomeworkItemResultBean result; //结果
     private int itemType;
+
+    private List<HomeworkQuestionBean> items; //材料题子题
 
     public void setItemType(int itemType) {
         this.itemType = itemType;
@@ -114,49 +114,6 @@ public class HomeworkQuestionBean implements MultiItemEntity {
         return itemType;
     }
 
-
-    public enum HomeworkQuestionTypeBean implements Serializable {
-        /**
-         *  choice 多选
-         *  determine 判断
-         *  essay 问答
-         *  fill 填空
-         *  material 材料
-         *  single_choice 单选
-         *  uncertain_choice 不定项
-         */
-        choice("多选题"),
-        determine("判断题"),
-        essay("问答题"),
-        fill("填空题"),
-        material("材料题"),
-        single_choice("单选题"),
-        uncertain_choice("不定项题"),
-        empty("");
-
-        public String name;
-
-        HomeworkQuestionTypeBean(String name)
-        {
-            this.name = name;
-        }
-
-        public String title()
-        {
-            return this.name;
-        }
-
-        public static HomeworkQuestionTypeBean value(String typeName)
-        {
-            HomeworkQuestionTypeBean type;
-            try {
-                type =  valueOf(typeName);
-            }catch (Exception e) {
-                type = empty;
-            }
-            return type;
-        }
-    }
 
 
 }

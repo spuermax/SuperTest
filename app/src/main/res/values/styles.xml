@@ -15,6 +15,23 @@
         <item name="actionBarSize">50dp</item>
         <item name="android:windowAnimationStyle">@style/GC_Animation_Activity_Intent</item>
     </style>
+    <!--dialog 主题-->
+    <style name="PopDialogTheme3" parent="android:Theme.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/fragment_enter</item>
+        <item name="android:windowExitAnimation">@anim/fragment_exit</item>
+    </style>
+
+    <style name="BottomDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowAnimationStyle">@style/AnimBottom</item>
+    </style>
 
 
     <!--activity 切换动画-->
