@@ -1,13 +1,22 @@
 package com.supe.supertest.home;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import androidx.core.widget.NestedScrollView;
 
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.supe.supertest.R;
@@ -16,8 +25,10 @@ import com.supe.supertest.TestPagerActivity;
 import com.supe.supertest.paint.PaintActivity;
 import com.supe.supertest.rxjava.RxTestActivity;
 import com.supe.supertest.tablayout.TabLayoutActivity;
+import com.supermax.base.common.utils.CommonUtils;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.viewbind.annotation.OnClick;
+import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.fragment.QsFragment;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -59,6 +70,8 @@ public class ShouYueFragment extends QsFragment {
     @Override
     public void initData(Bundle bundle) {
 
+        showTwo();
+
 
         new BadgeHelper(getContext())
                 .setBadgeType(BadgeHelper.Type.TYPE_POINT)
@@ -96,6 +109,48 @@ public class ShouYueFragment extends QsFragment {
 
             }
         });
+
+
+//        LinearLayout linearLayout = new LinearLayout(getActivity());
+//        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_header_layout, linearLayout);
+//       PopupWindow popupWindow = new PopupWindow(view,
+//                ViewGroup.LayoutParams.MATCH_PARENT, CommonUtils.dip2px(getActivity(),108), true);
+//
+//        nestedScrollView.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                popupWindow.setBackgroundDrawable(new BitmapDrawable());
+//
+//                // 设置弹窗外可点击
+//                popupWindow.setOutsideTouchable(false);
+//                popupWindow.setFocusable(false);
+//                popupWindow.showAtLocation(nestedScrollView, Gravity.BOTTOM, 0, CommonUtils.dip2px(getContext(),10));
+//            }
+//        });
+    }
+
+    private AlertDialog.Builder builder;
+
+    private void showTwo() {
+
+        builder = new AlertDialog.Builder(getActivity()).setIcon(R.mipmap.ic_launcher).setTitle("最普通dialog")
+                .setMessage("我是最简单的dialog").setPositiveButton("确定（积极）", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //ToDo: 你想做的事情
+                        Toast.makeText(getActivity(), "确定按钮", Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton("取消（消极）", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //ToDo: 你想做的事情
+                        Toast.makeText(getActivity(), "关闭按钮", Toast.LENGTH_LONG).show();
+                        dialogInterface.dismiss();
+                    }
+                });
+
+        builder.setCancelable(false);
+        builder.create().show();
     }
 
 

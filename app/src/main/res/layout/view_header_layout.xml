@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_layout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_cool_grey"
     >
 
     <LinearLayout
+        android:id="@+id/ll_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         android:gravity="center"
