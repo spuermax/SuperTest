@@ -1,8 +1,15 @@
 package com.supe.supertest.book;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.supe.supertest.R;
 import com.supe.supertest.book.presenter.ReadBookPresenter;
 import com.supe.supertest.common.model.model.BookChaptersModel;
@@ -24,12 +31,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.core.content.ContextCompat;
+
+import static android.view.View.GONE;
+
 /**
  * @Author yinzh
  * @Date 2018/11/27 16:02
  * @Description
  */
-public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
+public class ReadBookActivity extends QsActivity<ReadBookPresenter> implements View.OnClickListener {
 
     private static final String TAG = "ReadBookActivity";
     public static final String EXTRA_COLL_BOOK = "extra_coll_book";
@@ -38,6 +49,28 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
 
     @Bind(R.id.pageView)
     PageView pageView;
+    @Bind(R.id.read_abl_top_menu)
+    AppBarLayout mReadAblTopMenu;
+    @Bind(R.id.read_ll_bottom_menu)
+    LinearLayout mReadLlBottomMenu;
+    @Bind(R.id.read_tv_pre_chapter)
+    TextView read_tv_pre_chapter;
+    @Bind(R.id.read_tv_next_chapter)
+    TextView read_tv_next_chapter;
+    @Bind(R.id.read_tv_category) // 目录
+            TextView read_tv_category;
+    @Bind(R.id.read_tv_night_mode)//夜间
+            TextView read_tv_night_mode;
+    @Bind(R.id.read_tv_setting)//设置
+            TextView read_tv_setting;
+
+
+    // Anim
+    private Animation mTopInAnim;
+    private Animation mTopOutAnim;
+    private Animation mBottomInAnim;
+    private Animation mBottomOutAnim;
+
 
     private String mBookid;
     private PageLoader mPageLoader;
@@ -55,13 +88,17 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
 
     @Override
     public void initData(Bundle bundle) {
+        read_tv_pre_chapter.setOnClickListener(this);
+        read_tv_next_chapter.setOnClickListener(this);
+        read_tv_category.setOnClickListener(this);
+        read_tv_night_mode.setOnClickListener(this);
+        read_tv_setting.setOnClickListener(this);
         mCollBook = (CollBookBean) getIntent().getSerializableExtra(EXTRA_COLL_BOOK);
         isNightMode = ReadSettingManager.getInstance().isNightMode();
         isFullScreen = ReadSettingManager.getInstance().isFullScreen();
         if (mBookId == null) {
-            mBookId = "/storage/emulated/0/Download/browser/元尊.txt";
+            mBookId = "/storage/emulated/0/Download/text.txt";
         }
-
         //这里id表示本地文件的路径
 
         //判断是否文件存在
@@ -122,7 +159,7 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
         pageView.setTouchListener(new PageView.TouchListener() {
             @Override
             public void center() {
-                QsToast.show("点击中间区域");
+                toggleMenu();
             }
 
             /**
@@ -202,6 +239,84 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> {
     public void requestChapterContent(ChapterContentModel model) {
         if (model != null) {
             L.i(initTag(), "-----" + model);
+        }
+    }
+
+
+    /**
+     * 切换菜单栏的可视状态
+     * 默认是隐藏的
+     */
+    private void toggleMenu() {
+        initMenuAnim();
+
+        if (mReadAblTopMenu.getVisibility() == View.VISIBLE) {
+            //关闭
+            mReadAblTopMenu.startAnimation(mTopOutAnim);
+            mReadLlBottomMenu.startAnimation(mBottomOutAnim);
+            mReadAblTopMenu.setVisibility(GONE);
+            mReadLlBottomMenu.setVisibility(GONE);
+        } else {
+            mReadAblTopMenu.setVisibility(View.VISIBLE);
+            mReadLlBottomMenu.setVisibility(View.VISIBLE);
+            mReadAblTopMenu.startAnimation(mTopInAnim);
+            mReadLlBottomMenu.startAnimation(mBottomInAnim);
+        }
+    }
+
+    //初始化菜单动画
+    private void initMenuAnim() {
+        if (mTopInAnim != null) return;
+
+        mTopInAnim = AnimationUtils.loadAnimation(this, R.anim.slide_top_in);
+        mTopOutAnim = AnimationUtils.loadAnimation(this, R.anim.slide_top_out);
+        mBottomInAnim = AnimationUtils.loadAnimation(this, R.anim.slide_bottom_in);
+        mBottomOutAnim = AnimationUtils.loadAnimation(this, R.anim.slide_bottom_out);
+        //退出的速度要快
+        mTopOutAnim.setDuration(200);
+        mBottomOutAnim.setDuration(200);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.read_tv_pre_chapter:
+                QsToast.show("上一章");
+                break;
+            case R.id.read_tv_next_chapter:
+                QsToast.show("下一章");
+                break;
+            case R.id.read_tv_category:
+                QsToast.show("目录");
+                break;
+            case R.id.read_tv_night_mode:
+                if (isNightMode) {
+                    isNightMode = false;
+                } else {
+                    isNightMode = true;
+                }
+                mPageLoader.setNightMode(isNightMode);
+                toggleNightMode();
+                break;
+            case R.id.read_tv_setting:
+                QsToast.show("设置");
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
+    private void toggleNightMode() {
+        if (isNightMode) {
+            read_tv_night_mode.setText("日间");
+            Drawable drawable = ContextCompat.getDrawable(this, R.mipmap.read_menu_morning);
+            read_tv_night_mode.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
+        } else {
+            read_tv_night_mode.setText("夜间");
+            Drawable drawable = ContextCompat.getDrawable(this, R.mipmap.read_menu_night);
+            read_tv_night_mode.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
         }
     }
 }

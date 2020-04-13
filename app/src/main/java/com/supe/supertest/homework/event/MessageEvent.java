@@ -11,6 +11,7 @@ public class MessageEvent<T> {
     public static final int EXAM_CHANGE_ANSWER = 33; //免费题 选择答案
 
     public static final int EXAM_NEXT_QUESTION = 34; //免费题 下一题
+    public static final int EXAM_CARD_JUMP = 35;  //免费题 题卡跳转
 
 
 

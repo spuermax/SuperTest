@@ -50,6 +50,11 @@ public class QuestionHomeworkMaterialWidget extends BaseHomeworkQuestionWidget i
     }
 
     @Override
+    protected void restoreResult(ArrayList<String> resultData) {
+
+    }
+
+    @Override
     protected void initView(AttributeSet attrs) {
     }
 

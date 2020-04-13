@@ -60,6 +60,28 @@ public class QuestionHomeworkDetermineWidget extends BaseHomeworkQuestionWidget 
         }
     }
 
+    @Override
+    protected void restoreResult(ArrayList<String> resultData) {
+        int count = radioGroup.getChildCount();
+        if (count >= 2) {
+            if ("1".equals(resultData.get(0))) {
+                View child = radioGroup.getChildAt(0);
+                TextView tvMetaNum = child.findViewById(R.id.tv_meta_num);
+                TextView tvContent = child.findViewById(R.id.tv_content);
+                child.setSelected(true);
+                tvMetaNum.setSelected(true);
+                tvContent.setSelected(true);
+            } else {
+                View child = radioGroup.getChildAt(1);
+                TextView tvMetaNum = child.findViewById(R.id.tv_meta_num);
+                TextView tvContent = child.findViewById(R.id.tv_content);
+                child.setSelected(true);
+                tvMetaNum.setSelected(true);
+                tvContent.setSelected(true);
+            }
+        }
+    }
+
 
     /**
      * 初始化选项
@@ -110,7 +132,7 @@ public class QuestionHomeworkDetermineWidget extends BaseHomeworkQuestionWidget 
     protected void sendMsgToTestpaper() {
         Bundle bundle = new Bundle();
         bundle.putInt("index", mIndex - 1);
-        bundle.putSerializable("HomeworkQuestionTypeBean", mChildQuestion.getType());
+        bundle.putSerializable("QuestionType", mChildQuestion.getType());
         int count = radioGroup.getChildCount();
         ArrayList<String> data = new ArrayList<>();
         for (int i = 0; i < count; i++) {
@@ -124,6 +146,6 @@ public class QuestionHomeworkDetermineWidget extends BaseHomeworkQuestionWidget 
             }
         }
         bundle.putStringArrayList("data", data);
-        EventBus.getDefault().post(new MessageEvent<>(bundle, MessageEvent.EXAM_NEXT_QUESTION));
+        EventBus.getDefault().post(new MessageEvent<>(bundle, MessageEvent.EXAM_CHANGE_ANSWER));
     }
 }

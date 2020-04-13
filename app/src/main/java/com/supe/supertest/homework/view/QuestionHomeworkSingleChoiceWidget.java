@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.supe.supertest.R;
+import com.supe.supertest.homework.QuestionActivity;
 import com.supe.supertest.homework.event.MessageEvent;
 import com.supe.supertest.homework.module.HomeworkQuestionBean;
 
@@ -43,6 +45,12 @@ public class QuestionHomeworkSingleChoiceWidget extends BaseHomeworkQuestionWidg
     }
 
     @Override
+    protected void initView(AttributeSet attrs) {
+
+    }
+
+
+    @Override
     protected void invalidateData() {
         radioGroup = this.findViewById(R.id.quetion_choice_group);
 
@@ -59,7 +67,27 @@ public class QuestionHomeworkSingleChoiceWidget extends BaseHomeworkQuestionWidg
         }
         super.invalidateData();
 
+    }
 
+    /**
+     * 恢复数据
+     */
+    @Override
+    protected void restoreResult(ArrayList<String> resultData) {
+        int count = radioGroup.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View view = radioGroup.getChildAt(i);
+            for (Object result : resultData) {
+                if (result.equals(String.valueOf(i))) {
+                    TextView tvMetaNum = view.findViewById(R.id.tv_meta_num);
+                    TextView tvContent = view.findViewById(R.id.tv_content);
+                    view.setSelected(true);
+                    tvMetaNum.setSelected(true);
+                    tvContent.setSelected(true);
+                    break;
+                }
+            }
+        }
     }
 
 
@@ -110,7 +138,7 @@ public class QuestionHomeworkSingleChoiceWidget extends BaseHomeworkQuestionWidg
     protected void sendMsgToTestpaper() {
         Bundle bundle = new Bundle();
         bundle.putInt("index", mIndex - 1);
-        bundle.putSerializable("HomeworkQuestionTypeBean", mChildQuestion.getType());
+        bundle.putSerializable("QuestionType", mChildQuestion.getType());
 
         int count = radioGroup.getChildCount();
         ArrayList<String> data = new ArrayList<>();
@@ -121,11 +149,8 @@ public class QuestionHomeworkSingleChoiceWidget extends BaseHomeworkQuestionWidg
             }
         }
         bundle.putStringArrayList("data", data);
-        EventBus.getDefault().post(new MessageEvent<>(bundle, MessageEvent.EXAM_NEXT_QUESTION));
+        EventBus.getDefault().post(new MessageEvent<>(bundle, MessageEvent.EXAM_CHANGE_ANSWER));
     }
 
-    @Override
-    protected void initView(AttributeSet attrs) {
 
-    }
 }

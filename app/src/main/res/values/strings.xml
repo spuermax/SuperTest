@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">SuperTest</string>
+    <string name="app_base_url">https://www.cuour.org</string>
 
     <string name="http_error_msg">请求服务器异常</string>
     <string name="network_error_msg">当前网络不可用，请检查你的网络设置</string>
@@ -18,5 +19,6 @@
     <item name="tag_key_position" type="id"/>
     <string name="view_analysis">查看解析</string>
     <string name="answer_analysis">答案解析</string>
+    <string name="unanswered">未作答</string>
 
 </resources>

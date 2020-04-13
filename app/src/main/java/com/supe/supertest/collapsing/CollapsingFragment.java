@@ -40,6 +40,7 @@ public class CollapsingFragment extends QsFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+
         for (int i = 'A'; i < 'z'; i++) {
             data.add("" + (char) i);
         }

@@ -69,11 +69,11 @@ public class YaDianNaFragment extends QsPullListFragment<YaDianNaPresenter, Item
 
         QsToast.show(position + "");
 //        getPresenter().requestAuthCode();
-//        intent2Activity(MainActivity.class);
+        intent2Activity(MainActivity.class);
 
-        ARouter.getInstance().build("/supe/supertest")
+//        ARouter.getInstance().build("/supe/supertest")
 //                .withString("name","SuperMax")
 //                .withInt("age",18)
-                .navigation();
+//                .navigation();
     }
 }

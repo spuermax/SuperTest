@@ -1,6 +1,7 @@
 package com.supe.supertest.homework.view;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.supe.supertest.R;
+import com.supe.supertest.homework.event.MessageEvent;
 import com.supe.supertest.homework.module.HomeworkQuestionBean;
 import com.supermax.base.common.log.L;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -84,6 +88,25 @@ public class QuestionHomeworkChoiceWidget extends BaseHomeworkQuestionWidget imp
 
     }
 
+    @Override
+    protected void restoreResult(ArrayList<String> resultData) {
+        int count = radioGroup.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View view = radioGroup.getChildAt(i);
+            for (Object result : resultData) {
+                if (result.equals(String.valueOf(i))) {
+                    TextView tvMetaNum = view.findViewById(R.id.tv_meta_num);
+                    TextView tvContent = view.findViewById(R.id.tv_content);
+                    view.setSelected(true);
+                    tvMetaNum.setSelected(true);
+                    tvContent.setSelected(true);
+                    break;
+                }
+            }
+        }
+
+    }
+
 
     /**
      * 初始化选项
@@ -116,24 +139,21 @@ public class QuestionHomeworkChoiceWidget extends BaseHomeworkQuestionWidget imp
 
 
     protected void sendMsgToTestpaper() {
-
         L.i("BaseQuestionWidget", "事件被触发了");
+        Bundle bundle = new Bundle();
+        bundle.putInt("index", mIndex - 1);
+        bundle.putSerializable("HomeworkQuestionTypeBean", mChildQuestion.getType());
 
-
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("index", mIndex - 1);
-//        bundle.putSerializable("HomeworkQuestionTypeBean", mChildQuestion.getType());
-//
-//        int count = radioGroup.getChildCount();
-//        ArrayList<String> data = new ArrayList<>();
-//        for (int i = 0; i < count; i++) {
-//            View view = radioGroup.getChildAt(i);
-//            if (view.isSelected()) {
-//                data.add(i + "");
-//            }
-//        }
-//        bundle.putStringArrayList("data", data);
-//        EventBus.getDefault().post(new MessageEvent<>(bundle, MessageEvent.EXAM_CHANGE_ANSWER));
+        int count = radioGroup.getChildCount();
+        ArrayList<String> data = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            View view = radioGroup.getChildAt(i);
+            if (view.isSelected()) {
+                data.add(i + "");
+            }
+        }
+        bundle.putStringArrayList("data", data);
+        EventBus.getDefault().post(new MessageEvent<>(bundle, MessageEvent.EXAM_CHANGE_ANSWER));
     }
 
 

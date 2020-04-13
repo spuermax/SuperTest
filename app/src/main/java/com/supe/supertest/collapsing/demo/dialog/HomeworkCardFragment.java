@@ -68,7 +68,7 @@ public class HomeworkCardFragment extends DialogFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_freetopic_card, container, false);
+        View view = inflater.inflate(R.layout.fragment_exam_card, container, false);
         initView(view);
         initData();
         return view;
@@ -122,7 +122,7 @@ public class HomeworkCardFragment extends DialogFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                EventBus.getDefault().post(new MessageEvent<>(position, MessageEvent.EXAM_CARD_JUMP));
+                EventBus.getDefault().post(new MessageEvent<>(position, MessageEvent.EXAM_CARD_JUMP));
                 dismiss();
             }
         });

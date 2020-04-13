@@ -1,6 +1,7 @@
 package com.supe.supertest.homework;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.supe.supertest.R;
 import com.supe.supertest.collapsing.demo.dialog.HomeworkCardFragment;
 import com.supe.supertest.homework.adapter.QuestionPagerAdapter;
+import com.supe.supertest.homework.click.FastClickUtil;
 import com.supe.supertest.homework.dialog.SureNoTitleDialog;
 import com.supe.supertest.homework.dialog.SureTitleDialog;
 import com.supe.supertest.homework.module.HomeworkAnswerBean;
@@ -51,6 +53,8 @@ public class QuestionActivity extends QsABActivity {
 
     //当前题目下标
     protected int mCurrentIndex;
+    public int mDoType;
+
 
 
     private QuestionPagerAdapter mAdapter;
@@ -236,6 +240,12 @@ public class QuestionActivity extends QsABActivity {
         mAdapter = new QuestionPagerAdapter(getContext(), results);
         viewPager.setAdapter(mAdapter);
 
+        for (HomeworkQuestionBean homeworkQuestionBean : results) {
+            HomeworkAnswerBean answerBean = new HomeworkAnswerBean();
+            answerBean.data = homeworkQuestionBean.getAnswer();
+            answerList.add(answerBean);
+        }
+
     }
 
     private void initListener() {
@@ -273,6 +283,7 @@ public class QuestionActivity extends QsABActivity {
                 }
             }
         });
+        viewPager.setOffscreenPageLimit(3);
     }
 
 
@@ -325,8 +336,13 @@ public class QuestionActivity extends QsABActivity {
     @Subscribe
     public void onEvent(MessageEvent messageEvent) {
         switch (messageEvent.getType()) {
-            case MessageEvent.EXAM_CHANGE_ANSWER:
-
+            case MessageEvent.EXAM_CHANGE_ANSWER: // 保存答案
+                Bundle bundle = (Bundle) messageEvent.getMessageBody();
+                int index = bundle.getInt("index", 0);
+                ArrayList<String> data = bundle.getStringArrayList("data");
+                HomeworkQuestionTypeBean questionType = (HomeworkQuestionTypeBean) bundle.getSerializable("QuestionType");
+                changeAnswer(index, data, questionType);
+                Log.i("QQQQQQQQQQ","index = " + index + "= data =" + data.get(0) + "= questionType = " + questionType);
                 break;
             case MessageEvent.EXAM_NEXT_QUESTION:
                 //自动下一题
@@ -340,11 +356,57 @@ public class QuestionActivity extends QsABActivity {
                     EventBus.getDefault().cancelEventDelivery(messageEvent);
                 }
                 break;
+            case MessageEvent.EXAM_CARD_JUMP:
+                //题目跳转
+                int num = (Integer) messageEvent.getMessageBody();
+                if (num < 0 || num > mQuestionList.size() - 1) {
+                    return;
+                }
+                viewPager.setCurrentItem(num, true);
+                break;
+
+            default:
+                break;
         }
     }
 
     @Override
     public boolean isOpenEventBus() {
         return true;
+    }
+
+
+    /**
+     * 通过Event 事件回传答案
+     */
+    private void changeAnswer(int index, ArrayList<String> data, HomeworkQuestionTypeBean questionType) {
+        if (answerList == null) {
+            return;
+        }
+
+        HomeworkAnswerBean answer = answerList.get(index);
+        answer.data = data;
+        answer.isAnswer = data != null && !data.isEmpty();
+        if (questionType == HomeworkQuestionTypeBean.single_choice || questionType == HomeworkQuestionTypeBean.determine) {
+            if (FastClickUtil.isFastClick()) {
+                viewPager.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventBus.getDefault().post(new MessageEvent(MessageEvent.EXAM_NEXT_QUESTION));
+                    }
+                }, 500);
+            }
+        } else if (questionType == HomeworkQuestionTypeBean.material
+                && (mQuestionList.get(index).getType() == HomeworkQuestionTypeBean.single_choice
+                || mQuestionList.get(index).getType() == HomeworkQuestionTypeBean.determine)) {
+            if (FastClickUtil.isFastClick()) {
+                viewPager.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventBus.getDefault().post(new MessageEvent(MessageEvent.EXAM_NEXT_QUESTION));
+                    }
+                }, 500);
+            }
+        }
     }
 }

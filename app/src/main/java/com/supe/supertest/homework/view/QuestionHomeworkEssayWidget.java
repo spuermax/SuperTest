@@ -74,6 +74,11 @@ public class QuestionHomeworkEssayWidget extends BaseHomeworkQuestionWidget{
         }
     }
 
+    @Override
+    protected void restoreResult(ArrayList<String> resultData) {
+        etReply.setText(resultData.get(0));
+
+    }
 
 
     private TextWatcher onTextChangedListener = new TextWatcher() {
