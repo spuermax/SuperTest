@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.supe.supertest.MainActivity;
 import com.supe.supertest.R;
 import com.supe.supertest.TestActivityA;
+import com.supe.supertest.book.ReadBookActivity;
 import com.supe.supertest.common.button.BaseFloatDailog;
 import com.supe.supertest.common.button.FloatItem;
 import com.supe.supertest.home.adapter.YDNAdapter;
@@ -69,7 +70,8 @@ public class YaDianNaFragment extends QsPullListFragment<YaDianNaPresenter, Item
 
         QsToast.show(position + "");
 //        getPresenter().requestAuthCode();
-        intent2Activity(MainActivity.class);
+//        intent2Activity(MainActivity.class);
+        intent2Activity(ReadBookActivity.class);
 
 //        ARouter.getInstance().build("/supe/supertest")
 //                .withString("name","SuperMax")

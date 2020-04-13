@@ -70,7 +70,7 @@ public class ShouYueFragment extends QsFragment {
     @Override
     public void initData(Bundle bundle) {
 
-        showTwo();
+//        showTwo();
 
 
         new BadgeHelper(getContext())
