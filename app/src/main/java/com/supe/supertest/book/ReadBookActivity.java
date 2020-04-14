@@ -1,5 +1,7 @@
 package com.supe.supertest.book;
 
+import android.Manifest;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +25,7 @@ import com.supe.supertest.common.wdiget.bookpage.manager.ReadSettingManager;
 import com.supermax.base.common.aspect.ThreadPoint;
 import com.supermax.base.common.aspect.ThreadType;
 import com.supermax.base.common.log.L;
+import com.supermax.base.common.permission.annotation.Permission;
 import com.supermax.base.common.viewbind.annotation.Bind;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.QsActivity;
@@ -88,6 +91,7 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> implements V
 
     @Override
     public void initData(Bundle bundle) {
+//        L.i("storage","Android 10 关联目录路径如下 ：" + getExternalFilesDir(""));
         read_tv_pre_chapter.setOnClickListener(this);
         read_tv_next_chapter.setOnClickListener(this);
         read_tv_category.setOnClickListener(this);

@@ -1,5 +1,6 @@
 package com.supe.supertest.home;
 
+import android.Manifest;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.supe.supertest.home.adapter.YDNAdapter;
 import com.supe.supertest.home.presenter.YaDianNaPresenter;
 import com.supe.supertest.viewpageractivity.model.Item;
 import com.supermax.base.common.log.L;
+import com.supermax.base.common.permission.annotation.Permission;
 import com.supermax.base.common.widget.toast.QsToast;
 import com.supermax.base.mvp.adapter.QsListAdapterItem;
 import com.supermax.base.mvp.fragment.QsPullListFragment;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
  * @Author yinzh
  * @Date 2018/10/17 20:32
  * @Description
+ *
  */
 public class YaDianNaFragment extends QsPullListFragment<YaDianNaPresenter, Item> {
 
@@ -65,6 +68,11 @@ public class YaDianNaFragment extends QsPullListFragment<YaDianNaPresenter, Item
         super.onPause();
     }
 
+    @Permission(value = {Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,//
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    },
+            requestCode = 1)
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
