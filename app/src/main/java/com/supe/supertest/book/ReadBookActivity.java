@@ -1,9 +1,16 @@
 package com.supe.supertest.book;
 
 import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.BaseColumns;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -22,6 +29,7 @@ import com.supe.supertest.common.wdiget.bookpage.TxtChapter;
 import com.supe.supertest.common.wdiget.bookpage.bean.BookChapterBean;
 import com.supe.supertest.common.wdiget.bookpage.bean.CollBookBean;
 import com.supe.supertest.common.wdiget.bookpage.manager.ReadSettingManager;
+import com.supe.supertest.liferecycle.LifecycleHelper;
 import com.supermax.base.common.aspect.ThreadPoint;
 import com.supermax.base.common.aspect.ThreadType;
 import com.supermax.base.common.log.L;
@@ -91,7 +99,20 @@ public class ReadBookActivity extends QsActivity<ReadBookPresenter> implements V
 
     @Override
     public void initData(Bundle bundle) {
-//        L.i("storage","Android 10 关联目录路径如下 ：" + getExternalFilesDir(""));
+        getLifecycle().addObserver(new LifecycleHelper());
+        L.i("storage", "Android 10 关联目录路径如下 ：" + getExternalFilesDir(null));
+        ContentResolver resolver = getContentResolver();
+        // minSdkVersion 26
+        Cursor cursor = resolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns._ID));
+                Uri uri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
+                L.i("storage", "uri = " + uri);
+            }
+        }
+
+
         read_tv_pre_chapter.setOnClickListener(this);
         read_tv_next_chapter.setOnClickListener(this);
         read_tv_category.setOnClickListener(this);

@@ -107,7 +107,7 @@ public class TestPagerActivity extends QsActivity {
     @OnClick({R.id.tv_rxJava, R.id.tv_login, R.id.tv_question,
             R.id.bt_material, R.id.pupop, R.id.paint,
             R.id.btn_input, R.id.relative_layout, R.id.collapsing,
-            R.id.collapsing1})
+            R.id.collapsing1,R.id.collapsing2})
     @Override
     public void onViewClick(View view) {
         super.onViewClick(view);
@@ -160,6 +160,9 @@ public class TestPagerActivity extends QsActivity {
                 break;
             case R.id.collapsing1:
                 intent2Activity(CollapsingDemoActivity.class);
+                break;
+            case R.id.collapsing2:
+
                 break;
             default:
                 break;
