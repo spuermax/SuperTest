@@ -114,7 +114,7 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
 
     //阿里的路由
-    compile 'com.alibaba:arouter-api:1.4.1'
+    implementation 'com.alibaba:arouter-api:1.4.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
 
@@ -146,19 +146,19 @@ dependencies {
 
 //    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
 
 
-    compile 'com.alibaba:fastjson:1.1.56.android'
-    compile 'com.zhy:okhttputils:2.6.2'
+    implementation 'com.alibaba:fastjson:1.1.56.android'
+    implementation 'com.zhy:okhttputils:2.6.2'
 
     api 'com.github.hackware1993:MagicIndicator:1.6.0'
 
 
     // Bugly
-    compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+//    implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+//    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
 }

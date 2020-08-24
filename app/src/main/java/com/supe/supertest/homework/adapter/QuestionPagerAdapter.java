@@ -91,7 +91,7 @@ public class QuestionPagerAdapter extends PagerAdapter {
                 layoutId = R.layout.item_pager_homework_question_material;
                 break;
             case fill:
-                layoutId = R.layout.item_pager_homework_question_material;
+                layoutId = R.layout.item_pager_homework_question_fill;
                 break;
             default:
                 break;

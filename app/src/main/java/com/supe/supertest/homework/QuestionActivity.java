@@ -106,8 +106,8 @@ public class QuestionActivity extends QsABActivity {
             HomeworkQuestionBean homeworkQuestionBean2 = new HomeworkQuestionBean();
             homeworkQuestionBean2.type = HomeworkQuestionTypeBean.fill;
             homeworkQuestionBean2.setMetas(metas1);
-            homeworkQuestionBean2.setStem("2、甲、乙因合同纠纷申请仲裁，仲裁庭对案件裁决时两位仲裁员支持甲方的请求，但首席仲裁员支持乙的请求，关于该案件仲裁" +
-                    "裁决的下列表述中，符合法律规定的是（）。");
+            homeworkQuestionBean2.setStem("<p><font color=\"#\n" +
+                    "    e83d2c \"><span>中国历史上第一个大一统的国家是[[秦]]<\\/span><\\/font><\\/p>\\n");
 
             mQuestionList.add(homeworkQuestionBean2);
         }
